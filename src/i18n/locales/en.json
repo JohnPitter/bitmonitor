@@ -1,85 +1,85 @@
 {
   "header": {
-    "subtitle": "Cycle Dashboard"
+    "subtitle": "Bitcoin Dashboard"
   },
   "loader": {
-    "loading": "Loading market data..."
+    "loading": "Loading data..."
   },
   "error": {
-    "title": "Failed to load data",
-    "retry": "Retry",
-    "allFailed": "All API requests failed. Try again later."
+    "title": "Something went wrong",
+    "retry": "Try again",
+    "allFailed": "Couldn't connect to the servers. Please try again later."
   },
   "footer": {
-    "dataSources": "Data from CoinGecko \u00b7 Fear & Greed from Alternative.me",
-    "disclaimer": "The 1064/364 pattern is a heuristic, not financial advice."
+    "dataSources": "Prices from CoinGecko · Sentiment from Alternative.me",
+    "disclaimer": "The 1064/364 day pattern is based on past data — not financial advice."
   },
   "cyclePosition": {
-    "title": "Cycle Position",
-    "bullMarket": "Bull Market",
-    "bearMarket": "Bear Market",
-    "daysInPhase": "Days in phase",
-    "estRemaining": "Est. remaining",
-    "phaseStart": "Phase start",
-    "estEnd": "Est. end",
+    "title": "Where Are We Now?",
+    "bullMarket": "Prices Going Up",
+    "bearMarket": "Prices Going Down",
+    "daysInPhase": "Days so far",
+    "estRemaining": "Days left (est.)",
+    "phaseStart": "Started on",
+    "estEnd": "Expected end",
     "days": "days"
   },
   "cycleOverlay": {
-    "title": "Price vs. Cycle Overlay",
-    "subtitle": "Normalized price (1.0 = cycle bottom) \u2014 logarithmic scale",
+    "title": "How Cycles Compare",
+    "subtitle": "Each cycle starts at 1.0 — see how they grew over time",
     "day": "Day {{number}}"
   },
   "bestDays": {
     "title": "Best Days to Buy",
-    "subtitle": "Statistical avg. returns (lower = cheaper)",
+    "subtitle": "Which days tend to have the lowest prices",
     "byDayOfWeek": "By day of week",
-    "bestDaysOfMonth": "Best days of month",
+    "bestDaysOfMonth": "Best days of the month",
     "day": "Day {{number}}"
   },
   "fearGreed": {
-    "title": "Fear & Greed Index",
-    "subtitle": "Market sentiment indicator",
+    "title": "Market Mood",
+    "subtitle": "Are people scared or greedy right now?",
     "noData": "No data available",
     "extremeFear": "Extreme Fear",
     "fear": "Fear",
     "neutral": "Neutral",
     "greed": "Greed",
     "extremeGreed": "Extreme Greed",
-    "strongBuy": "Strong Buy Signal",
-    "buy": "Buy Signal",
-    "hold": "Hold",
-    "caution": "Caution",
-    "sell": "Sell Signal"
+    "strongBuy": "Great time to buy",
+    "buy": "Good time to buy",
+    "hold": "Wait and see",
+    "caution": "Be careful",
+    "sell": "Consider selling"
   },
   "halving": {
-    "title": "Halving Countdown",
-    "subtitle": "Next supply reduction event",
+    "title": "Next Halving",
+    "subtitle": "When Bitcoin's mining reward gets cut in half",
     "years": "years",
     "months": "months",
     "days": "days",
-    "est": "Est. {{date}}",
+    "est": "Around {{date}}",
     "rewardAfter": "Reward after halving",
-    "previousHalvings": "Previous halvings"
+    "previousHalvings": "Past halvings"
   },
   "dca": {
-    "title": "DCA Simulator",
-    "subtitle": "Dollar Cost Averaging backtest",
+    "title": "What If You Invested Weekly?",
+    "subtitle": "See what would happen if you bought a little Bitcoin regularly",
     "amount": "Amount",
-    "frequency": "Frequency",
-    "period": "Period",
+    "frequency": "How often",
+    "period": "For how long",
     "weekly": "Weekly",
     "monthly": "Monthly",
-    "invested": "Invested",
-    "currentValue": "Current value",
-    "btcAccumulated": "BTC accumulated",
-    "purchases": "Purchases",
-    "totalReturn": "Total return"
+    "invested": "Total spent",
+    "currentValue": "Worth today",
+    "btcAccumulated": "Bitcoin owned",
+    "purchases": "# of buys",
+    "totalReturn": "Your profit"
   },
   "cycleStats": {
-    "title": "Cycle Statistics",
-    "subtitle": "Historical pattern analysis",
-    "avgBullDays": "Avg bull days",
-    "avgBearDays": "Avg bear days",
+    "title": "Past Cycles",
+    "subtitle": "How long did each cycle last?",
+    "avgBullDays": "Avg. up days",
+    "avgBearDays": "Avg. down days",
     "cycleHistory": "Cycle history"
   },
   "dayNames": {

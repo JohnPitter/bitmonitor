@@ -1,94 +1,94 @@
 {
   "header": {
-    "subtitle": "Panel de Ciclos"
+    "subtitle": "Panel de Bitcoin"
   },
   "loader": {
-    "loading": "Cargando datos del mercado..."
+    "loading": "Cargando datos..."
   },
   "error": {
-    "title": "Error al cargar datos",
-    "retry": "Reintentar",
-    "allFailed": "Todas las solicitudes fallaron. Int\u00e9ntalo de nuevo m\u00e1s tarde."
+    "title": "Algo salió mal",
+    "retry": "Intentar de nuevo",
+    "allFailed": "No pudimos conectar con los servidores. Inténtalo más tarde."
   },
   "footer": {
-    "dataSources": "Datos de CoinGecko \u00b7 Fear & Greed de Alternative.me",
-    "disclaimer": "El patr\u00f3n 1064/364 es una heur\u00edstica, no asesoramiento financiero."
+    "dataSources": "Precios de CoinGecko · Sentimiento de Alternative.me",
+    "disclaimer": "El patrón de 1064/364 días se basa en datos históricos — no es consejo financiero."
   },
   "cyclePosition": {
-    "title": "Posici\u00f3n del Ciclo",
-    "bullMarket": "Mercado Alcista",
-    "bearMarket": "Mercado Bajista",
-    "daysInPhase": "D\u00edas en fase",
-    "estRemaining": "Est. restante",
-    "phaseStart": "Inicio de fase",
-    "estEnd": "Est. fin",
-    "days": "d\u00edas"
+    "title": "¿Dónde Estamos Ahora?",
+    "bullMarket": "Precios Subiendo",
+    "bearMarket": "Precios Bajando",
+    "daysInPhase": "Días hasta ahora",
+    "estRemaining": "Días restantes (est.)",
+    "phaseStart": "Empezó el",
+    "estEnd": "Fin esperado",
+    "days": "días"
   },
   "cycleOverlay": {
-    "title": "Precio vs. Ciclos Superpuestos",
-    "subtitle": "Precio normalizado (1.0 = fondo del ciclo) \u2014 escala logar\u00edtmica",
-    "day": "D\u00eda {{number}}"
+    "title": "Comparación de Ciclos",
+    "subtitle": "Cada ciclo empieza en 1.0 — mira cómo crecieron con el tiempo",
+    "day": "Día {{number}}"
   },
   "bestDays": {
-    "title": "Mejores D\u00edas para Comprar",
-    "subtitle": "Retornos promedio estad\u00edsticos (menor = m\u00e1s barato)",
-    "byDayOfWeek": "Por d\u00eda de la semana",
-    "bestDaysOfMonth": "Mejores d\u00edas del mes",
-    "day": "D\u00eda {{number}}"
+    "title": "Mejores Días para Comprar",
+    "subtitle": "Qué días suelen tener los precios más bajos",
+    "byDayOfWeek": "Por día de la semana",
+    "bestDaysOfMonth": "Mejores días del mes",
+    "day": "Día {{number}}"
   },
   "fearGreed": {
-    "title": "\u00cdndice de Miedo y Codicia",
-    "subtitle": "Indicador de sentimiento del mercado",
+    "title": "Humor del Mercado",
+    "subtitle": "¿La gente tiene miedo o está codiciosa ahora?",
     "noData": "Sin datos disponibles",
     "extremeFear": "Miedo Extremo",
     "fear": "Miedo",
     "neutral": "Neutral",
     "greed": "Codicia",
     "extremeGreed": "Codicia Extrema",
-    "strongBuy": "Se\u00f1al Fuerte de Compra",
-    "buy": "Se\u00f1al de Compra",
-    "hold": "Mantener",
-    "caution": "Precauci\u00f3n",
-    "sell": "Se\u00f1al de Venta"
+    "strongBuy": "Gran momento para comprar",
+    "buy": "Buen momento para comprar",
+    "hold": "Esperar y observar",
+    "caution": "Ten cuidado",
+    "sell": "Considera vender"
   },
   "halving": {
-    "title": "Cuenta Regresiva del Halving",
-    "subtitle": "Pr\u00f3ximo evento de reducci\u00f3n de oferta",
-    "years": "a\u00f1os",
+    "title": "Próximo Halving",
+    "subtitle": "Cuando la recompensa de minería de Bitcoin se reduce a la mitad",
+    "years": "años",
     "months": "meses",
-    "days": "d\u00edas",
-    "est": "Est. {{date}}",
-    "rewardAfter": "Recompensa tras halving",
+    "days": "días",
+    "est": "Aprox. {{date}}",
+    "rewardAfter": "Recompensa tras el halving",
     "previousHalvings": "Halvings anteriores"
   },
   "dca": {
-    "title": "Simulador DCA",
-    "subtitle": "Backtest de inversi\u00f3n peri\u00f3dica",
-    "amount": "Monto",
-    "frequency": "Frecuencia",
-    "period": "Per\u00edodo",
+    "title": "¿Y Si Invirtieras Cada Semana?",
+    "subtitle": "Mira qué pasaría si compraras un poco de Bitcoin regularmente",
+    "amount": "Cantidad",
+    "frequency": "Con qué frecuencia",
+    "period": "Por cuánto tiempo",
     "weekly": "Semanal",
     "monthly": "Mensual",
-    "invested": "Invertido",
-    "currentValue": "Valor actual",
-    "btcAccumulated": "BTC acumulado",
-    "purchases": "Compras",
-    "totalReturn": "Retorno total"
+    "invested": "Total gastado",
+    "currentValue": "Vale hoy",
+    "btcAccumulated": "Bitcoin acumulado",
+    "purchases": "Nº de compras",
+    "totalReturn": "Tu ganancia"
   },
   "cycleStats": {
-    "title": "Estad\u00edsticas de Ciclos",
-    "subtitle": "An\u00e1lisis de patrones hist\u00f3ricos",
-    "avgBullDays": "Prom. d\u00edas alcistas",
-    "avgBearDays": "Prom. d\u00edas bajistas",
+    "title": "Ciclos Anteriores",
+    "subtitle": "¿Cuánto duró cada ciclo?",
+    "avgBullDays": "Prom. días de subida",
+    "avgBearDays": "Prom. días de bajada",
     "cycleHistory": "Historial de ciclos"
   },
   "dayNames": {
     "Sun": "Dom",
     "Mon": "Lun",
     "Tue": "Mar",
-    "Wed": "Mi\u00e9",
+    "Wed": "Mié",
     "Thu": "Jue",
     "Fri": "Vie",
-    "Sat": "S\u00e1b"
+    "Sat": "Sáb"
   }
 }

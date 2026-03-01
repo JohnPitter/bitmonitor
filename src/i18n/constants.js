@@ -1,12 +1,13 @@
 export const DEFAULT_LOCALE = "en";
 export const STORAGE_KEY = "bitmonitor-lang";
+export const COUNTRY_CACHE_KEY = "bitmonitor-country";
 
 export const SUPPORTED_LOCALES = [
-  { code: "en", label: "English", flag: "\ud83c\uddfa\ud83c\uddf8" },
-  { code: "pt", label: "Portugu\u00eas", flag: "\ud83c\udde7\ud83c\uddf7" },
-  { code: "es", label: "Espa\u00f1ol", flag: "\ud83c\uddea\ud83c\uddf8" },
-  { code: "zh", label: "\u4e2d\u6587", flag: "\ud83c\udde8\ud83c\uddf3" },
-  { code: "ja", label: "\u65e5\u672c\u8a9e", flag: "\ud83c\uddef\ud83c\uddf5" },
+  { code: "en", label: "English", flag: "🇺🇸" },
+  { code: "pt", label: "Português", flag: "🇧🇷" },
+  { code: "es", label: "Español", flag: "🇪🇸" },
+  { code: "zh", label: "中文", flag: "🇨🇳" },
+  { code: "ja", label: "日本語", flag: "🇯🇵" },
 ];
 
 export const LOCALE_MAP = { en: "en", pt: "pt", es: "es", zh: "zh", ja: "ja" };
@@ -17,4 +18,41 @@ export const INTL_LOCALE_MAP = {
   es: "es-ES",
   zh: "zh-CN",
   ja: "ja-JP",
+};
+
+export const COUNTRY_TO_LOCALE = {
+  BR: "pt",
+  PT: "pt",
+  AO: "pt",
+  MZ: "pt",
+  ES: "es",
+  MX: "es",
+  AR: "es",
+  CO: "es",
+  CL: "es",
+  PE: "es",
+  VE: "es",
+  EC: "es",
+  UY: "es",
+  PY: "es",
+  BO: "es",
+  CR: "es",
+  GT: "es",
+  CU: "es",
+  DO: "es",
+  HN: "es",
+  SV: "es",
+  NI: "es",
+  PA: "es",
+  CN: "zh",
+  TW: "zh",
+  HK: "zh",
+  SG: "zh",
+  JP: "ja",
+  US: "en",
+  GB: "en",
+  CA: "en",
+  AU: "en",
+  NZ: "en",
+  IE: "en",
 };
