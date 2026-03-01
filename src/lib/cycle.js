@@ -147,6 +147,7 @@ export function normalizeCycleForOverlay(livePrices) {
       .filter(([ts]) => ts >= bottomTs && ts <= endTs)
       .map(([ts, price]) => ({
         day: Math.floor((ts - bottomTs) / (1000 * 60 * 60 * 24)),
+        timestamp: ts,
         price,
         normalized: price / cycle.bottomPrice,
       }));
