@@ -1,16 +1,47 @@
-# React + Vite
+# BitMonitor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bitcoin cycle analysis dashboard built on the empirical ~1064-day bull / ~364-day bear market pattern.
 
-Currently, two official plugins are available:
+**Live:** [johnpitter.github.io/bitmonitor](https://johnpitter.github.io/bitmonitor/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- **Cycle Position** — Where we are in the current bull/bear cycle with progress bar and estimated dates
+- **Price vs. Cycle Overlay** — Normalized price chart overlaying all historical cycles (log scale)
+- **Best Days to Buy** — Statistical analysis of average returns by day of week and day of month
+- **Fear & Greed Index** — Market sentiment gauge with buy/sell signals
+- **Halving Countdown** — Next Bitcoin halving with reward history
+- **DCA Simulator** — Dollar Cost Averaging backtest with configurable amount, frequency, and period
+- **Cycle Statistics** — Historical bull/bear durations and returns
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## The 1064/364 Pattern
 
-## Expanding the ESLint configuration
+Bitcoin follows a roughly 4-year cycle tied to the halving (supply reduction every ~210,000 blocks):
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Cycle | Bull (days) | Bear (days) | Return |
+|---|---|---|---|
+| 2015-2018 | 1,067 | 363 | +11,000% |
+| 2018-2022 | 1,061 | 376 | +2,100% |
+| 2022-2025 | 1,050 | in progress | +700% |
+
+Pattern popularized by [HornHairs](https://x.com/CryptoHornHairs) (Jan 2023). It's a heuristic guide, not a precise clock.
+
+## Tech Stack
+
+- React 19 + Vite
+- Tailwind CSS 4
+- Recharts
+- CoinGecko API (free, no key)
+- Alternative.me Fear & Greed API
+- GitHub Pages (auto-deploy via Actions)
+
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+## Disclaimer
+
+This dashboard is for educational purposes only. Not financial advice. The 1064/364 pattern is an empirical observation with a small sample size and may not hold in future cycles.
