@@ -50,18 +50,24 @@ export async function fetchPriceHistory() {
 }
 
 /**
- * Fetch current Bitcoin price.
+ * Fetch current Bitcoin price in multiple currencies.
  */
 export async function fetchCurrentPrice() {
-  const cacheKey = "btc_current_price";
+  const cacheKey = "btc_current_price_multi";
   const cached = getCached(cacheKey, CACHE_TTL_PRICE);
   if (cached) return cached;
 
-  const url = `${COINGECKO_BASE}/simple/price?ids=bitcoin&vs_currency=usd&include_24hr_change=true`;
+  const currencies = "usd,brl,eur,cny,jpy";
+  const url = `${COINGECKO_BASE}/simple/price?ids=bitcoin&vs_currencies=${currencies}&include_24hr_change=true`;
   const data = await fetchJSON(url);
+  const btc = data.bitcoin;
+
   const result = {
-    price: data.bitcoin.usd,
-    change24h: data.bitcoin.usd_24h_change,
+    usd: { price: btc.usd, change24h: btc.usd_24h_change },
+    brl: { price: btc.brl, change24h: btc.brl_24h_change },
+    eur: { price: btc.eur, change24h: btc.eur_24h_change },
+    cny: { price: btc.cny, change24h: btc.cny_24h_change },
+    jpy: { price: btc.jpy, change24h: btc.jpy_24h_change },
   };
 
   setCache(cacheKey, result);

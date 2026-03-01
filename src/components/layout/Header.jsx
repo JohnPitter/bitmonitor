@@ -1,12 +1,15 @@
-import { useTranslation, INTL_LOCALE_MAP } from "../../i18n";
+import { useTranslation, INTL_LOCALE_MAP, LOCALE_CURRENCY } from "../../i18n";
 import LanguageSelector from "./LanguageSelector";
 
 export default function Header({ currentPrice }) {
   const { t, locale } = useTranslation();
-  const price = currentPrice?.price;
-  const change = currentPrice?.change24h;
-  const isPositive = change > 0;
   const intlLocale = INTL_LOCALE_MAP[locale];
+  const currency = LOCALE_CURRENCY[locale];
+
+  const priceData = currentPrice?.[currency.code];
+  const price = priceData?.price;
+  const change = priceData?.change24h;
+  const isPositive = change > 0;
 
   return (
     <header className="px-4 py-4 sm:px-6">
@@ -29,7 +32,7 @@ export default function Header({ currentPrice }) {
             <p className="text-sm text-text-dim mb-1">Bitcoin</p>
             <div className="flex items-center justify-center gap-3">
               <span className="text-4xl sm:text-5xl font-bold tabular-nums tracking-tight">
-                ${price.toLocaleString(intlLocale, { maximumFractionDigits: 0 })}
+                {price.toLocaleString(intlLocale, { style: "currency", currency: currency.intl, maximumFractionDigits: 0 })}
               </span>
               {change != null && (
                 <span className={`text-base font-semibold tabular-nums px-3 py-1 rounded-full ${isPositive ? "text-bull bg-bull/10" : "text-bear bg-bear/10"}`}>

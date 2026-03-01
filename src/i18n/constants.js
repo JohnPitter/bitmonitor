@@ -20,6 +20,14 @@ export const INTL_LOCALE_MAP = {
   ja: "ja-JP",
 };
 
+export const LOCALE_CURRENCY = {
+  en: { code: "usd", symbol: "$", intl: "USD" },
+  pt: { code: "brl", symbol: "R$", intl: "BRL" },
+  es: { code: "eur", symbol: "€", intl: "EUR" },
+  zh: { code: "cny", symbol: "¥", intl: "CNY" },
+  ja: { code: "jpy", symbol: "¥", intl: "JPY" },
+};
+
 export const COUNTRY_TO_LOCALE = {
   BR: "pt",
   PT: "pt",
