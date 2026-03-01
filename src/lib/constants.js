@@ -53,6 +53,13 @@ export const CYCLE_EVENTS = [
   },
 ];
 
+// All-Time High history per cycle
+export const ATH_HISTORY = [
+  { cycle: 1, date: "2013-12-04", price: 1151, daysAfterHalving: 371 },
+  { cycle: 2, date: "2017-12-17", price: 19783, daysAfterHalving: 526 },
+  { cycle: 3, date: "2021-11-10", price: 69044, daysAfterHalving: 548 },
+];
+
 // Pattern averages (cycles 2-4 where pattern holds)
 export const PATTERN = {
   avgBullDays: 1059,

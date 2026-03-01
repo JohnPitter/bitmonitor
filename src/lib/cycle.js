@@ -1,4 +1,4 @@
-import { CYCLE_EVENTS, PATTERN, NEXT_HALVING_ESTIMATE } from "./constants";
+import { CYCLE_EVENTS, PATTERN, NEXT_HALVING_ESTIMATE, ATH_HISTORY, HALVINGS } from "./constants";
 import historicalPrices from "./historical-prices.json";
 
 /**
@@ -85,6 +85,38 @@ export function getHalvingCountdown() {
     daysRemaining,
     blockRewardAfter: 1.5625,
     currentReward: 3.125,
+  };
+}
+
+/**
+ * Get ATH (All-Time High) info and estimate for next cycle.
+ */
+export function getATHInfo() {
+  const lastHalving = HALVINGS[HALVINGS.length - 1];
+  const lastHalvingTs = new Date(lastHalving.date).getTime();
+
+  // Average days after halving that ATH occurs (cycles 2 & 3 are more relevant)
+  const recentATHs = ATH_HISTORY.filter((a) => a.cycle >= 2);
+  const avgDaysAfterHalving = Math.round(recentATHs.reduce((s, a) => s + a.daysAfterHalving, 0) / recentATHs.length);
+
+  // Estimate next ATH date
+  const estimatedNextATHTs = lastHalvingTs + avgDaysAfterHalving * 24 * 60 * 60 * 1000;
+  const estimatedNextATHDate = new Date(estimatedNextATHTs).toISOString().split("T")[0];
+
+  // Days until estimated next ATH
+  const now = Date.now();
+  const daysUntilNextATH = Math.max(0, Math.floor((estimatedNextATHTs - now) / (1000 * 60 * 60 * 24)));
+
+  // Current ATH is the highest top across all cycles
+  const currentATH = ATH_HISTORY.reduce((best, a) => a.price > best.price ? a : best, ATH_HISTORY[0]);
+
+  return {
+    currentATH,
+    history: ATH_HISTORY,
+    avgDaysAfterHalving,
+    estimatedNextATHDate,
+    daysUntilNextATH,
+    lastHalvingDate: lastHalving.date,
   };
 }
 

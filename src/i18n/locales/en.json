@@ -83,6 +83,17 @@
     "avgBearDays": "Avg. down days",
     "cycleHistory": "Cycle history"
   },
+  "ath": {
+    "title": "All-Time High",
+    "subtitle": "Bitcoin's highest price ever — and when the next one might happen",
+    "currentATH": "Current record",
+    "nextEstimate": "Next ATH estimate",
+    "inDays": "~{{days}} days away",
+    "anytime": "Could happen anytime!",
+    "around": "Around {{date}}",
+    "avgDaysAfter": "ATH usually comes ~{{days}} days after a halving",
+    "history": "ATH history"
+  },
   "dayNames": {
     "Sun": "Sun",
     "Mon": "Mon",

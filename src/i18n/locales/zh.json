@@ -83,6 +83,17 @@
     "avgBearDays": "平均下跌天数",
     "cycleHistory": "周期历史"
   },
+  "ath": {
+    "title": "历史最高价",
+    "subtitle": "比特币有史以来的最高价格，以及下一个可能何时到来",
+    "currentATH": "当前纪录",
+    "nextEstimate": "下一个最高价预估",
+    "inDays": "大约还有{{days}}天",
+    "anytime": "随时可能发生！",
+    "around": "大约 {{date}}",
+    "avgDaysAfter": "最高价通常在减半后约{{days}}天出现",
+    "history": "历史最高价记录"
+  },
   "dayNames": {
     "Sun": "周日",
     "Mon": "周一",

@@ -83,6 +83,17 @@
     "avgBearDays": "Prom. días de bajada",
     "cycleHistory": "Historial de ciclos"
   },
+  "ath": {
+    "title": "Máximo Histórico",
+    "subtitle": "El precio más alto de Bitcoin — y cuándo podría llegar el próximo",
+    "currentATH": "Récord actual",
+    "nextEstimate": "Próximo máximo estimado",
+    "inDays": "~{{days}} días para llegar",
+    "anytime": "¡Podría pasar en cualquier momento!",
+    "around": "Aprox. {{date}}",
+    "avgDaysAfter": "El máximo suele llegar ~{{days}} días después de un halving",
+    "history": "Historial de máximos"
+  },
   "dayNames": {
     "Sun": "Dom",
     "Mon": "Lun",

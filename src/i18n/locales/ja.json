@@ -83,6 +83,17 @@
     "avgBearDays": "平均下落日数",
     "cycleHistory": "サイクル履歴"
   },
+  "ath": {
+    "title": "過去最高値",
+    "subtitle": "ビットコインの史上最高価格と、次がいつ来るかの予測",
+    "currentATH": "現在の記録",
+    "nextEstimate": "次の最高値予測",
+    "inDays": "あと約{{days}}日",
+    "anytime": "いつ来てもおかしくない！",
+    "around": "約 {{date}}",
+    "avgDaysAfter": "最高値は通常、半減期から約{{days}}日後に到来",
+    "history": "最高値の履歴"
+  },
   "dayNames": {
     "Sun": "日",
     "Mon": "月",
