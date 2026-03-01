@@ -1,4 +1,5 @@
 import { useBitcoinData } from "./hooks/useBitcoinData";
+import historicalPrices from "./lib/historical-prices.json";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import Loader from "./components/common/Loader";
@@ -17,17 +18,20 @@ export default function App() {
   if (loading) return <Loader />;
   if (error) return <ErrorState message={error} onRetry={() => window.location.reload()} />;
 
+  // Use live data if available, fall back to bundled historical data
+  const prices = priceHistory || historicalPrices;
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header currentPrice={currentPrice} />
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-6 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <CycleOverlay priceHistory={priceHistory} />
+          <CycleOverlay priceHistory={prices} />
           <CyclePosition />
-          <BestDays priceHistory={priceHistory} />
+          <BestDays priceHistory={prices} />
           <FearGreed fearGreed={fearGreed} />
           <HalvingCountdown />
-          <DCASimulator priceHistory={priceHistory} />
+          <DCASimulator priceHistory={prices} />
           <CycleStats />
         </div>
       </main>

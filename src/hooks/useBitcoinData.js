@@ -14,21 +14,29 @@ export function useBitcoinData() {
     let cancelled = false;
 
     async function load() {
-      try {
-        const [priceHistory, currentPrice, fearGreed] = await Promise.all([
-          fetchPriceHistory(),
-          fetchCurrentPrice(),
-          fetchFearGreed(),
-        ]);
+      // Fetch all in parallel — each one is independent and can fail gracefully
+      const [priceResult, priceInfoResult, fngResult] = await Promise.allSettled([
+        fetchPriceHistory(),
+        fetchCurrentPrice(),
+        fetchFearGreed(),
+      ]);
 
-        if (!cancelled) {
-          setData({ priceHistory, currentPrice, fearGreed, loading: false, error: null });
-        }
-      } catch (err) {
-        if (!cancelled) {
-          setData((prev) => ({ ...prev, loading: false, error: err.message }));
-        }
-      }
+      if (cancelled) return;
+
+      const priceHistory = priceResult.status === "fulfilled" ? priceResult.value : null;
+      const currentPrice = priceInfoResult.status === "fulfilled" ? priceInfoResult.value : null;
+      const fearGreed = fngResult.status === "fulfilled" ? fngResult.value : null;
+
+      // Only error if ALL requests failed
+      const allFailed = !priceHistory && !currentPrice && !fearGreed;
+
+      setData({
+        priceHistory,
+        currentPrice,
+        fearGreed,
+        loading: false,
+        error: allFailed ? "All API requests failed. Try again later." : null,
+      });
     }
 
     load();

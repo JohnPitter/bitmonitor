@@ -33,7 +33,7 @@ async function fetchJSON(url) {
 }
 
 /**
- * Fetch Bitcoin price history from CoinGecko.
+ * Fetch last 365 days of Bitcoin price from CoinGecko (free tier limit).
  * Returns array of [timestamp, price] pairs (daily).
  */
 export async function fetchPriceHistory() {
@@ -41,12 +41,9 @@ export async function fetchPriceHistory() {
   const cached = getCached(cacheKey, CACHE_TTL_HISTORY);
   if (cached) return cached;
 
-  // Fetch from Jan 2013 to now
-  const from = Math.floor(new Date("2013-01-01").getTime() / 1000);
-  const to = Math.floor(Date.now() / 1000);
-  const url = `${COINGECKO_BASE}/coins/bitcoin/market_chart/range?vs_currency=usd&from=${from}&to=${to}`;
+  const url = `${COINGECKO_BASE}/coins/bitcoin/market_chart?vs_currency=usd&days=365`;
   const data = await fetchJSON(url);
-  const prices = data.prices; // [[ts, price], ...]
+  const prices = data.prices;
 
   setCache(cacheKey, prices);
   return prices;

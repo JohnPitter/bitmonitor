@@ -1,4 +1,5 @@
 import { CYCLE_EVENTS, PATTERN, NEXT_HALVING_ESTIMATE } from "./constants";
+import historicalPrices from "./historical-prices.json";
 
 /**
  * Get the current cycle and position within it.
@@ -89,9 +90,19 @@ export function getHalvingCountdown() {
 
 /**
  * Normalize price data for cycle overlay.
+ * Uses bundled historical data + live data for the current cycle.
  * Each cycle starts at day 0 with price = 1.0 (normalized).
  */
-export function normalizeCycleForOverlay(priceHistory) {
+export function normalizeCycleForOverlay(livePrices) {
+  // Merge historical + live data, deduplicating by keeping live data for recent dates
+  const allPrices = [...historicalPrices];
+  if (livePrices) {
+    const lastHistorical = historicalPrices.length > 0 ? historicalPrices[historicalPrices.length - 1][0] : 0;
+    for (const point of livePrices) {
+      if (point[0] > lastHistorical) allPrices.push(point);
+    }
+  }
+
   const overlays = [];
 
   for (const cycle of CYCLE_EVENTS) {
@@ -100,7 +111,7 @@ export function normalizeCycleForOverlay(priceHistory) {
       ? bottomTs + (cycle.bullDays + cycle.bearDays) * 24 * 60 * 60 * 1000
       : Date.now();
 
-    const cycleData = priceHistory
+    const cycleData = allPrices
       .filter(([ts]) => ts >= bottomTs && ts <= endTs)
       .map(([ts, price]) => ({
         day: Math.floor((ts - bottomTs) / (1000 * 60 * 60 * 24)),
