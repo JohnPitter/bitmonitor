@@ -1,0 +1,94 @@
+{
+  "header": {
+    "subtitle": "\u5468\u671f\u4eea\u8868\u76d8"
+  },
+  "loader": {
+    "loading": "\u6b63\u5728\u52a0\u8f7d\u5e02\u573a\u6570\u636e..."
+  },
+  "error": {
+    "title": "\u6570\u636e\u52a0\u8f7d\u5931\u8d25",
+    "retry": "\u91cd\u8bd5",
+    "allFailed": "\u6240\u6709API\u8bf7\u6c42\u5747\u5931\u8d25\u3002\u8bf7\u7a0d\u540e\u518d\u8bd5\u3002"
+  },
+  "footer": {
+    "dataSources": "\u6570\u636e\u6765\u6e90\uff1aCoinGecko \u00b7 \u6050\u60e7\u8d2a\u5a6a\u6307\u6570\u6765\u81eaAlternative.me",
+    "disclaimer": "1064/364\u6a21\u5f0f\u4ec5\u4e3a\u7ecf\u9a8c\u6027\u53c2\u8003\uff0c\u4e0d\u6784\u6210\u8d22\u52a1\u5efa\u8bae\u3002"
+  },
+  "cyclePosition": {
+    "title": "\u5468\u671f\u4f4d\u7f6e",
+    "bullMarket": "\u725b\u5e02",
+    "bearMarket": "\u718a\u5e02",
+    "daysInPhase": "\u5f53\u524d\u9636\u6bb5\u5929\u6570",
+    "estRemaining": "\u9884\u8ba1\u5269\u4f59",
+    "phaseStart": "\u9636\u6bb5\u5f00\u59cb",
+    "estEnd": "\u9884\u8ba1\u7ed3\u675f",
+    "days": "\u5929"
+  },
+  "cycleOverlay": {
+    "title": "\u4ef7\u683c\u4e0e\u5468\u671f\u53e0\u52a0",
+    "subtitle": "\u6807\u51c6\u5316\u4ef7\u683c (1.0 = \u5468\u671f\u5e95\u90e8) \u2014 \u5bf9\u6570\u5750\u6807",
+    "day": "\u7b2c{{number}}\u5929"
+  },
+  "bestDays": {
+    "title": "\u6700\u4f73\u4e70\u5165\u65e5",
+    "subtitle": "\u7edf\u8ba1\u5e73\u5747\u56de\u62a5\uff08\u8d8a\u4f4e\u8d8a\u4fbf\u5b9c\uff09",
+    "byDayOfWeek": "\u6309\u661f\u671f",
+    "bestDaysOfMonth": "\u6708\u5185\u6700\u4f73\u65e5\u671f",
+    "day": "\u7b2c{{number}}\u65e5"
+  },
+  "fearGreed": {
+    "title": "\u6050\u60e7\u8d2a\u5a6a\u6307\u6570",
+    "subtitle": "\u5e02\u573a\u60c5\u7eea\u6307\u6807",
+    "noData": "\u6682\u65e0\u6570\u636e",
+    "extremeFear": "\u6781\u5ea6\u6050\u60e7",
+    "fear": "\u6050\u60e7",
+    "neutral": "\u4e2d\u6027",
+    "greed": "\u8d2a\u5a6a",
+    "extremeGreed": "\u6781\u5ea6\u8d2a\u5a6a",
+    "strongBuy": "\u5f3a\u70c8\u4e70\u5165\u4fe1\u53f7",
+    "buy": "\u4e70\u5165\u4fe1\u53f7",
+    "hold": "\u6301\u6709",
+    "caution": "\u8c28\u614e",
+    "sell": "\u5356\u51fa\u4fe1\u53f7"
+  },
+  "halving": {
+    "title": "\u51cf\u534a\u5012\u8ba1\u65f6",
+    "subtitle": "\u4e0b\u4e00\u6b21\u4f9b\u5e94\u51cf\u5c11\u4e8b\u4ef6",
+    "years": "\u5e74",
+    "months": "\u6708",
+    "days": "\u5929",
+    "est": "\u9884\u8ba1 {{date}}",
+    "rewardAfter": "\u51cf\u534a\u540e\u5956\u52b1",
+    "previousHalvings": "\u5386\u53f2\u51cf\u534a\u4e8b\u4ef6"
+  },
+  "dca": {
+    "title": "DCA\u6a21\u62df\u5668",
+    "subtitle": "\u5b9a\u6295\u56de\u6d4b",
+    "amount": "\u91d1\u989d",
+    "frequency": "\u9891\u7387",
+    "period": "\u5468\u671f",
+    "weekly": "\u6bcf\u5468",
+    "monthly": "\u6bcf\u6708",
+    "invested": "\u5df2\u6295\u5165",
+    "currentValue": "\u5f53\u524d\u4ef7\u503c",
+    "btcAccumulated": "BTC\u7d2f\u8ba1",
+    "purchases": "\u8d2d\u4e70\u6b21\u6570",
+    "totalReturn": "\u603b\u56de\u62a5"
+  },
+  "cycleStats": {
+    "title": "\u5468\u671f\u7edf\u8ba1",
+    "subtitle": "\u5386\u53f2\u6a21\u5f0f\u5206\u6790",
+    "avgBullDays": "\u5e73\u5747\u725b\u5e02\u5929\u6570",
+    "avgBearDays": "\u5e73\u5747\u718a\u5e02\u5929\u6570",
+    "cycleHistory": "\u5468\u671f\u5386\u53f2"
+  },
+  "dayNames": {
+    "Sun": "\u5468\u65e5",
+    "Mon": "\u5468\u4e00",
+    "Tue": "\u5468\u4e8c",
+    "Wed": "\u5468\u4e09",
+    "Thu": "\u5468\u56db",
+    "Fri": "\u5468\u4e94",
+    "Sat": "\u5468\u516d"
+  }
+}

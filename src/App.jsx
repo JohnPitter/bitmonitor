@@ -1,4 +1,5 @@
 import { useBitcoinData } from "./hooks/useBitcoinData";
+import { useTranslation } from "./i18n";
 import historicalPrices from "./lib/historical-prices.json";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
@@ -14,11 +15,11 @@ import CycleStats from "./components/cards/CycleStats";
 
 export default function App() {
   const { priceHistory, currentPrice, fearGreed, loading, error } = useBitcoinData();
+  const { t } = useTranslation();
 
   if (loading) return <Loader />;
-  if (error) return <ErrorState message={error} onRetry={() => window.location.reload()} />;
+  if (error) return <ErrorState message={t("error.allFailed")} onRetry={() => window.location.reload()} />;
 
-  // Use live data if available, fall back to bundled historical data
   const prices = priceHistory || historicalPrices;
 
   return (

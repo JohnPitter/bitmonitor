@@ -1,0 +1,94 @@
+{
+  "header": {
+    "subtitle": "Cycle Dashboard"
+  },
+  "loader": {
+    "loading": "Loading market data..."
+  },
+  "error": {
+    "title": "Failed to load data",
+    "retry": "Retry",
+    "allFailed": "All API requests failed. Try again later."
+  },
+  "footer": {
+    "dataSources": "Data from CoinGecko \u00b7 Fear & Greed from Alternative.me",
+    "disclaimer": "The 1064/364 pattern is a heuristic, not financial advice."
+  },
+  "cyclePosition": {
+    "title": "Cycle Position",
+    "bullMarket": "Bull Market",
+    "bearMarket": "Bear Market",
+    "daysInPhase": "Days in phase",
+    "estRemaining": "Est. remaining",
+    "phaseStart": "Phase start",
+    "estEnd": "Est. end",
+    "days": "days"
+  },
+  "cycleOverlay": {
+    "title": "Price vs. Cycle Overlay",
+    "subtitle": "Normalized price (1.0 = cycle bottom) \u2014 logarithmic scale",
+    "day": "Day {{number}}"
+  },
+  "bestDays": {
+    "title": "Best Days to Buy",
+    "subtitle": "Statistical avg. returns (lower = cheaper)",
+    "byDayOfWeek": "By day of week",
+    "bestDaysOfMonth": "Best days of month",
+    "day": "Day {{number}}"
+  },
+  "fearGreed": {
+    "title": "Fear & Greed Index",
+    "subtitle": "Market sentiment indicator",
+    "noData": "No data available",
+    "extremeFear": "Extreme Fear",
+    "fear": "Fear",
+    "neutral": "Neutral",
+    "greed": "Greed",
+    "extremeGreed": "Extreme Greed",
+    "strongBuy": "Strong Buy Signal",
+    "buy": "Buy Signal",
+    "hold": "Hold",
+    "caution": "Caution",
+    "sell": "Sell Signal"
+  },
+  "halving": {
+    "title": "Halving Countdown",
+    "subtitle": "Next supply reduction event",
+    "years": "years",
+    "months": "months",
+    "days": "days",
+    "est": "Est. {{date}}",
+    "rewardAfter": "Reward after halving",
+    "previousHalvings": "Previous halvings"
+  },
+  "dca": {
+    "title": "DCA Simulator",
+    "subtitle": "Dollar Cost Averaging backtest",
+    "amount": "Amount",
+    "frequency": "Frequency",
+    "period": "Period",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "invested": "Invested",
+    "currentValue": "Current value",
+    "btcAccumulated": "BTC accumulated",
+    "purchases": "Purchases",
+    "totalReturn": "Total return"
+  },
+  "cycleStats": {
+    "title": "Cycle Statistics",
+    "subtitle": "Historical pattern analysis",
+    "avgBullDays": "Avg bull days",
+    "avgBearDays": "Avg bear days",
+    "cycleHistory": "Cycle history"
+  },
+  "dayNames": {
+    "Sun": "Sun",
+    "Mon": "Mon",
+    "Tue": "Tue",
+    "Wed": "Wed",
+    "Thu": "Thu",
+    "Fri": "Fri",
+    "Sat": "Sat"
+  }
+}

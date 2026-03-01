@@ -1,8 +1,12 @@
+import { useTranslation } from "../../i18n";
+
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="border-t border-border px-4 py-4 mt-6">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-text-dim">
-        <span>Data from CoinGecko &middot; Fear &amp; Greed from Alternative.me</span>
+        <span>{t("footer.dataSources")}</span>
         <span>
           <a
             href="https://github.com/JohnPitter/bitmonitor"
@@ -13,7 +17,7 @@ export default function Footer() {
             GitHub
           </a>
           {" · "}
-          The 1064/364 pattern is a heuristic, not financial advice.
+          {t("footer.disclaimer")}
         </span>
       </div>
     </footer>

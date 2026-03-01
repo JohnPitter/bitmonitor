@@ -1,42 +1,25 @@
 import Card from "../common/Card";
+import { useTranslation } from "../../i18n";
 
 function getLabel(value) {
-  if (value <= 25) return { text: "Extreme Fear", color: "text-fear", signal: "Strong Buy Signal" };
-  if (value <= 45) return { text: "Fear", color: "text-bear", signal: "Buy Signal" };
-  if (value <= 55) return { text: "Neutral", color: "text-neutral", signal: "Hold" };
-  if (value <= 75) return { text: "Greed", color: "text-btc", signal: "Caution" };
-  return { text: "Extreme Greed", color: "text-greed", signal: "Sell Signal" };
+  if (value <= 25) return { textKey: "fearGreed.extremeFear", color: "text-fear", signalKey: "fearGreed.strongBuy" };
+  if (value <= 45) return { textKey: "fearGreed.fear", color: "text-bear", signalKey: "fearGreed.buy" };
+  if (value <= 55) return { textKey: "fearGreed.neutral", color: "text-neutral", signalKey: "fearGreed.hold" };
+  if (value <= 75) return { textKey: "fearGreed.greed", color: "text-btc", signalKey: "fearGreed.caution" };
+  return { textKey: "fearGreed.extremeGreed", color: "text-greed", signalKey: "fearGreed.sell" };
 }
 
 function Gauge({ value }) {
-  // Simple arc gauge
-  const angle = (value / 100) * 180 - 90; // -90 to 90 degrees
+  const angle = (value / 100) * 180 - 90;
   const radius = 50;
   const cx = 60;
   const cy = 55;
 
-  // Arc path
-  const startAngle = -90;
-  const endAngle = 90;
-  const startRad = (startAngle * Math.PI) / 180;
-  const endRad = (endAngle * Math.PI) / 180;
   const needleRad = (angle * Math.PI) / 180;
-
-  const arcStart = { x: cx + radius * Math.cos(startRad), y: cy + radius * Math.sin(startRad) };
-  const arcEnd = { x: cx + radius * Math.cos(endRad), y: cy + radius * Math.sin(endRad) };
   const needleTip = { x: cx + (radius - 8) * Math.cos(needleRad), y: cy + (radius - 8) * Math.sin(needleRad) };
 
   return (
     <svg viewBox="0 0 120 70" className="w-full max-w-[160px] mx-auto">
-      {/* Background arc */}
-      <path
-        d={`M ${arcStart.x} ${arcStart.y} A ${radius} ${radius} 0 0 1 ${arcEnd.x} ${arcEnd.y}`}
-        fill="none"
-        stroke="#1e1e2e"
-        strokeWidth="8"
-        strokeLinecap="round"
-      />
-      {/* Gradient segments */}
       {[
         { pct: 0.25, color: "#ef4444" },
         { pct: 0.25, color: "#f97316" },
@@ -57,13 +40,12 @@ function Gauge({ value }) {
             stroke={seg.color}
             strokeWidth="8"
             strokeLinecap="butt"
-            opacity="0.3"
+            opacity="0.4"
           />,
         );
         acc.endAngle = segEnd;
         return acc;
       }, { elements: [], endAngle: -90 }).elements}
-      {/* Needle */}
       <line x1={cx} y1={cy} x2={needleTip.x} y2={needleTip.y} stroke="#e2e8f0" strokeWidth="2" strokeLinecap="round" />
       <circle cx={cx} cy={cy} r="3" fill="#e2e8f0" />
     </svg>
@@ -71,10 +53,12 @@ function Gauge({ value }) {
 }
 
 export default function FearGreed({ fearGreed }) {
+  const { t } = useTranslation();
+
   if (!fearGreed || fearGreed.length === 0) {
     return (
-      <Card title="Fear & Greed Index">
-        <p className="text-text-dim text-sm">No data available</p>
+      <Card title={t("fearGreed.title")}>
+        <p className="text-text-dim text-sm">{t("fearGreed.noData")}</p>
       </Card>
     );
   }
@@ -83,15 +67,15 @@ export default function FearGreed({ fearGreed }) {
   const info = getLabel(current.value);
 
   return (
-    <Card title="Fear & Greed Index" subtitle="Market sentiment indicator">
+    <Card title={t("fearGreed.title")} subtitle={t("fearGreed.subtitle")}>
       <div className="text-center space-y-2">
         <Gauge value={current.value} />
         <div>
           <span className={`text-3xl font-bold tabular-nums ${info.color}`}>{current.value}</span>
-          <p className={`text-sm font-medium ${info.color}`}>{info.text}</p>
+          <p className={`text-sm font-medium ${info.color}`}>{t(info.textKey)}</p>
         </div>
         <div className="inline-block px-3 py-1 rounded-full bg-border/50 text-xs text-text-secondary">
-          {info.signal}
+          {t(info.signalKey)}
         </div>
       </div>
     </Card>

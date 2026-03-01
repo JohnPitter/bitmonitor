@@ -1,0 +1,94 @@
+{
+  "header": {
+    "subtitle": "Painel de Ciclos"
+  },
+  "loader": {
+    "loading": "Carregando dados do mercado..."
+  },
+  "error": {
+    "title": "Falha ao carregar dados",
+    "retry": "Tentar novamente",
+    "allFailed": "Todas as requisi\u00e7\u00f5es falharam. Tente novamente mais tarde."
+  },
+  "footer": {
+    "dataSources": "Dados do CoinGecko \u00b7 Fear & Greed do Alternative.me",
+    "disclaimer": "O padr\u00e3o 1064/364 \u00e9 uma heur\u00edstica, n\u00e3o aconselhamento financeiro."
+  },
+  "cyclePosition": {
+    "title": "Posi\u00e7\u00e3o no Ciclo",
+    "bullMarket": "Mercado de Alta",
+    "bearMarket": "Mercado de Baixa",
+    "daysInPhase": "Dias na fase",
+    "estRemaining": "Est. restante",
+    "phaseStart": "In\u00edcio da fase",
+    "estEnd": "Est. fim",
+    "days": "dias"
+  },
+  "cycleOverlay": {
+    "title": "Pre\u00e7o vs. Ciclos Sobrepostos",
+    "subtitle": "Pre\u00e7o normalizado (1.0 = fundo do ciclo) \u2014 escala logar\u00edtmica",
+    "day": "Dia {{number}}"
+  },
+  "bestDays": {
+    "title": "Melhores Dias para Comprar",
+    "subtitle": "Retornos m\u00e9dios estat\u00edsticos (menor = mais barato)",
+    "byDayOfWeek": "Por dia da semana",
+    "bestDaysOfMonth": "Melhores dias do m\u00eas",
+    "day": "Dia {{number}}"
+  },
+  "fearGreed": {
+    "title": "\u00cdndice de Medo e Gan\u00e2ncia",
+    "subtitle": "Indicador de sentimento do mercado",
+    "noData": "Sem dados dispon\u00edveis",
+    "extremeFear": "Medo Extremo",
+    "fear": "Medo",
+    "neutral": "Neutro",
+    "greed": "Gan\u00e2ncia",
+    "extremeGreed": "Gan\u00e2ncia Extrema",
+    "strongBuy": "Sinal Forte de Compra",
+    "buy": "Sinal de Compra",
+    "hold": "Manter",
+    "caution": "Cautela",
+    "sell": "Sinal de Venda"
+  },
+  "halving": {
+    "title": "Contagem Regressiva do Halving",
+    "subtitle": "Pr\u00f3ximo evento de redu\u00e7\u00e3o de oferta",
+    "years": "anos",
+    "months": "meses",
+    "days": "dias",
+    "est": "Est. {{date}}",
+    "rewardAfter": "Recompensa ap\u00f3s halving",
+    "previousHalvings": "Halvings anteriores"
+  },
+  "dca": {
+    "title": "Simulador DCA",
+    "subtitle": "Backtest de investimento peri\u00f3dico",
+    "amount": "Valor",
+    "frequency": "Frequ\u00eancia",
+    "period": "Per\u00edodo",
+    "weekly": "Semanal",
+    "monthly": "Mensal",
+    "invested": "Investido",
+    "currentValue": "Valor atual",
+    "btcAccumulated": "BTC acumulado",
+    "purchases": "Compras",
+    "totalReturn": "Retorno total"
+  },
+  "cycleStats": {
+    "title": "Estat\u00edsticas dos Ciclos",
+    "subtitle": "An\u00e1lise de padr\u00f5es hist\u00f3ricos",
+    "avgBullDays": "M\u00e9dia dias de alta",
+    "avgBearDays": "M\u00e9dia dias de baixa",
+    "cycleHistory": "Hist\u00f3rico de ciclos"
+  },
+  "dayNames": {
+    "Sun": "Dom",
+    "Mon": "Seg",
+    "Tue": "Ter",
+    "Wed": "Qua",
+    "Thu": "Qui",
+    "Fri": "Sex",
+    "Sat": "S\u00e1b"
+  }
+}

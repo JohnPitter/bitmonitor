@@ -12,14 +12,15 @@ import {
 import Card from "../common/Card";
 import { normalizeCycleForOverlay } from "../../lib/cycle";
 import { PATTERN } from "../../lib/constants";
+import { useTranslation } from "../../i18n";
 
 const CYCLE_COLORS = ["#64748b", "#3b82f6", "#a855f7", "#f7931a"];
 
-function CustomTooltip({ active, payload, label }) {
+function CustomTooltip({ active, payload, label, t }) {
   if (!active || !payload?.length) return null;
   return (
     <div className="bg-bg-card border border-border rounded-lg p-2 text-xs">
-      <p className="text-text-dim mb-1">Day {label}</p>
+      <p className="text-text-dim mb-1">{t("cycleOverlay.day", { number: label })}</p>
       {payload.map((p) => (
         <p key={p.name} style={{ color: p.stroke }} className="tabular-nums">
           {p.name}: {Number(p.value).toFixed(1)}x
@@ -30,6 +31,7 @@ function CustomTooltip({ active, payload, label }) {
 }
 
 export default function CycleOverlay({ priceHistory }) {
+  const { t } = useTranslation();
   const overlays = useMemo(
     () => (priceHistory ? normalizeCycleForOverlay(priceHistory) : []),
     [priceHistory],
@@ -61,8 +63,8 @@ export default function CycleOverlay({ priceHistory }) {
 
   return (
     <Card
-      title="Price vs. Cycle Overlay"
-      subtitle="Normalized price (1.0 = cycle bottom) — logarithmic scale"
+      title={t("cycleOverlay.title")}
+      subtitle={t("cycleOverlay.subtitle")}
       className="col-span-full"
     >
       <div className="h-[350px] sm:h-[400px] -mx-2">
@@ -81,7 +83,7 @@ export default function CycleOverlay({ priceHistory }) {
               tickFormatter={(v) => `${v}x`}
               width={45}
             />
-            <Tooltip content={<CustomTooltip />} />
+            <Tooltip content={<CustomTooltip t={t} />} />
             <Legend
               wrapperStyle={{ fontSize: 11, paddingTop: 8 }}
             />
