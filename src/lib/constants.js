@@ -58,6 +58,7 @@ export const ATH_HISTORY = [
   { cycle: 1, date: "2013-12-04", price: 1151, daysAfterHalving: 371 },
   { cycle: 2, date: "2017-12-17", price: 19783, daysAfterHalving: 526 },
   { cycle: 3, date: "2021-11-10", price: 69044, daysAfterHalving: 548 },
+  { cycle: 4, date: "2025-10-06", price: 126210, daysAfterHalving: 536 },
 ];
 
 // Pattern averages (cycles 2-4 where pattern holds)

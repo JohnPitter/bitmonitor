@@ -92,23 +92,28 @@ export function getHalvingCountdown() {
  * Get ATH (All-Time High) info and estimate for next cycle.
  */
 export function getATHInfo() {
-  const lastHalving = HALVINGS[HALVINGS.length - 1];
-  const lastHalvingTs = new Date(lastHalving.date).getTime();
+  const now = Date.now();
 
-  // Average days after halving that ATH occurs (cycles 2 & 3 are more relevant)
+  // Average days after halving that ATH occurs (cycles 2+ are more relevant)
   const recentATHs = ATH_HISTORY.filter((a) => a.cycle >= 2);
   const avgDaysAfterHalving = Math.round(recentATHs.reduce((s, a) => s + a.daysAfterHalving, 0) / recentATHs.length);
 
-  // Estimate next ATH date
-  const estimatedNextATHTs = lastHalvingTs + avgDaysAfterHalving * 24 * 60 * 60 * 1000;
-  const estimatedNextATHDate = new Date(estimatedNextATHTs).toISOString().split("T")[0];
-
-  // Days until estimated next ATH
-  const now = Date.now();
-  const daysUntilNextATH = Math.max(0, Math.floor((estimatedNextATHTs - now) / (1000 * 60 * 60 * 24)));
-
-  // Current ATH is the highest top across all cycles
+  // Current ATH is the highest price across all cycles
   const currentATH = ATH_HISTORY.reduce((best, a) => a.price > best.price ? a : best, ATH_HISTORY[0]);
+
+  // Check if this cycle's ATH already happened — if so, estimate for next halving
+  const lastHalving = HALVINGS[HALVINGS.length - 1];
+  const lastHalvingTs = new Date(lastHalving.date).getTime();
+  const currentCycleEstTs = lastHalvingTs + avgDaysAfterHalving * 24 * 60 * 60 * 1000;
+
+  // If the current cycle estimate is in the past, project from next halving
+  const nextHalvingTs = new Date(NEXT_HALVING_ESTIMATE).getTime();
+  const useNextCycle = currentCycleEstTs < now;
+  const baseHalvingTs = useNextCycle ? nextHalvingTs : lastHalvingTs;
+
+  const estimatedNextATHTs = baseHalvingTs + avgDaysAfterHalving * 24 * 60 * 60 * 1000;
+  const estimatedNextATHDate = new Date(estimatedNextATHTs).toISOString().split("T")[0];
+  const daysUntilNextATH = Math.max(0, Math.floor((estimatedNextATHTs - now) / (1000 * 60 * 60 * 24)));
 
   return {
     currentATH,
