@@ -16,25 +16,24 @@ export default function BestDays({ priceHistory }) {
   );
 
   const bestWeek = weekData[0];
-  const bestMonth = monthData[0];
 
   return (
-    <Card title={t("bestDays.title")} subtitle={t("bestDays.subtitle")}>
-      <div className="space-y-3">
+    <Card icon="🛒" title={t("bestDays.title")} subtitle={t("bestDays.subtitle")}>
+      <div className="space-y-4">
         <div>
-          <p className="text-xs text-text-dim mb-1.5">{t("bestDays.byDayOfWeek")}</p>
-          <div className="flex gap-1">
+          <p className="text-xs text-text-dim mb-2 font-medium">{t("bestDays.byDayOfWeek")}</p>
+          <div className="flex gap-1.5">
             {weekData.map((d) => {
               const isBest = d.day === bestWeek?.day;
               return (
                 <div
                   key={d.day}
-                  className={`flex-1 text-center py-1.5 rounded text-xs ${
-                    isBest ? "bg-bull/20 text-bull font-semibold" : "bg-border/50 text-text-secondary"
+                  className={`flex-1 text-center py-2.5 rounded-xl text-xs transition-all ${
+                    isBest ? "bg-bull/15 text-bull font-bold ring-1 ring-bull/30" : "bg-white/3 text-text-secondary"
                   }`}
                 >
-                  <div>{t(`dayNames.${d.label}`)}</div>
-                  <div className="tabular-nums">{d.avgReturn.toFixed(2)}%</div>
+                  <div className="font-medium">{t(`dayNames.${d.label}`)}</div>
+                  <div className="tabular-nums mt-0.5 text-[11px]">{d.avgReturn.toFixed(2)}%</div>
                 </div>
               );
             })}
@@ -42,14 +41,14 @@ export default function BestDays({ priceHistory }) {
         </div>
 
         <div>
-          <p className="text-xs text-text-dim mb-1.5">{t("bestDays.bestDaysOfMonth")}</p>
-          <div className="space-y-1">
+          <p className="text-xs text-text-dim mb-2 font-medium">{t("bestDays.bestDaysOfMonth")}</p>
+          <div className="space-y-1.5">
             {monthData.map((d, i) => (
-              <div key={d.day} className="flex items-center justify-between text-xs">
-                <span className={i === 0 ? "text-bull font-medium" : "text-text-secondary"}>
-                  {i === 0 ? "★" : `${i + 1}.`} {t("bestDays.day", { number: d.day })}
+              <div key={d.day} className={`flex items-center justify-between text-sm px-3 py-2 rounded-xl ${i === 0 ? "bg-bull/10 text-bull font-semibold" : "bg-white/3 text-text-secondary"}`}>
+                <span>
+                  {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `${i + 1}.`} {t("bestDays.day", { number: d.day })}
                 </span>
-                <span className="tabular-nums text-text-secondary">{d.avgReturn.toFixed(3)}%</span>
+                <span className="tabular-nums text-xs">{d.avgReturn.toFixed(3)}%</span>
               </div>
             ))}
           </div>

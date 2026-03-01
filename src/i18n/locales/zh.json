@@ -1,6 +1,7 @@
 {
   "header": {
-    "subtitle": "比特币面板"
+    "subtitle": "比特币面板",
+    "last24h": "过去24小时"
   },
   "loader": {
     "loading": "正在加载数据..."

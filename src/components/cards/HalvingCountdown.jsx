@@ -16,42 +16,45 @@ export default function HalvingCountdown() {
   const estDate = new Date(countdown.date).toLocaleDateString(intlLocale, { month: "long", year: "numeric" });
 
   return (
-    <Card title={t("halving.title")} subtitle={t("halving.subtitle")}>
-      <div className="space-y-3">
+    <Card icon="⏳" title={t("halving.title")} subtitle={t("halving.subtitle")}>
+      <div className="space-y-4">
+        {/* Countdown */}
         <div className="text-center">
-          <div className="flex justify-center gap-3 mb-2">
+          <div className="flex justify-center gap-4 mb-3">
             {[
               { value: years, label: t("halving.years") },
               { value: months, label: t("halving.months") },
               { value: days, label: t("halving.days") },
             ].map(({ value, label }) => (
-              <div key={label} className="text-center">
-                <span className="text-2xl font-bold tabular-nums text-btc">{value}</span>
-                <p className="text-[10px] text-text-dim uppercase">{label}</p>
+              <div key={label} className="bg-btc/10 rounded-xl px-4 py-3 min-w-[64px]">
+                <span className="text-2xl font-bold tabular-nums text-btc block">{value}</span>
+                <p className="text-[11px] text-text-dim mt-0.5">{label}</p>
               </div>
             ))}
           </div>
-          <p className="text-xs text-text-secondary">
+          <p className="text-sm text-text-secondary">
             {t("halving.est", { date: estDate })}
           </p>
         </div>
 
-        <div className="border-t border-border pt-3 space-y-1.5">
-          <p className="text-xs text-text-dim">{t("halving.rewardAfter")}</p>
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-text-secondary">{countdown.currentReward} BTC</span>
-            <span className="text-text-dim">→</span>
-            <span className="text-btc font-medium">{countdown.blockRewardAfter} BTC</span>
+        {/* Reward change */}
+        <div className="bg-white/3 rounded-xl p-3">
+          <p className="text-xs text-text-dim mb-2">{t("halving.rewardAfter")}</p>
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-text-secondary font-medium">{countdown.currentReward} BTC</span>
+            <span className="text-btc text-lg">→</span>
+            <span className="text-btc font-bold">{countdown.blockRewardAfter} BTC</span>
           </div>
         </div>
 
-        <div className="border-t border-border pt-3">
-          <p className="text-xs text-text-dim mb-1.5">{t("halving.previousHalvings")}</p>
-          <div className="space-y-1">
+        {/* Past halvings */}
+        <div>
+          <p className="text-xs text-text-dim mb-2 font-medium">{t("halving.previousHalvings")}</p>
+          <div className="space-y-1.5">
             {HALVINGS.map((h) => (
-              <div key={h.date} className="flex justify-between text-xs text-text-secondary">
+              <div key={h.date} className="flex justify-between text-sm text-text-secondary bg-white/3 rounded-lg px-3 py-1.5">
                 <span>{new Date(h.date).toLocaleDateString(intlLocale, { month: "short", year: "numeric" })}</span>
-                <span className="tabular-nums">{h.rewardAfter} BTC</span>
+                <span className="tabular-nums font-medium">{h.rewardAfter} BTC</span>
               </div>
             ))}
           </div>

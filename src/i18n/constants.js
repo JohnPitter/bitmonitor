@@ -3,11 +3,11 @@ export const STORAGE_KEY = "bitmonitor-lang";
 export const COUNTRY_CACHE_KEY = "bitmonitor-country";
 
 export const SUPPORTED_LOCALES = [
-  { code: "en", label: "English", flag: "🇺🇸" },
-  { code: "pt", label: "Português", flag: "🇧🇷" },
-  { code: "es", label: "Español", flag: "🇪🇸" },
-  { code: "zh", label: "中文", flag: "🇨🇳" },
-  { code: "ja", label: "日本語", flag: "🇯🇵" },
+  { code: "en", label: "English", flag: "US" },
+  { code: "pt", label: "Português", flag: "BR" },
+  { code: "es", label: "Español", flag: "ES" },
+  { code: "zh", label: "中文", flag: "CN" },
+  { code: "ja", label: "日本語", flag: "JP" },
 ];
 
 export const LOCALE_MAP = { en: "en", pt: "pt", es: "es", zh: "zh", ja: "ja" };

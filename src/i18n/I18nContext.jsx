@@ -43,12 +43,12 @@ export function I18nProvider({ children }) {
     if (localStorage.getItem(STORAGE_KEY)) return;
 
     const controller = new AbortController();
-    fetch("https://ipapi.co/json/", { signal: controller.signal })
+    fetch("http://ip-api.com/json/?fields=countryCode", { signal: controller.signal })
       .then((r) => r.ok ? r.json() : null)
       .then((data) => {
-        if (!data?.country_code) return;
-        localStorage.setItem(COUNTRY_CACHE_KEY, data.country_code);
-        const detected = COUNTRY_TO_LOCALE[data.country_code];
+        if (!data?.countryCode) return;
+        localStorage.setItem(COUNTRY_CACHE_KEY, data.countryCode);
+        const detected = COUNTRY_TO_LOCALE[data.countryCode];
         if (detected && detected !== locale) {
           setLocaleState(detected);
           document.documentElement.lang = detected;

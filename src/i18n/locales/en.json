@@ -1,6 +1,7 @@
 {
   "header": {
-    "subtitle": "Bitcoin Dashboard"
+    "subtitle": "Bitcoin Dashboard",
+    "last24h": "Last 24 hours"
   },
   "loader": {
     "loading": "Loading data..."

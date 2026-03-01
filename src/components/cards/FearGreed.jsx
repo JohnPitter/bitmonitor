@@ -2,11 +2,11 @@ import Card from "../common/Card";
 import { useTranslation } from "../../i18n";
 
 function getLabel(value) {
-  if (value <= 25) return { textKey: "fearGreed.extremeFear", color: "text-fear", signalKey: "fearGreed.strongBuy" };
-  if (value <= 45) return { textKey: "fearGreed.fear", color: "text-bear", signalKey: "fearGreed.buy" };
-  if (value <= 55) return { textKey: "fearGreed.neutral", color: "text-neutral", signalKey: "fearGreed.hold" };
-  if (value <= 75) return { textKey: "fearGreed.greed", color: "text-btc", signalKey: "fearGreed.caution" };
-  return { textKey: "fearGreed.extremeGreed", color: "text-greed", signalKey: "fearGreed.sell" };
+  if (value <= 25) return { textKey: "fearGreed.extremeFear", color: "text-fear", bg: "bg-fear/10", signalKey: "fearGreed.strongBuy", emoji: "😱" };
+  if (value <= 45) return { textKey: "fearGreed.fear", color: "text-bear", bg: "bg-bear/10", signalKey: "fearGreed.buy", emoji: "😟" };
+  if (value <= 55) return { textKey: "fearGreed.neutral", color: "text-neutral", bg: "bg-neutral/10", signalKey: "fearGreed.hold", emoji: "😐" };
+  if (value <= 75) return { textKey: "fearGreed.greed", color: "text-btc", bg: "bg-btc/10", signalKey: "fearGreed.caution", emoji: "🤑" };
+  return { textKey: "fearGreed.extremeGreed", color: "text-greed", bg: "bg-greed/10", signalKey: "fearGreed.sell", emoji: "🔥" };
 }
 
 function Gauge({ value }) {
@@ -19,12 +19,12 @@ function Gauge({ value }) {
   const needleTip = { x: cx + (radius - 8) * Math.cos(needleRad), y: cy + (radius - 8) * Math.sin(needleRad) };
 
   return (
-    <svg viewBox="0 0 120 70" className="w-full max-w-[160px] mx-auto">
+    <svg viewBox="0 0 120 70" className="w-full max-w-[200px] mx-auto">
       {[
-        { pct: 0.25, color: "#ef4444" },
-        { pct: 0.25, color: "#f97316" },
-        { pct: 0.25, color: "#eab308" },
-        { pct: 0.25, color: "#22c55e" },
+        { pct: 0.25, color: "#f87171" },
+        { pct: 0.25, color: "#fbbf24" },
+        { pct: 0.25, color: "#a3e635" },
+        { pct: 0.25, color: "#34d399" },
       ].reduce((acc, seg, i) => {
         const segStart = acc.endAngle;
         const segEnd = segStart + seg.pct * 180;
@@ -38,16 +38,16 @@ function Gauge({ value }) {
             d={`M ${s.x} ${s.y} A ${radius} ${radius} 0 0 1 ${e.x} ${e.y}`}
             fill="none"
             stroke={seg.color}
-            strokeWidth="8"
-            strokeLinecap="butt"
-            opacity="0.4"
+            strokeWidth="10"
+            strokeLinecap="round"
+            opacity="0.5"
           />,
         );
         acc.endAngle = segEnd;
         return acc;
       }, { elements: [], endAngle: -90 }).elements}
-      <line x1={cx} y1={cy} x2={needleTip.x} y2={needleTip.y} stroke="#e2e8f0" strokeWidth="2" strokeLinecap="round" />
-      <circle cx={cx} cy={cy} r="3" fill="#e2e8f0" />
+      <line x1={cx} y1={cy} x2={needleTip.x} y2={needleTip.y} stroke="#f1f5f9" strokeWidth="2.5" strokeLinecap="round" />
+      <circle cx={cx} cy={cy} r="4" fill="#f1f5f9" />
     </svg>
   );
 }
@@ -57,7 +57,7 @@ export default function FearGreed({ fearGreed }) {
 
   if (!fearGreed || fearGreed.length === 0) {
     return (
-      <Card title={t("fearGreed.title")}>
+      <Card icon="😶" title={t("fearGreed.title")}>
         <p className="text-text-dim text-sm">{t("fearGreed.noData")}</p>
       </Card>
     );
@@ -67,14 +67,17 @@ export default function FearGreed({ fearGreed }) {
   const info = getLabel(current.value);
 
   return (
-    <Card title={t("fearGreed.title")} subtitle={t("fearGreed.subtitle")}>
-      <div className="text-center space-y-2">
+    <Card icon="🧠" title={t("fearGreed.title")} subtitle={t("fearGreed.subtitle")}>
+      <div className="text-center space-y-3">
         <Gauge value={current.value} />
         <div>
-          <span className={`text-3xl font-bold tabular-nums ${info.color}`}>{current.value}</span>
-          <p className={`text-sm font-medium ${info.color}`}>{t(info.textKey)}</p>
+          <div className="flex items-center justify-center gap-2">
+            <span className="text-2xl">{info.emoji}</span>
+            <span className={`text-4xl font-bold tabular-nums ${info.color}`}>{current.value}</span>
+          </div>
+          <p className={`text-base font-semibold mt-1 ${info.color}`}>{t(info.textKey)}</p>
         </div>
-        <div className="inline-block px-3 py-1 rounded-full bg-border/50 text-xs text-text-secondary">
+        <div className={`inline-block px-4 py-2 rounded-full text-sm font-medium ${info.bg} ${info.color}`}>
           {t(info.signalKey)}
         </div>
       </div>

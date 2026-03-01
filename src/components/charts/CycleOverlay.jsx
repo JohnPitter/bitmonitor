@@ -14,13 +14,13 @@ import { normalizeCycleForOverlay } from "../../lib/cycle";
 import { PATTERN } from "../../lib/constants";
 import { useTranslation } from "../../i18n";
 
-const CYCLE_COLORS = ["#64748b", "#3b82f6", "#a855f7", "#f7931a"];
+const CYCLE_COLORS = ["#6b7280", "#60a5fa", "#c084fc", "#f7931a"];
 
 function CustomTooltip({ active, payload, label, t }) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-bg-card border border-border rounded-lg p-2 text-xs">
-      <p className="text-text-dim mb-1">{t("cycleOverlay.day", { number: label })}</p>
+    <div className="bg-bg-card border border-border rounded-xl p-3 text-sm shadow-lg">
+      <p className="text-text-dim mb-1.5 font-medium">{t("cycleOverlay.day", { number: label })}</p>
       {payload.map((p) => (
         <p key={p.name} style={{ color: p.stroke }} className="tabular-nums">
           {p.name}: {Number(p.value).toFixed(1)}x
@@ -37,7 +37,6 @@ export default function CycleOverlay({ priceHistory }) {
     [priceHistory],
   );
 
-  // Merge all cycles into one dataset keyed by day
   const chartData = useMemo(() => {
     if (overlays.length === 0) return [];
 
@@ -63,36 +62,36 @@ export default function CycleOverlay({ priceHistory }) {
 
   return (
     <Card
+      icon="📉"
       title={t("cycleOverlay.title")}
       subtitle={t("cycleOverlay.subtitle")}
-      className="col-span-full"
     >
-      <div className="h-[350px] sm:h-[400px] -mx-2">
+      <div className="h-[300px] sm:h-[380px] -mx-2">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
             <XAxis
               dataKey="day"
-              tick={{ fill: "#64748b", fontSize: 11 }}
+              tick={{ fill: "#6b6b80", fontSize: 11 }}
               tickFormatter={(d) => `${d}d`}
               interval="preserveStartEnd"
             />
             <YAxis
               scale="log"
               domain={["auto", "auto"]}
-              tick={{ fill: "#64748b", fontSize: 11 }}
+              tick={{ fill: "#6b6b80", fontSize: 11 }}
               tickFormatter={(v) => `${v}x`}
               width={45}
             />
             <Tooltip content={<CustomTooltip t={t} />} />
             <Legend
-              wrapperStyle={{ fontSize: 11, paddingTop: 8 }}
+              wrapperStyle={{ fontSize: 12, paddingTop: 10 }}
             />
             <ReferenceLine
               x={PATTERN.claimedBullDays}
-              stroke="#ef4444"
-              strokeDasharray="4 4"
-              strokeOpacity={0.5}
-              label={{ value: "~1064d", fill: "#ef4444", fontSize: 10, position: "top" }}
+              stroke="#f87171"
+              strokeDasharray="6 4"
+              strokeOpacity={0.4}
+              label={{ value: "~1064d", fill: "#f87171", fontSize: 11, position: "top" }}
             />
             {overlays.map((overlay, idx) => (
               <Line
@@ -101,9 +100,9 @@ export default function CycleOverlay({ priceHistory }) {
                 dataKey={`cycle${idx + 1}`}
                 name={overlay.label}
                 stroke={CYCLE_COLORS[idx]}
-                strokeWidth={idx === overlays.length - 1 ? 2.5 : 1.5}
+                strokeWidth={idx === overlays.length - 1 ? 3 : 1.5}
                 dot={false}
-                strokeOpacity={idx === overlays.length - 1 ? 1 : 0.6}
+                strokeOpacity={idx === overlays.length - 1 ? 1 : 0.5}
                 connectNulls={false}
               />
             ))}

@@ -1,6 +1,7 @@
 {
   "header": {
-    "subtitle": "Painel do Bitcoin"
+    "subtitle": "Painel do Bitcoin",
+    "last24h": "Últimas 24 horas"
   },
   "loader": {
     "loading": "Carregando dados..."

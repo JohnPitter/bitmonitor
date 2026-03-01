@@ -8,46 +8,40 @@ export default function CyclePosition() {
   const { t } = useTranslation();
 
   const isBull = pos.phase === "bull";
-  const phaseColor = isBull ? "text-bull" : "text-bear";
-  const phaseBg = isBull ? "bg-bull" : "bg-bear";
   const pct = Math.round(pos.progress * 100);
 
   return (
-    <Card title={t("cyclePosition.title")} subtitle={pos.cycle.label}>
-      <div className="space-y-3">
+    <Card icon={isBull ? "📈" : "📉"} title={t("cyclePosition.title")} subtitle={pos.cycle.label}>
+      <div className="space-y-4">
+        {/* Phase badge + percentage */}
         <div className="flex items-center justify-between">
-          <span className={`text-sm font-semibold uppercase ${phaseColor}`}>
-            {isBull ? `▲ ${t("cyclePosition.bullMarket")}` : `▼ ${t("cyclePosition.bearMarket")}`}
+          <span className={`text-sm font-bold px-3 py-1.5 rounded-full ${isBull ? "text-bull bg-bull/10" : "text-bear bg-bear/10"}`}>
+            {isBull ? t("cyclePosition.bullMarket") : t("cyclePosition.bearMarket")}
           </span>
-          <span className="text-2xl font-bold tabular-nums">{pct}%</span>
+          <span className="text-3xl font-bold tabular-nums">{pct}%</span>
         </div>
 
-        <div className="w-full h-2 bg-border rounded-full overflow-hidden">
+        {/* Progress bar */}
+        <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden">
           <div
-            className={`h-full rounded-full transition-all ${phaseBg}`}
-            style={{ width: `${pct}%`, opacity: 0.8 }}
+            className={`h-full rounded-full transition-all ${isBull ? "bg-gradient-to-r from-bull/60 to-bull" : "bg-gradient-to-r from-bear/60 to-bear"}`}
+            style={{ width: `${pct}%` }}
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-2 text-xs">
-          <div>
-            <span className="text-text-dim">{t("cyclePosition.daysInPhase")}</span>
-            <p className="font-medium tabular-nums">
-              {isBull ? pos.daysSinceBottom : pos.daysSinceTop} / {pos.phaseLength}
-            </p>
-          </div>
-          <div>
-            <span className="text-text-dim">{t("cyclePosition.estRemaining")}</span>
-            <p className="font-medium tabular-nums">{pos.daysRemaining} {t("cyclePosition.days")}</p>
-          </div>
-          <div>
-            <span className="text-text-dim">{t("cyclePosition.phaseStart")}</span>
-            <p className="font-medium">{isBull ? pos.cycle.bottom : pos.cycle.top}</p>
-          </div>
-          <div>
-            <span className="text-text-dim">{t("cyclePosition.estEnd")}</span>
-            <p className="font-medium">{pos.estimatedEnd}</p>
-          </div>
+        {/* Stats grid */}
+        <div className="grid grid-cols-2 gap-3">
+          {[
+            { label: t("cyclePosition.daysInPhase"), value: `${isBull ? pos.daysSinceBottom : pos.daysSinceTop} / ${pos.phaseLength}` },
+            { label: t("cyclePosition.estRemaining"), value: `${pos.daysRemaining} ${t("cyclePosition.days")}` },
+            { label: t("cyclePosition.phaseStart"), value: isBull ? pos.cycle.bottom : pos.cycle.top },
+            { label: t("cyclePosition.estEnd"), value: pos.estimatedEnd },
+          ].map(({ label, value }) => (
+            <div key={label} className="bg-white/3 rounded-xl p-3">
+              <p className="text-xs text-text-dim mb-0.5">{label}</p>
+              <p className="text-sm font-semibold tabular-nums">{value}</p>
+            </div>
+          ))}
         </div>
       </div>
     </Card>

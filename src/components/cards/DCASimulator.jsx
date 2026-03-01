@@ -16,40 +16,30 @@ export default function DCASimulator({ priceHistory }) {
 
   const isProfit = result && result.roi > 0;
 
+  const selectClass = "w-full bg-white/5 text-text-primary text-sm rounded-xl px-3 py-2.5 border border-border focus:border-btc outline-none transition-colors";
+
   return (
-    <Card title={t("dca.title")} subtitle={t("dca.subtitle")}>
-      <div className="space-y-3">
+    <Card icon="💰" title={t("dca.title")} subtitle={t("dca.subtitle")}>
+      <div className="space-y-4">
         <div className="grid grid-cols-3 gap-2">
           <div>
-            <label className="text-[10px] text-text-dim uppercase block mb-1">{t("dca.amount")}</label>
-            <select
-              value={amount}
-              onChange={(e) => setAmount(Number(e.target.value))}
-              className="w-full bg-border/50 text-text-primary text-xs rounded px-2 py-1.5 border border-border focus:border-btc outline-none"
-            >
+            <label className="text-xs text-text-dim block mb-1.5 font-medium">{t("dca.amount")}</label>
+            <select value={amount} onChange={(e) => setAmount(Number(e.target.value))} className={selectClass}>
               {[25, 50, 100, 250, 500].map((v) => (
                 <option key={v} value={v}>${v}</option>
               ))}
             </select>
           </div>
           <div>
-            <label className="text-[10px] text-text-dim uppercase block mb-1">{t("dca.frequency")}</label>
-            <select
-              value={frequency}
-              onChange={(e) => setFrequency(e.target.value)}
-              className="w-full bg-border/50 text-text-primary text-xs rounded px-2 py-1.5 border border-border focus:border-btc outline-none"
-            >
+            <label className="text-xs text-text-dim block mb-1.5 font-medium">{t("dca.frequency")}</label>
+            <select value={frequency} onChange={(e) => setFrequency(e.target.value)} className={selectClass}>
               <option value="weekly">{t("dca.weekly")}</option>
               <option value="monthly">{t("dca.monthly")}</option>
             </select>
           </div>
           <div>
-            <label className="text-[10px] text-text-dim uppercase block mb-1">{t("dca.period")}</label>
-            <select
-              value={years}
-              onChange={(e) => setYears(Number(e.target.value))}
-              className="w-full bg-border/50 text-text-primary text-xs rounded px-2 py-1.5 border border-border focus:border-btc outline-none"
-            >
+            <label className="text-xs text-text-dim block mb-1.5 font-medium">{t("dca.period")}</label>
+            <select value={years} onChange={(e) => setYears(Number(e.target.value))} className={selectClass}>
               {[1, 2, 3, 4, 5, 8, 10].map((v) => (
                 <option key={v} value={v}>{v}y</option>
               ))}
@@ -58,30 +48,28 @@ export default function DCASimulator({ priceHistory }) {
         </div>
 
         {result && (
-          <div className="space-y-2 border-t border-border pt-3">
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <div>
-                <span className="text-text-dim">{t("dca.invested")}</span>
-                <p className="font-medium tabular-nums">${result.totalInvested.toLocaleString()}</p>
-              </div>
-              <div>
-                <span className="text-text-dim">{t("dca.currentValue")}</span>
-                <p className="font-medium tabular-nums">${Math.round(result.currentValue).toLocaleString()}</p>
-              </div>
-              <div>
-                <span className="text-text-dim">{t("dca.btcAccumulated")}</span>
-                <p className="font-medium tabular-nums">{result.totalBtc.toFixed(4)}</p>
-              </div>
-              <div>
-                <span className="text-text-dim">{t("dca.purchases")}</span>
-                <p className="font-medium tabular-nums">{result.purchases}</p>
-              </div>
-            </div>
-            <div className="text-center pt-1">
-              <span className={`text-xl font-bold tabular-nums ${isProfit ? "text-bull" : "text-bear"}`}>
+          <div className="space-y-3">
+            {/* Big result */}
+            <div className={`text-center py-4 rounded-2xl ${isProfit ? "bg-bull/10" : "bg-bear/10"}`}>
+              <span className={`text-3xl font-bold tabular-nums ${isProfit ? "text-bull" : "text-bear"}`}>
                 {isProfit ? "+" : ""}{result.roi.toFixed(1)}%
               </span>
-              <p className="text-[10px] text-text-dim">{t("dca.totalReturn")}</p>
+              <p className="text-xs text-text-dim mt-1">{t("dca.totalReturn")}</p>
+            </div>
+
+            {/* Detail grid */}
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { label: t("dca.invested"), value: `$${result.totalInvested.toLocaleString()}` },
+                { label: t("dca.currentValue"), value: `$${Math.round(result.currentValue).toLocaleString()}` },
+                { label: t("dca.btcAccumulated"), value: result.totalBtc.toFixed(4) },
+                { label: t("dca.purchases"), value: result.purchases },
+              ].map(({ label, value }) => (
+                <div key={label} className="bg-white/3 rounded-xl p-3">
+                  <p className="text-xs text-text-dim">{label}</p>
+                  <p className="text-sm font-semibold tabular-nums mt-0.5">{value}</p>
+                </div>
+              ))}
             </div>
           </div>
         )}

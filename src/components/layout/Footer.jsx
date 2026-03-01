@@ -4,21 +4,21 @@ export default function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer className="border-t border-border px-4 py-4 mt-6">
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-text-dim">
-        <span>{t("footer.dataSources")}</span>
-        <span>
+    <footer className="px-4 py-6 mt-8">
+      <div className="max-w-6xl mx-auto text-center space-y-2">
+        <p className="text-xs text-text-dim">{t("footer.dataSources")}</p>
+        <p className="text-xs text-text-dim">
           <a
             href="https://github.com/JohnPitter/bitmonitor"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-text-secondary hover:text-btc transition-colors"
+            className="text-text-secondary hover:text-btc transition-colors underline underline-offset-2"
           >
             GitHub
           </a>
           {" · "}
           {t("footer.disclaimer")}
-        </span>
+        </p>
       </div>
     </footer>
   );

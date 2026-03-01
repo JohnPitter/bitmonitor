@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation, SUPPORTED_LOCALES } from "../../i18n";
+import Flag from "../common/Flag";
 
 export default function LanguageSelector() {
   const { locale, setLocale } = useTranslation();
@@ -20,26 +21,31 @@ export default function LanguageSelector() {
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm text-text-secondary hover:text-text-primary hover:bg-border/50 transition-colors cursor-pointer"
+        className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-text-secondary hover:text-text-primary hover:bg-white/5 transition-all cursor-pointer"
         aria-label="Select language"
       >
-        <span className="text-lg leading-none">{current?.flag}</span>
-        <span className="hidden sm:inline text-xs">{current?.label}</span>
-        <svg className="w-3 h-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+        <Flag code={current?.flag} size={24} />
+        <span className="hidden sm:inline text-xs font-medium">{current?.label}</span>
+        <svg className="w-3.5 h-3.5 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d={open ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"} />
         </svg>
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-1 bg-bg-card border border-border rounded-lg shadow-lg py-1.5 min-w-[160px] z-50">
+        <div className="absolute right-0 top-full mt-2 bg-bg-card border border-border rounded-xl shadow-2xl py-2 min-w-[180px] z-50 backdrop-blur-sm">
           {SUPPORTED_LOCALES.map((lang) => (
             <button
               key={lang.code}
               onClick={() => { setLocale(lang.code); setOpen(false); }}
-              className={`w-full text-left px-3 py-2 text-sm flex items-center gap-2.5 hover:bg-border/50 transition-colors cursor-pointer ${lang.code === locale ? "text-btc font-medium bg-btc/5" : "text-text-secondary"}`}
+              className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 hover:bg-white/5 transition-all cursor-pointer ${lang.code === locale ? "text-btc font-semibold bg-btc/5" : "text-text-secondary"}`}
             >
-              <span className="text-lg leading-none">{lang.flag}</span>
+              <Flag code={lang.flag} size={24} />
               <span>{lang.label}</span>
+              {lang.code === locale && (
+                <svg className="w-4 h-4 ml-auto text-btc" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              )}
             </button>
           ))}
         </div>
