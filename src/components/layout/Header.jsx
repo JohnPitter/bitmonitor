@@ -15,7 +15,7 @@ export default function Header({ currentPrice }) {
     <header>
       {/* Top nav bar */}
       <div className="bg-white border-b border-border px-4 py-3 sm:px-6">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="max-w-[1600px] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-yellow-400 flex items-center justify-center">
               <span className="text-white text-lg font-bold">₿</span>
@@ -32,7 +32,7 @@ export default function Header({ currentPrice }) {
       {/* Hero section */}
       {price != null && (
         <div className="bg-gradient-to-br from-yellow-50 via-amber-50 to-white px-4 py-6 sm:px-6">
-          <div className="max-w-7xl mx-auto text-center">
+          <div className="max-w-[1600px] mx-auto text-center">
             <div className="flex items-center justify-center gap-2 mb-3">
               <span className="inline-flex items-center gap-1.5 bg-yellow-100 text-yellow-800 text-xs font-medium px-3 py-1 rounded-full">
                 <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full animate-pulse" />

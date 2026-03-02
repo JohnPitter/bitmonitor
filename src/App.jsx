@@ -27,7 +27,7 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header currentPrice={currentPrice} />
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-6 sm:px-6 lg:px-8">
+      <main className="flex-1 max-w-[1600px] mx-auto w-full px-4 py-6 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {/* Row 1: 3 status cards */}
           <CyclePosition />
