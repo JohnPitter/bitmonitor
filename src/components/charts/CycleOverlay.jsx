@@ -14,7 +14,7 @@ import { normalizeCycleForOverlay } from "../../lib/cycle";
 import { PATTERN } from "../../lib/constants";
 import { useTranslation, INTL_LOCALE_MAP } from "../../i18n";
 
-const CYCLE_COLORS = ["#9ca3af", "#3b82f6", "#a855f7", "#d97706"];
+const CYCLE_COLORS = ["#64748b", "#3b82f6", "#a855f7", "#f59e0b"];
 
 function formatDate(ts, intlLocale) {
   if (!ts) return "";
@@ -30,9 +30,9 @@ function CustomTooltip({ active, payload, label, t, intlLocale, overlays }) {
   if (!active || !payload?.length) return null;
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-3 text-sm shadow-lg">
+    <div className="bg-bg-card border border-border rounded-xl p-3 text-sm shadow-lg">
       <p className="text-text-dim mb-1.5 font-medium">{t("cycleOverlay.day", { number: label })}</p>
-      {payload.map((p, idx) => {
+      {payload.map((p) => {
         const cycleIdx = parseInt(p.dataKey.replace("cycle", "")) - 1;
         const overlay = overlays[cycleIdx];
         const point = overlay?.data.find((d) => d.day === label);
@@ -111,7 +111,7 @@ export default function CycleOverlay({ priceHistory }) {
           <LineChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 20 }}>
             <XAxis
               dataKey="day"
-              tick={{ fill: "#9ca3af", fontSize: 11 }}
+              tick={{ fill: "#64748b", fontSize: 11 }}
               tickFormatter={(d) => {
                 const tick = dateTicks.find((t) => t.day === d);
                 if (tick) return formatAxisDate(tick.timestamp, intlLocale);
@@ -122,24 +122,28 @@ export default function CycleOverlay({ priceHistory }) {
               angle={-35}
               textAnchor="end"
               height={45}
+              axisLine={{ stroke: "#1e293b" }}
+              tickLine={{ stroke: "#1e293b" }}
             />
             <YAxis
               scale="log"
               domain={["auto", "auto"]}
-              tick={{ fill: "#9ca3af", fontSize: 11 }}
+              tick={{ fill: "#64748b", fontSize: 11 }}
               tickFormatter={(v) => `${v}x`}
               width={45}
+              axisLine={{ stroke: "#1e293b" }}
+              tickLine={{ stroke: "#1e293b" }}
             />
             <Tooltip content={<CustomTooltip t={t} intlLocale={intlLocale} overlays={overlays} />} />
             <Legend
-              wrapperStyle={{ fontSize: 12, paddingTop: 10, color: "#4b5563" }}
+              wrapperStyle={{ fontSize: 12, paddingTop: 10, color: "#94a3b8" }}
             />
             <ReferenceLine
               x={PATTERN.claimedBullDays}
-              stroke="#dc2626"
+              stroke="#ef4444"
               strokeDasharray="6 4"
               strokeOpacity={0.5}
-              label={{ value: "~1064d", fill: "#dc2626", fontSize: 11, position: "top" }}
+              label={{ value: "~1064d", fill: "#ef4444", fontSize: 11, position: "top" }}
             />
             {overlays.map((overlay, idx) => (
               <Line

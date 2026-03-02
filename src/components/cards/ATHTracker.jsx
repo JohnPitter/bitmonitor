@@ -16,7 +16,7 @@ export default function ATHTracker() {
         {/* Top: ATH current + Next estimate side by side */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Current ATH */}
-          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-center">
+          <div className="bg-btc/10 border border-btc/20 rounded-xl p-4 text-center">
             <p className="text-xs text-text-dim mb-1">{t("ath.currentATH")}</p>
             <span className="text-3xl font-bold text-btc tabular-nums">
               ${info.currentATH.price.toLocaleString(intlLocale)}
@@ -27,7 +27,7 @@ export default function ATHTracker() {
           </div>
 
           {/* Next ATH estimate */}
-          <div className="bg-gray-50 rounded-xl p-4 text-center">
+          <div className="bg-bg-highlight rounded-xl p-4 text-center">
             <p className="text-xs text-text-dim mb-1">{t("ath.nextEstimate")}</p>
             <div className="flex items-center justify-center gap-2">
               <span className="text-2xl">🎯</span>
@@ -51,7 +51,7 @@ export default function ATHTracker() {
           <p className="text-xs text-text-dim mb-2 font-medium">{t("ath.history")}</p>
           <div className="space-y-1.5">
             {info.history.map((a) => (
-              <div key={a.cycle} className="flex items-center justify-between bg-gray-50 rounded-xl px-4 py-2.5 text-sm">
+              <div key={a.cycle} className="flex items-center justify-between bg-bg-highlight rounded-xl px-4 py-2.5 text-sm">
                 <div className="flex items-center gap-2">
                   <span className="text-text-dim">#{a.cycle}</span>
                   <span className="text-text-secondary">

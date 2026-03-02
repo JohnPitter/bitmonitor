@@ -30,7 +30,7 @@ export default function BestDays({ priceHistory }) {
                 <div
                   key={d.day}
                   className={`flex-1 text-center py-2.5 rounded-xl text-xs transition-all ${
-                    isBest ? "bg-green-100 text-green-700 font-bold ring-1 ring-green-300" : "bg-gray-50 text-text-secondary"
+                    isBest ? "bg-bull/10 text-bull font-bold ring-1 ring-bull/30" : "bg-bg-highlight text-text-secondary"
                   }`}
                 >
                   <div className="font-medium">{t(`dayNames.${d.label}`)}</div>
@@ -46,7 +46,7 @@ export default function BestDays({ priceHistory }) {
           <p className="text-xs text-text-dim mb-2 font-medium">{t("bestDays.bestDaysOfMonth")}</p>
           <div className="space-y-1.5">
             {monthData.map((d, i) => (
-              <div key={d.day} className={`flex items-center justify-between text-sm px-3 py-2 rounded-xl ${i === 0 ? "bg-green-100 text-green-700 font-semibold" : "bg-gray-50 text-text-secondary"}`}>
+              <div key={d.day} className={`flex items-center justify-between text-sm px-3 py-2 rounded-xl ${i === 0 ? "bg-bull/10 text-bull font-semibold" : "bg-bg-highlight text-text-secondary"}`}>
                 <span>
                   {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `${i + 1}.`} {t("bestDays.day", { number: d.day })}
                 </span>

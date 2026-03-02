@@ -26,7 +26,7 @@ export default function HalvingCountdown() {
               { value: months, label: t("halving.months") },
               { value: days, label: t("halving.days") },
             ].map(({ value, label }) => (
-              <div key={label} className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 min-w-[64px] text-center">
+              <div key={label} className="bg-btc/10 border border-btc/20 rounded-xl px-4 py-3 min-w-[64px] text-center">
                 <span className="text-2xl font-bold tabular-nums text-btc block">{value}</span>
                 <p className="text-[11px] text-text-dim mt-0.5">{label}</p>
               </div>
@@ -40,7 +40,7 @@ export default function HalvingCountdown() {
         {/* Right: Reward change + past halvings */}
         <div className="flex-1 space-y-4">
           {/* Reward change */}
-          <div className="bg-gray-50 rounded-xl p-3">
+          <div className="bg-bg-highlight rounded-xl p-3">
             <p className="text-xs text-text-dim mb-2">{t("halving.rewardAfter")}</p>
             <div className="flex items-center justify-between text-sm">
               <span className="text-text-secondary font-medium">{countdown.currentReward} BTC</span>
@@ -54,7 +54,7 @@ export default function HalvingCountdown() {
             <p className="text-xs text-text-dim mb-2 font-medium">{t("halving.previousHalvings")}</p>
             <div className="space-y-1.5">
               {HALVINGS.map((h) => (
-                <div key={h.date} className="flex justify-between text-sm text-text-secondary bg-gray-50 rounded-lg px-3 py-1.5">
+                <div key={h.date} className="flex justify-between text-sm text-text-secondary bg-bg-highlight rounded-lg px-3 py-1.5">
                   <span>{new Date(h.date).toLocaleDateString(intlLocale, { month: "short", year: "numeric" })}</span>
                   <span className="tabular-nums font-medium">{h.rewardAfter} BTC</span>
                 </div>

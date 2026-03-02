@@ -12,47 +12,37 @@ export default function Header({ currentPrice }) {
   const isPositive = change > 0;
 
   return (
-    <header>
-      {/* Top nav bar */}
-      <div className="bg-white border-b border-border px-4 py-3 sm:px-6">
-        <div className="max-w-[1600px] mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-yellow-400 flex items-center justify-center">
-              <span className="text-white text-lg font-bold">₿</span>
-            </div>
-            <div>
-              <h1 className="text-base font-bold leading-tight">BitMonitor</h1>
-              <span className="text-xs text-text-dim">{t("header.subtitle")}</span>
-            </div>
+    <header className="bg-[#0d1321] border-b border-border px-4 py-3 sm:px-6">
+      <div className="max-w-[1600px] mx-auto flex items-center justify-between">
+        {/* Left: Logo + name */}
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-xl bg-btc flex items-center justify-center">
+            <span className="text-white text-lg font-bold">₿</span>
           </div>
-          <LanguageSelector />
+          <div>
+            <h1 className="text-base font-bold text-text-primary leading-tight">BitMonitor</h1>
+            <span className="text-xs text-text-dim">{t("header.subtitle")}</span>
+          </div>
         </div>
-      </div>
 
-      {/* Hero section */}
-      {price != null && (
-        <div className="bg-gradient-to-br from-yellow-50 via-amber-50 to-white px-4 py-6 sm:px-6">
-          <div className="max-w-[1600px] mx-auto text-center">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <span className="inline-flex items-center gap-1.5 bg-yellow-100 text-yellow-800 text-xs font-medium px-3 py-1 rounded-full">
-                <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full animate-pulse" />
-                Live
+        {/* Center: Price + change (inline) */}
+        {price != null && (
+          <div className="hidden sm:flex items-center gap-3">
+            <span className="text-2xl font-bold tabular-nums text-text-primary">
+              {price.toLocaleString(intlLocale, { style: "currency", currency: currency.intl, maximumFractionDigits: 0 })}
+            </span>
+            {change != null && (
+              <span className={`text-sm font-semibold tabular-nums px-2.5 py-1 rounded-full ${isPositive ? "text-bull bg-bull/10" : "text-bear bg-bear/10"}`}>
+                {isPositive ? "+" : ""}{change.toFixed(1)}%
               </span>
-            </div>
-            <div className="flex items-center justify-center gap-3">
-              <span className="text-4xl sm:text-5xl font-bold tabular-nums tracking-tight text-gray-900">
-                {price.toLocaleString(intlLocale, { style: "currency", currency: currency.intl, maximumFractionDigits: 0 })}
-              </span>
-              {change != null && (
-                <span className={`text-base font-semibold tabular-nums px-3 py-1 rounded-full ${isPositive ? "text-green-700 bg-green-100" : "text-red-700 bg-red-100"}`}>
-                  {isPositive ? "+" : ""}{change.toFixed(1)}%
-                </span>
-              )}
-            </div>
-            <p className="text-sm text-text-dim mt-2">{t("header.last24h")}</p>
+            )}
+            <span className="w-2 h-2 bg-bull rounded-full animate-pulse" />
           </div>
-        </div>
-      )}
+        )}
+
+        {/* Right: Language */}
+        <LanguageSelector />
+      </div>
     </header>
   );
 }

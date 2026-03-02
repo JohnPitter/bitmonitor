@@ -2,11 +2,11 @@ import Card from "../common/Card";
 import { useTranslation } from "../../i18n";
 
 function getLabel(value) {
-  if (value <= 25) return { textKey: "fearGreed.extremeFear", color: "text-fear", bg: "bg-red-100", signalKey: "fearGreed.strongBuy", emoji: "😱" };
-  if (value <= 45) return { textKey: "fearGreed.fear", color: "text-bear", bg: "bg-red-100", signalKey: "fearGreed.buy", emoji: "😟" };
-  if (value <= 55) return { textKey: "fearGreed.neutral", color: "text-neutral", bg: "bg-amber-50", signalKey: "fearGreed.hold", emoji: "😐" };
-  if (value <= 75) return { textKey: "fearGreed.greed", color: "text-btc", bg: "bg-amber-50", signalKey: "fearGreed.caution", emoji: "🤑" };
-  return { textKey: "fearGreed.extremeGreed", color: "text-greed", bg: "bg-green-100", signalKey: "fearGreed.sell", emoji: "🔥" };
+  if (value <= 25) return { textKey: "fearGreed.extremeFear", color: "text-fear", bg: "bg-bear/10", signalKey: "fearGreed.strongBuy", emoji: "😱" };
+  if (value <= 45) return { textKey: "fearGreed.fear", color: "text-bear", bg: "bg-bear/10", signalKey: "fearGreed.buy", emoji: "😟" };
+  if (value <= 55) return { textKey: "fearGreed.neutral", color: "text-neutral", bg: "bg-btc/10", signalKey: "fearGreed.hold", emoji: "😐" };
+  if (value <= 75) return { textKey: "fearGreed.greed", color: "text-btc", bg: "bg-btc/10", signalKey: "fearGreed.caution", emoji: "🤑" };
+  return { textKey: "fearGreed.extremeGreed", color: "text-greed", bg: "bg-bull/10", signalKey: "fearGreed.sell", emoji: "🔥" };
 }
 
 function Gauge({ value }) {
@@ -21,10 +21,10 @@ function Gauge({ value }) {
   return (
     <svg viewBox="0 0 120 70" className="w-full max-w-[200px] mx-auto">
       {[
-        { pct: 0.25, color: "#dc2626" },
-        { pct: 0.25, color: "#d97706" },
+        { pct: 0.25, color: "#ef4444" },
+        { pct: 0.25, color: "#f59e0b" },
         { pct: 0.25, color: "#65a30d" },
-        { pct: 0.25, color: "#16a34a" },
+        { pct: 0.25, color: "#22c55e" },
       ].reduce((acc, seg, i) => {
         const segStart = acc.endAngle;
         const segEnd = segStart + seg.pct * 180;
@@ -40,14 +40,14 @@ function Gauge({ value }) {
             stroke={seg.color}
             strokeWidth="10"
             strokeLinecap="round"
-            opacity="0.5"
+            opacity="0.6"
           />,
         );
         acc.endAngle = segEnd;
         return acc;
       }, { elements: [], endAngle: -90 }).elements}
-      <line x1={cx} y1={cy} x2={needleTip.x} y2={needleTip.y} stroke="#1f2937" strokeWidth="2.5" strokeLinecap="round" />
-      <circle cx={cx} cy={cy} r="4" fill="#1f2937" />
+      <line x1={cx} y1={cy} x2={needleTip.x} y2={needleTip.y} stroke="#f1f5f9" strokeWidth="2.5" strokeLinecap="round" />
+      <circle cx={cx} cy={cy} r="4" fill="#f1f5f9" />
     </svg>
   );
 }

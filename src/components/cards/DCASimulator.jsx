@@ -16,7 +16,7 @@ export default function DCASimulator({ priceHistory }) {
 
   const isProfit = result && result.roi > 0;
 
-  const selectClass = "w-full bg-gray-50 text-text-primary text-sm rounded-xl px-3 py-2.5 border border-border focus:border-btc outline-none transition-colors";
+  const selectClass = "w-full bg-bg-highlight text-text-primary text-sm rounded-xl px-3 py-2.5 border border-border focus:border-btc outline-none transition-colors";
 
   return (
     <Card icon="💰" title={t("dca.title")} subtitle={t("dca.subtitle")}>
@@ -52,7 +52,7 @@ export default function DCASimulator({ priceHistory }) {
         {result && (
           <div className="flex-1 space-y-3">
             {/* Big result */}
-            <div className={`text-center py-4 rounded-2xl ${isProfit ? "bg-green-100" : "bg-red-100"}`}>
+            <div className={`text-center py-4 rounded-xl ${isProfit ? "bg-bull/10" : "bg-bear/10"}`}>
               <span className={`text-3xl font-bold tabular-nums ${isProfit ? "text-bull" : "text-bear"}`}>
                 {isProfit ? "+" : ""}{result.roi.toFixed(1)}%
               </span>
@@ -67,7 +67,7 @@ export default function DCASimulator({ priceHistory }) {
                 { label: t("dca.btcAccumulated"), value: result.totalBtc.toFixed(4) },
                 { label: t("dca.purchases"), value: result.purchases },
               ].map(({ label, value }) => (
-                <div key={label} className="bg-gray-50 rounded-xl p-3">
+                <div key={label} className="bg-bg-highlight rounded-xl p-3">
                   <p className="text-xs text-text-dim">{label}</p>
                   <p className="text-sm font-semibold tabular-nums mt-0.5">{value}</p>
                 </div>

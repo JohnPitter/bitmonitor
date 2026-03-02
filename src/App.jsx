@@ -27,28 +27,26 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header currentPrice={currentPrice} />
-      <main className="flex-1 max-w-[1600px] mx-auto w-full px-4 py-6 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {/* Row 1: 3 status cards */}
-          <CyclePosition />
-          <FearGreed fearGreed={fearGreed} />
-          <ATHTracker />
-
-          {/* Row 2: Peak analysis 2-col + CycleStats 1-col */}
-          <div className="md:col-span-2">
-            <PeakAnalysis />
+      <main className="flex-1 max-w-[1600px] mx-auto w-full px-4 py-5 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:grid lg:grid-cols-[350px_1fr] gap-5">
+          {/* Sidebar */}
+          <div className="flex flex-col gap-4">
+            <CyclePosition />
+            <FearGreed fearGreed={fearGreed} />
+            <ATHTracker />
+            <HalvingCountdown />
+            <CycleStats />
           </div>
-          <CycleStats />
 
-          {/* Row 3: Chart full-width 3-col */}
-          <div className="md:col-span-2 lg:col-span-3">
+          {/* Main */}
+          <div className="flex flex-col gap-4">
             <CycleOverlay priceHistory={prices} />
+            <PeakAnalysis />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <BestDays priceHistory={prices} />
+              <DCASimulator priceHistory={prices} />
+            </div>
           </div>
-
-          {/* Row 4: 3 utility cards */}
-          <BestDays priceHistory={prices} />
-          <HalvingCountdown />
-          <DCASimulator priceHistory={prices} />
         </div>
       </main>
       <Footer />
