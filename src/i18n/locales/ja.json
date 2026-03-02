@@ -120,6 +120,11 @@
     "daysSinceHalving": "半減期からの日数",
     "days": "日",
     "historicalReturns": "各サイクルのリターン（底値→天井）",
+    "priceProjection": "次のサイクルの最高価格予測",
+    "conservative": "控えめ予測",
+    "optimistic": "楽観予測",
+    "fromBottom": "底値 {{price}} から算出",
+    "projectionExplain": "天井から平均 {{drawdown}}% の下落と約 {{returnPct}}% の予想リターンに基づく",
     "diminishingNote": "リターンはサイクルごとに減少傾向 — 過去の実績は将来の結果を保証しません"
   },
   "dayNames": {

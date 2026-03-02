@@ -203,6 +203,57 @@ export function getPeakAnalysis() {
   const consensusPeakDate = new Date(consensusPeakTs).toISOString().split("T")[0];
   const daysToConsensusPeak = Math.max(0, Math.floor((consensusPeakTs - now) / DAY_MS));
 
+  // --- Price projection for next cycle ---
+  // Historical drawdown from top to next bottom
+  const drawdowns = [];
+  for (let i = 1; i < CYCLE_EVENTS.length; i++) {
+    const prevTop = CYCLE_EVENTS[i - 1].topPrice;
+    const nextBottom = CYCLE_EVENTS[i].bottomPrice;
+    drawdowns.push((prevTop - nextBottom) / prevTop);
+  }
+  const avgDrawdownPct = drawdowns.length > 0
+    ? drawdowns.reduce((s, d) => s + d, 0) / drawdowns.length
+    : 0.80;
+
+  // Use only recent cycles (2+) for diminishing return ratio — cycle 1 is an outlier
+  const recentReturns = cycleReturns.filter((c) => c.id >= 2);
+  const recentRatios = [];
+  for (let i = 1; i < recentReturns.length; i++) {
+    if (recentReturns[i - 1].returnPct > 0) {
+      recentRatios.push(recentReturns[i].returnPct / recentReturns[i - 1].returnPct);
+    }
+  }
+  // Last ratio is most recent trend; fallback to 0.33
+  const lastDiminishingRatio = recentRatios.length > 0
+    ? recentRatios[recentRatios.length - 1]
+    : 0.33;
+
+  const lastCycleReturn = cycleReturns[cycleReturns.length - 1];
+  const projectedReturnPct = Math.round(lastCycleReturn.returnPct * lastDiminishingRatio);
+
+  // Conservative: avg drawdown, diminishing return
+  const projectedNextBottomConservative = Math.round(currentCycle.topPrice * (1 - avgDrawdownPct));
+  const projectedNextATHConservative = Math.round(projectedNextBottomConservative * (1 + projectedReturnPct / 100));
+
+  // Optimistic: smallest historical drawdown, same return
+  const minDrawdown = Math.min(...drawdowns);
+  const projectedNextBottomOptimistic = Math.round(currentCycle.topPrice * (1 - minDrawdown));
+  const projectedNextATHOptimistic = Math.round(projectedNextBottomOptimistic * (1 + projectedReturnPct / 100));
+
+  const priceProjection = {
+    currentTopPrice: currentCycle.topPrice,
+    avgDrawdownPct: Math.round(avgDrawdownPct * 100),
+    projectedReturnPct,
+    conservative: {
+      nextBottom: projectedNextBottomConservative,
+      nextATH: projectedNextATHConservative,
+    },
+    optimistic: {
+      nextBottom: projectedNextBottomOptimistic,
+      nextATH: projectedNextATHOptimistic,
+    },
+  };
+
   // --- Risk level (how close to the expected top) ---
   let riskLevel; // 1=low (accumulate), 2=moderate, 3=high (caution), 4=extreme (near top), 5=bear
   if (topAlreadyHappened) {
@@ -226,6 +277,8 @@ export function getPeakAnalysis() {
     consensus: { date: consensusPeakDate, daysRemaining: daysToConsensusPeak, confidence: consensusConfidence },
     // Returns
     returns: { history: cycleReturns, avgReturn, diminishingFactor: Math.round(diminishingFactor * 100) / 100 },
+    // Price projection
+    priceProjection,
     // Position
     position: { daysSinceBottom, daysSinceHalving, daysSinceTop, topAlreadyHappened, riskLevel },
     // Current cycle

@@ -120,6 +120,11 @@
     "daysSinceHalving": "Dias desde o halving",
     "days": "dias",
     "historicalReturns": "Retornos por ciclo (fundo → topo)",
+    "priceProjection": "Projecao de preco do proximo ciclo",
+    "conservative": "Conservador",
+    "optimistic": "Otimista",
+    "fromBottom": "A partir do fundo em {{price}}",
+    "projectionExplain": "Baseado em queda media de {{drawdown}}% do topo e retorno projetado de ~{{returnPct}}%",
     "diminishingNote": "Os retornos tendem a diminuir a cada ciclo — desempenho passado nao garante resultados futuros"
   },
   "dayNames": {

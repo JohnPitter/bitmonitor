@@ -24,7 +24,7 @@ export default function PeakAnalysis() {
   const intlLocale = INTL_LOCALE_MAP[locale];
   const analysis = useMemo(() => getPeakAnalysis(), []);
 
-  const { signals, consensus, returns, position } = analysis;
+  const { signals, consensus, returns, position, priceProjection } = analysis;
   const risk = RISK_COLORS[position.riskLevel];
   const riskKey = `peak.risk${position.riskLevel}`;
 
@@ -54,6 +54,34 @@ export default function PeakAnalysis() {
               </p>
             </>
           )}
+        </div>
+
+        {/* Price projection */}
+        <div className="bg-white/3 rounded-xl p-4">
+          <p className="text-xs text-text-dim mb-3 font-medium">{t("peak.priceProjection")}</p>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-white/3 rounded-xl p-3 text-center">
+              <p className="text-[11px] text-text-dim mb-1">{t("peak.conservative")}</p>
+              <span className="text-xl font-bold text-btc tabular-nums">
+                ${priceProjection.conservative.nextATH.toLocaleString(intlLocale)}
+              </span>
+              <p className="text-[10px] text-text-dim mt-1">
+                {t("peak.fromBottom", { price: `$${priceProjection.conservative.nextBottom.toLocaleString(intlLocale)}` })}
+              </p>
+            </div>
+            <div className="bg-white/3 rounded-xl p-3 text-center">
+              <p className="text-[11px] text-text-dim mb-1">{t("peak.optimistic")}</p>
+              <span className="text-xl font-bold text-green-400 tabular-nums">
+                ${priceProjection.optimistic.nextATH.toLocaleString(intlLocale)}
+              </span>
+              <p className="text-[10px] text-text-dim mt-1">
+                {t("peak.fromBottom", { price: `$${priceProjection.optimistic.nextBottom.toLocaleString(intlLocale)}` })}
+              </p>
+            </div>
+          </div>
+          <p className="text-[10px] text-text-dim mt-2 text-center">
+            {t("peak.projectionExplain", { drawdown: priceProjection.avgDrawdownPct, returnPct: priceProjection.projectedReturnPct })}
+          </p>
         </div>
 
         {/* Risk level */}
