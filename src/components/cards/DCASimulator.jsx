@@ -20,9 +20,9 @@ export default function DCASimulator({ priceHistory }) {
 
   return (
     <Card icon="💰" title={t("dca.title")} subtitle={t("dca.subtitle")}>
-      <div className="flex flex-col sm:flex-row sm:gap-6">
-        {/* Left: Controls */}
-        <div className="space-y-3 sm:min-w-[180px] mb-4 sm:mb-0">
+      <div className="flex flex-col gap-4">
+        {/* Controls */}
+        <div className="space-y-3">
           <div>
             <label className="text-xs text-text-dim block mb-1.5 font-medium">{t("dca.amount")}</label>
             <select value={amount} onChange={(e) => setAmount(Number(e.target.value))} className={selectClass}>

@@ -68,14 +68,14 @@ export default function FearGreed({ fearGreed }) {
 
   return (
     <Card icon="🧠" title={t("fearGreed.title")} subtitle={t("fearGreed.subtitle")}>
-      <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8">
-        {/* Left: Gauge */}
-        <div className="flex-shrink-0 sm:max-w-[180px] mx-auto sm:mx-0 mb-4 sm:mb-0">
+      <div className="flex flex-col items-center gap-4">
+        {/* Gauge */}
+        <div className="max-w-[180px] w-full">
           <Gauge value={current.value} />
         </div>
-        {/* Right: Value + label + badge */}
-        <div className="text-center sm:text-left">
-          <div className="flex items-center justify-center sm:justify-start gap-2">
+        {/* Value + label + badge */}
+        <div className="text-center">
+          <div className="flex items-center justify-center gap-2">
             <span className="text-2xl">{info.emoji}</span>
             <span className={`text-4xl font-bold tabular-nums ${info.color}`}>{current.value}</span>
           </div>

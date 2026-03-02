@@ -14,7 +14,7 @@ export default function ATHTracker() {
     <Card icon="🏆" title={t("ath.title")} subtitle={t("ath.subtitle")}>
       <div className="space-y-4">
         {/* Top: ATH current + Next estimate side by side */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           {/* Current ATH */}
           <div className="bg-btc/10 border border-btc/20 rounded-xl p-4 text-center">
             <p className="text-xs text-text-dim mb-1">{t("ath.currentATH")}</p>

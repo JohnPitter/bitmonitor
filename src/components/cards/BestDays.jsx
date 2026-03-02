@@ -19,9 +19,9 @@ export default function BestDays({ priceHistory }) {
 
   return (
     <Card icon="🛒" title={t("bestDays.title")} subtitle={t("bestDays.subtitle")}>
-      <div className="flex flex-col sm:flex-row sm:gap-6">
-        {/* Left: Weekday boxes */}
-        <div className="flex-1 mb-4 sm:mb-0">
+      <div className="flex flex-col gap-4">
+        {/* Weekday boxes */}
+        <div>
           <p className="text-xs text-text-dim mb-2 font-medium">{t("bestDays.byDayOfWeek")}</p>
           <div className="flex gap-1.5">
             {weekData.map((d) => {
@@ -41,8 +41,8 @@ export default function BestDays({ priceHistory }) {
           </div>
         </div>
 
-        {/* Right: Top 5 days of month */}
-        <div className="flex-1">
+        {/* Top 5 days of month */}
+        <div>
           <p className="text-xs text-text-dim mb-2 font-medium">{t("bestDays.bestDaysOfMonth")}</p>
           <div className="space-y-1.5">
             {monthData.map((d, i) => (

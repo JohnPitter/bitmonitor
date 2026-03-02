@@ -17,10 +17,10 @@ export default function HalvingCountdown() {
 
   return (
     <Card icon="⏳" title={t("halving.title")} subtitle={t("halving.subtitle")}>
-      <div className="flex flex-col sm:flex-row sm:gap-6">
-        {/* Left: Countdown boxes + estimated date */}
-        <div className="flex-1 mb-4 sm:mb-0">
-          <div className="flex justify-center sm:justify-start gap-4 mb-3">
+      <div className="flex flex-col gap-4">
+        {/* Countdown boxes + estimated date */}
+        <div>
+          <div className="flex justify-center gap-4 mb-3">
             {[
               { value: years, label: t("halving.years") },
               { value: months, label: t("halving.months") },
@@ -32,13 +32,13 @@ export default function HalvingCountdown() {
               </div>
             ))}
           </div>
-          <p className="text-sm text-text-secondary text-center sm:text-left">
+          <p className="text-sm text-text-secondary text-center">
             {t("halving.est", { date: estDate })}
           </p>
         </div>
 
-        {/* Right: Reward change + past halvings */}
-        <div className="flex-1 space-y-4">
+        {/* Reward change + past halvings */}
+        <div className="space-y-4">
           {/* Reward change */}
           <div className="bg-bg-highlight rounded-xl p-3">
             <p className="text-xs text-text-dim mb-2">{t("halving.rewardAfter")}</p>
