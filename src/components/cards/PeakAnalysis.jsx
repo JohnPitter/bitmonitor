@@ -63,24 +63,33 @@ export default function PeakAnalysis() {
             <div className="bg-white/3 rounded-xl p-3 text-center">
               <p className="text-[11px] text-text-dim mb-1">{t("peak.conservative")}</p>
               <span className="text-xl font-bold text-btc tabular-nums">
-                ${priceProjection.conservative.nextATH.toLocaleString(intlLocale)}
+                ${priceProjection.conservative.toLocaleString(intlLocale)}
               </span>
               <p className="text-[10px] text-text-dim mt-1">
-                {t("peak.fromBottom", { price: `$${priceProjection.conservative.nextBottom.toLocaleString(intlLocale)}` })}
+                {t("peak.multiplierLabel", { multiplier: priceProjection.conservativeMultiplier })}
               </p>
             </div>
             <div className="bg-white/3 rounded-xl p-3 text-center">
               <p className="text-[11px] text-text-dim mb-1">{t("peak.optimistic")}</p>
               <span className="text-xl font-bold text-green-400 tabular-nums">
-                ${priceProjection.optimistic.nextATH.toLocaleString(intlLocale)}
+                ${priceProjection.optimistic.toLocaleString(intlLocale)}
               </span>
               <p className="text-[10px] text-text-dim mt-1">
-                {t("peak.fromBottom", { price: `$${priceProjection.optimistic.nextBottom.toLocaleString(intlLocale)}` })}
+                {t("peak.multiplierLabel", { multiplier: priceProjection.optimisticMultiplier })}
               </p>
             </div>
           </div>
+          {/* ATH multiplier history */}
+          <div className="mt-3 space-y-1">
+            {priceProjection.athMultipliers.map((m, i) => (
+              <div key={i} className="flex items-center justify-between text-[11px] text-text-dim">
+                <span>${m.from.toLocaleString(intlLocale)} → ${m.to.toLocaleString(intlLocale)}</span>
+                <span className="text-btc font-semibold">{m.multiplier}x</span>
+              </div>
+            ))}
+          </div>
           <p className="text-[10px] text-text-dim mt-2 text-center">
-            {t("peak.projectionExplain", { drawdown: priceProjection.avgDrawdownPct, returnPct: priceProjection.projectedReturnPct })}
+            {t("peak.projectionExplainATH")}
           </p>
         </div>
 

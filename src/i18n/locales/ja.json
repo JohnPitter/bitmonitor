@@ -123,8 +123,8 @@
     "priceProjection": "次のサイクルの最高価格予測",
     "conservative": "控えめ予測",
     "optimistic": "楽観予測",
-    "fromBottom": "底値 {{price}} から算出",
-    "projectionExplain": "天井から平均 {{drawdown}}% の下落と約 {{returnPct}}% の予想リターンに基づく",
+    "multiplierLabel": "現在の最高値の {{multiplier}} 倍",
+    "projectionExplainATH": "過去の最高値倍率に基づく（各サイクルで新高値を更新するが、倍率は縮小傾向）",
     "diminishingNote": "リターンはサイクルごとに減少傾向 — 過去の実績は将来の結果を保証しません"
   },
   "dayNames": {

@@ -123,8 +123,8 @@
     "priceProjection": "下一周期最高价预测",
     "conservative": "保守估计",
     "optimistic": "乐观估计",
-    "fromBottom": "从底部 {{price}} 起算",
-    "projectionExplain": "基于平均 {{drawdown}}% 的顶部回撤和约 {{returnPct}}% 的预期回报",
+    "multiplierLabel": "当前最高价的 {{multiplier}} 倍",
+    "projectionExplainATH": "基于历史最高价倍数（每个周期都创新高，但倍数逐渐缩小）",
     "diminishingNote": "回报率逐周期递减 — 过去的表现不能保证未来的结果"
   },
   "dayNames": {

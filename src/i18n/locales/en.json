@@ -123,8 +123,8 @@
     "priceProjection": "Projected next cycle ATH",
     "conservative": "Conservative",
     "optimistic": "Optimistic",
-    "fromBottom": "From bottom at {{price}}",
-    "projectionExplain": "Based on avg. {{drawdown}}% drawdown from top and ~{{returnPct}}% projected return",
+    "multiplierLabel": "{{multiplier}}x over current ATH",
+    "projectionExplainATH": "Based on historical ATH-over-ATH multipliers (each cycle sets a new high, but by a smaller factor)",
     "diminishingNote": "Returns tend to decrease each cycle — past performance doesn't guarantee future results"
   },
   "dayNames": {

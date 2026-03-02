@@ -123,8 +123,8 @@
     "priceProjection": "Projecao de preco do proximo ciclo",
     "conservative": "Conservador",
     "optimistic": "Otimista",
-    "fromBottom": "A partir do fundo em {{price}}",
-    "projectionExplain": "Baseado em queda media de {{drawdown}}% do topo e retorno projetado de ~{{returnPct}}%",
+    "multiplierLabel": "{{multiplier}}x sobre o ATH atual",
+    "projectionExplainATH": "Baseado nos multiplicadores historicos ATH-sobre-ATH (cada ciclo faz nova maxima, mas por fator menor)",
     "diminishingNote": "Os retornos tendem a diminuir a cada ciclo — desempenho passado nao garante resultados futuros"
   },
   "dayNames": {

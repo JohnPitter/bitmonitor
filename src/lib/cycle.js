@@ -204,54 +204,37 @@ export function getPeakAnalysis() {
   const daysToConsensusPeak = Math.max(0, Math.floor((consensusPeakTs - now) / DAY_MS));
 
   // --- Price projection for next cycle ---
-  // Historical drawdown from top to next bottom
-  const drawdowns = [];
-  for (let i = 1; i < CYCLE_EVENTS.length; i++) {
-    const prevTop = CYCLE_EVENTS[i - 1].topPrice;
-    const nextBottom = CYCLE_EVENTS[i].bottomPrice;
-    drawdowns.push((prevTop - nextBottom) / prevTop);
+  // ATH-over-ATH multipliers: how much each new ATH exceeds the previous
+  const athMultipliers = [];
+  for (let i = 1; i < ATH_HISTORY.length; i++) {
+    athMultipliers.push(ATH_HISTORY[i].price / ATH_HISTORY[i - 1].price);
   }
-  const avgDrawdownPct = drawdowns.length > 0
-    ? drawdowns.reduce((s, d) => s + d, 0) / drawdowns.length
-    : 0.80;
+  // e.g. [17.2x, 3.5x, 1.83x] — diminishing but always > 1
 
-  // Use only recent cycles (2+) for diminishing return ratio — cycle 1 is an outlier
-  const recentReturns = cycleReturns.filter((c) => c.id >= 2);
-  const recentRatios = [];
-  for (let i = 1; i < recentReturns.length; i++) {
-    if (recentReturns[i - 1].returnPct > 0) {
-      recentRatios.push(recentReturns[i].returnPct / recentReturns[i - 1].returnPct);
-    }
-  }
-  // Last ratio is most recent trend; fallback to 0.33
-  const lastDiminishingRatio = recentRatios.length > 0
-    ? recentRatios[recentRatios.length - 1]
-    : 0.33;
+  // Use the most recent multiplier as the conservative estimate
+  const lastMultiplier = athMultipliers[athMultipliers.length - 1];
+  // Use the average of the last 2 multipliers for the optimistic estimate
+  const recentMultipliers = athMultipliers.slice(-2);
+  const avgRecentMultiplier = recentMultipliers.reduce((s, m) => s + m, 0) / recentMultipliers.length;
 
-  const lastCycleReturn = cycleReturns[cycleReturns.length - 1];
-  const projectedReturnPct = Math.round(lastCycleReturn.returnPct * lastDiminishingRatio);
+  const currentATHPrice = ATH_HISTORY[ATH_HISTORY.length - 1].price;
 
-  // Conservative: avg drawdown, diminishing return
-  const projectedNextBottomConservative = Math.round(currentCycle.topPrice * (1 - avgDrawdownPct));
-  const projectedNextATHConservative = Math.round(projectedNextBottomConservative * (1 + projectedReturnPct / 100));
-
-  // Optimistic: smallest historical drawdown, same return
-  const minDrawdown = Math.min(...drawdowns);
-  const projectedNextBottomOptimistic = Math.round(currentCycle.topPrice * (1 - minDrawdown));
-  const projectedNextATHOptimistic = Math.round(projectedNextBottomOptimistic * (1 + projectedReturnPct / 100));
+  // Conservative: last multiplier trend continues (e.g. 1.83x → next ~1.83x)
+  const projectedATHConservative = Math.round(currentATHPrice * lastMultiplier);
+  // Optimistic: average of last 2 multipliers (e.g. avg of 3.5x and 1.83x ≈ 2.66x)
+  const projectedATHOptimistic = Math.round(currentATHPrice * avgRecentMultiplier);
 
   const priceProjection = {
-    currentTopPrice: currentCycle.topPrice,
-    avgDrawdownPct: Math.round(avgDrawdownPct * 100),
-    projectedReturnPct,
-    conservative: {
-      nextBottom: projectedNextBottomConservative,
-      nextATH: projectedNextATHConservative,
-    },
-    optimistic: {
-      nextBottom: projectedNextBottomOptimistic,
-      nextATH: projectedNextATHOptimistic,
-    },
+    currentATHPrice,
+    conservativeMultiplier: Math.round(lastMultiplier * 100) / 100,
+    optimisticMultiplier: Math.round(avgRecentMultiplier * 100) / 100,
+    athMultipliers: athMultipliers.map((m, i) => ({
+      from: ATH_HISTORY[i].price,
+      to: ATH_HISTORY[i + 1].price,
+      multiplier: Math.round(m * 100) / 100,
+    })),
+    conservative: projectedATHConservative,
+    optimistic: projectedATHOptimistic,
   };
 
   // --- Risk level (how close to the expected top) ---
