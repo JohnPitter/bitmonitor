@@ -126,6 +126,114 @@ export function getATHInfo() {
 }
 
 /**
+ * Get peak analysis — cross-references multiple signals to estimate
+ * when the next major high will occur and the current risk level.
+ */
+export function getPeakAnalysis() {
+  const now = Date.now();
+  const DAY_MS = 24 * 60 * 60 * 1000;
+  const currentCycle = CYCLE_EVENTS[CYCLE_EVENTS.length - 1];
+  const bottomTs = new Date(currentCycle.bottom).getTime();
+  const topTs = new Date(currentCycle.top).getTime();
+  const isPostTop = now > topTs;
+
+  // --- Signal 1: Cycle pattern (1064d bull) ---
+  const patternPeakTs = bottomTs + PATTERN.claimedBullDays * DAY_MS;
+  const patternPeakDate = new Date(patternPeakTs).toISOString().split("T")[0];
+  const daysToPatternPeak = Math.floor((patternPeakTs - now) / DAY_MS);
+
+  // --- Signal 2: ATH after halving (avg ~537d) ---
+  const recentATHs = ATH_HISTORY.filter((a) => a.cycle >= 2);
+  const avgDaysAfterHalving = Math.round(recentATHs.reduce((s, a) => s + a.daysAfterHalving, 0) / recentATHs.length);
+  const minDaysAfterHalving = Math.min(...recentATHs.map((a) => a.daysAfterHalving));
+  const maxDaysAfterHalving = Math.max(...recentATHs.map((a) => a.daysAfterHalving));
+
+  const lastHalving = HALVINGS[HALVINGS.length - 1];
+  const lastHalvingTs = new Date(lastHalving.date).getTime();
+  const halvingPeakTs = lastHalvingTs + avgDaysAfterHalving * DAY_MS;
+  const halvingPeakDate = new Date(halvingPeakTs).toISOString().split("T")[0];
+  const daysToHalvingPeak = Math.floor((halvingPeakTs - now) / DAY_MS);
+
+  // Window range (earliest to latest based on historical spread)
+  const windowStartTs = lastHalvingTs + minDaysAfterHalving * DAY_MS;
+  const windowEndTs = lastHalvingTs + maxDaysAfterHalving * DAY_MS;
+  const windowStartDate = new Date(windowStartTs).toISOString().split("T")[0];
+  const windowEndDate = new Date(windowEndTs).toISOString().split("T")[0];
+
+  // --- Signal 3: Historical returns from bottom ---
+  const cycleReturns = CYCLE_EVENTS.map((c) => ({
+    id: c.id,
+    label: c.label,
+    returnPct: Math.round(((c.topPrice - c.bottomPrice) / c.bottomPrice) * 100),
+    bottomPrice: c.bottomPrice,
+    topPrice: c.topPrice,
+  }));
+  const avgReturn = Math.round(cycleReturns.reduce((s, c) => s + c.returnPct, 0) / cycleReturns.length);
+
+  // Diminishing returns trend (each cycle has lower % return)
+  const diminishingFactor = cycleReturns.length >= 2
+    ? cycleReturns[cycleReturns.length - 1].returnPct / cycleReturns[cycleReturns.length - 2].returnPct
+    : 1;
+
+  // --- Current position analysis ---
+  const daysSinceBottom = Math.floor((now - bottomTs) / DAY_MS);
+  const daysSinceHalving = Math.floor((now - lastHalvingTs) / DAY_MS);
+
+  // Did the top already happen in this cycle?
+  const topAlreadyHappened = isPostTop;
+  const daysSinceTop = topAlreadyHappened ? Math.floor((now - topTs) / DAY_MS) : 0;
+
+  // --- Convergence: consensus estimate from signals ---
+  let consensusPeakTs;
+  let consensusConfidence;
+
+  if (topAlreadyHappened) {
+    // Top already happened — project next cycle peak
+    const nextHalvingTs = new Date(NEXT_HALVING_ESTIMATE).getTime();
+    consensusPeakTs = nextHalvingTs + avgDaysAfterHalving * DAY_MS;
+    consensusConfidence = "next_cycle";
+  } else {
+    // Average of the two signals
+    consensusPeakTs = Math.round((patternPeakTs + halvingPeakTs) / 2);
+    // Confidence based on how close the two signals agree
+    const signalDiffDays = Math.abs(daysToPatternPeak - daysToHalvingPeak);
+    consensusConfidence = signalDiffDays <= 30 ? "high" : signalDiffDays <= 90 ? "medium" : "low";
+  }
+
+  const consensusPeakDate = new Date(consensusPeakTs).toISOString().split("T")[0];
+  const daysToConsensusPeak = Math.max(0, Math.floor((consensusPeakTs - now) / DAY_MS));
+
+  // --- Risk level (how close to the expected top) ---
+  let riskLevel; // 1=low (accumulate), 2=moderate, 3=high (caution), 4=extreme (near top), 5=bear
+  if (topAlreadyHappened) {
+    riskLevel = 5;
+  } else {
+    const bullProgress = daysSinceBottom / PATTERN.claimedBullDays;
+    if (bullProgress < 0.5) riskLevel = 1;
+    else if (bullProgress < 0.75) riskLevel = 2;
+    else if (bullProgress < 0.9) riskLevel = 3;
+    else riskLevel = 4;
+  }
+
+  return {
+    // Signals
+    signals: {
+      cyclePattern: { date: patternPeakDate, daysRemaining: daysToPatternPeak, bullDays: PATTERN.claimedBullDays },
+      halvingBased: { date: halvingPeakDate, daysRemaining: daysToHalvingPeak, avgDays: avgDaysAfterHalving },
+      window: { start: windowStartDate, end: windowEndDate, minDays: minDaysAfterHalving, maxDays: maxDaysAfterHalving },
+    },
+    // Consensus
+    consensus: { date: consensusPeakDate, daysRemaining: daysToConsensusPeak, confidence: consensusConfidence },
+    // Returns
+    returns: { history: cycleReturns, avgReturn, diminishingFactor: Math.round(diminishingFactor * 100) / 100 },
+    // Position
+    position: { daysSinceBottom, daysSinceHalving, daysSinceTop, topAlreadyHappened, riskLevel },
+    // Current cycle
+    currentCycle,
+  };
+}
+
+/**
  * Normalize price data for cycle overlay.
  * Uses bundled historical data + live data for the current cycle.
  * Each cycle starts at day 0 with price = 1.0 (normalized).

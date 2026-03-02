@@ -13,6 +13,7 @@ import HalvingCountdown from "./components/cards/HalvingCountdown";
 import DCASimulator from "./components/cards/DCASimulator";
 import CycleStats from "./components/cards/CycleStats";
 import ATHTracker from "./components/cards/ATHTracker";
+import PeakAnalysis from "./components/cards/PeakAnalysis";
 
 export default function App() {
   const { priceHistory, currentPrice, fearGreed, loading, error } = useBitcoinData();
@@ -34,6 +35,9 @@ export default function App() {
             <FearGreed fearGreed={fearGreed} />
             <ATHTracker />
           </div>
+
+          {/* Peak analysis: full width */}
+          <PeakAnalysis />
 
           {/* Chart: full width */}
           <CycleOverlay priceHistory={prices} />
