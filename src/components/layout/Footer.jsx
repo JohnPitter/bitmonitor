@@ -4,7 +4,7 @@ export default function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer className="px-4 py-6 mt-8">
+    <footer className="px-4 py-6 mt-8 border-t border-border">
       <div className="max-w-6xl mx-auto text-center space-y-2">
         <p className="text-xs text-text-dim">{t("footer.dataSources")}</p>
         <p className="text-xs text-text-dim">

@@ -1,22 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg-primary: #0c0c14;
-  --color-bg-card: #151520;
-  --color-bg-card-hover: #1c1c2d;
-  --color-bg-highlight: #1e1e30;
-  --color-border: #222236;
-  --color-border-hover: #333350;
-  --color-btc: #f7931a;
-  --color-btc-dim: #f7931a44;
-  --color-bull: #34d399;
-  --color-bear: #f87171;
-  --color-text-primary: #f1f5f9;
-  --color-text-secondary: #a1a1b5;
-  --color-text-dim: #6b6b80;
-  --color-fear: #f87171;
-  --color-greed: #34d399;
-  --color-neutral: #fbbf24;
+  --color-bg-primary: #f9fafb;
+  --color-bg-card: #ffffff;
+  --color-bg-card-hover: #f8fafc;
+  --color-bg-highlight: #f1f5f9;
+  --color-border: #e2e8f0;
+  --color-border-hover: #cbd5e1;
+  --color-btc: #d97706;
+  --color-btc-dim: #f5b73144;
+  --color-bull: #16a34a;
+  --color-bear: #dc2626;
+  --color-text-primary: #111827;
+  --color-text-secondary: #4b5563;
+  --color-text-dim: #9ca3af;
+  --color-fear: #dc2626;
+  --color-greed: #16a34a;
+  --color-neutral: #d97706;
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 }
 
@@ -41,13 +41,13 @@ body {
   background: var(--color-bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
+  background: var(--color-border-hover);
   border-radius: 3px;
 }
 
 select {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236b6b80' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239ca3af' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-right: 24px;

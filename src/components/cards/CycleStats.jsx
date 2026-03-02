@@ -12,11 +12,11 @@ export default function CycleStats() {
       <div className="space-y-4">
         {/* Averages */}
         <div className="grid grid-cols-2 gap-3">
-          <div className="bg-bull/10 rounded-xl p-4 text-center">
+          <div className="bg-green-100 rounded-xl p-4 text-center">
             <span className="text-2xl font-bold text-bull tabular-nums">{stats.avgBullDays}</span>
             <p className="text-xs text-text-dim mt-1">{t("cycleStats.avgBullDays")}</p>
           </div>
-          <div className="bg-bear/10 rounded-xl p-4 text-center">
+          <div className="bg-red-100 rounded-xl p-4 text-center">
             <span className="text-2xl font-bold text-bear tabular-nums">{stats.avgBearDays}</span>
             <p className="text-xs text-text-dim mt-1">{t("cycleStats.avgBearDays")}</p>
           </div>
@@ -29,7 +29,7 @@ export default function CycleStats() {
             {stats.cycles.map((c) => {
               const ret = ((c.topPrice - c.bottomPrice) / c.bottomPrice) * 100;
               return (
-                <div key={c.id} className="flex items-center justify-between bg-white/3 rounded-xl px-4 py-2.5">
+                <div key={c.id} className="flex items-center justify-between bg-gray-50 rounded-xl px-4 py-2.5">
                   <span className="text-sm text-text-secondary font-medium truncate max-w-[140px]">{c.label}</span>
                   <div className="flex items-center gap-3 tabular-nums text-sm">
                     <span className="text-bull font-medium">{c.bullDays}d 📈</span>

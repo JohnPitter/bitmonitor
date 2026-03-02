@@ -27,29 +27,16 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header currentPrice={currentPrice} />
-      <main className="flex-1 max-w-6xl mx-auto w-full px-4 py-6 sm:px-6">
-        <div className="space-y-4">
-          {/* Main: Cycle position + Fear & Greed + ATH */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <CyclePosition />
-            <FearGreed fearGreed={fearGreed} />
-            <ATHTracker />
-          </div>
-
-          {/* Peak analysis: full width */}
+      <main className="flex-1 w-full px-4 py-6 sm:px-6">
+        <div className="space-y-6">
+          <CyclePosition />
+          <FearGreed fearGreed={fearGreed} />
+          <ATHTracker />
           <PeakAnalysis />
-
-          {/* Chart: full width */}
           <CycleOverlay priceHistory={prices} />
-
-          {/* Secondary cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <BestDays priceHistory={prices} />
-            <HalvingCountdown />
-            <DCASimulator priceHistory={prices} />
-          </div>
-
-          {/* Cycle history */}
+          <BestDays priceHistory={prices} />
+          <HalvingCountdown />
+          <DCASimulator priceHistory={prices} />
           <CycleStats />
         </div>
       </main>

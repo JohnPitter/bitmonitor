@@ -21,7 +21,7 @@ export default function LanguageSelector() {
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-text-secondary hover:text-text-primary hover:bg-white/5 transition-all cursor-pointer"
+        className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-text-secondary hover:text-text-primary hover:bg-gray-100 transition-all cursor-pointer"
         aria-label="Select language"
       >
         <Flag code={current?.flag} size={24} />
@@ -32,12 +32,12 @@ export default function LanguageSelector() {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 bg-bg-card border border-border rounded-xl shadow-2xl py-2 min-w-[180px] z-50 backdrop-blur-sm">
+        <div className="absolute right-0 top-full mt-2 bg-white border border-border rounded-xl shadow-xl py-2 min-w-[180px] z-50">
           {SUPPORTED_LOCALES.map((lang) => (
             <button
               key={lang.code}
               onClick={() => { setLocale(lang.code); setOpen(false); }}
-              className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 hover:bg-white/5 transition-all cursor-pointer ${lang.code === locale ? "text-btc font-semibold bg-btc/5" : "text-text-secondary"}`}
+              className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 hover:bg-gray-100 transition-all cursor-pointer ${lang.code === locale ? "text-btc font-semibold bg-yellow-50" : "text-text-secondary"}`}
             >
               <Flag code={lang.flag} size={24} />
               <span>{lang.label}</span>

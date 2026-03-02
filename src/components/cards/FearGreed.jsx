@@ -2,11 +2,11 @@ import Card from "../common/Card";
 import { useTranslation } from "../../i18n";
 
 function getLabel(value) {
-  if (value <= 25) return { textKey: "fearGreed.extremeFear", color: "text-fear", bg: "bg-fear/10", signalKey: "fearGreed.strongBuy", emoji: "😱" };
-  if (value <= 45) return { textKey: "fearGreed.fear", color: "text-bear", bg: "bg-bear/10", signalKey: "fearGreed.buy", emoji: "😟" };
-  if (value <= 55) return { textKey: "fearGreed.neutral", color: "text-neutral", bg: "bg-neutral/10", signalKey: "fearGreed.hold", emoji: "😐" };
-  if (value <= 75) return { textKey: "fearGreed.greed", color: "text-btc", bg: "bg-btc/10", signalKey: "fearGreed.caution", emoji: "🤑" };
-  return { textKey: "fearGreed.extremeGreed", color: "text-greed", bg: "bg-greed/10", signalKey: "fearGreed.sell", emoji: "🔥" };
+  if (value <= 25) return { textKey: "fearGreed.extremeFear", color: "text-fear", bg: "bg-red-100", signalKey: "fearGreed.strongBuy", emoji: "😱" };
+  if (value <= 45) return { textKey: "fearGreed.fear", color: "text-bear", bg: "bg-red-100", signalKey: "fearGreed.buy", emoji: "😟" };
+  if (value <= 55) return { textKey: "fearGreed.neutral", color: "text-neutral", bg: "bg-amber-50", signalKey: "fearGreed.hold", emoji: "😐" };
+  if (value <= 75) return { textKey: "fearGreed.greed", color: "text-btc", bg: "bg-amber-50", signalKey: "fearGreed.caution", emoji: "🤑" };
+  return { textKey: "fearGreed.extremeGreed", color: "text-greed", bg: "bg-green-100", signalKey: "fearGreed.sell", emoji: "🔥" };
 }
 
 function Gauge({ value }) {
@@ -21,10 +21,10 @@ function Gauge({ value }) {
   return (
     <svg viewBox="0 0 120 70" className="w-full max-w-[200px] mx-auto">
       {[
-        { pct: 0.25, color: "#f87171" },
-        { pct: 0.25, color: "#fbbf24" },
-        { pct: 0.25, color: "#a3e635" },
-        { pct: 0.25, color: "#34d399" },
+        { pct: 0.25, color: "#dc2626" },
+        { pct: 0.25, color: "#d97706" },
+        { pct: 0.25, color: "#65a30d" },
+        { pct: 0.25, color: "#16a34a" },
       ].reduce((acc, seg, i) => {
         const segStart = acc.endAngle;
         const segEnd = segStart + seg.pct * 180;
@@ -46,8 +46,8 @@ function Gauge({ value }) {
         acc.endAngle = segEnd;
         return acc;
       }, { elements: [], endAngle: -90 }).elements}
-      <line x1={cx} y1={cy} x2={needleTip.x} y2={needleTip.y} stroke="#f1f5f9" strokeWidth="2.5" strokeLinecap="round" />
-      <circle cx={cx} cy={cy} r="4" fill="#f1f5f9" />
+      <line x1={cx} y1={cy} x2={needleTip.x} y2={needleTip.y} stroke="#1f2937" strokeWidth="2.5" strokeLinecap="round" />
+      <circle cx={cx} cy={cy} r="4" fill="#1f2937" />
     </svg>
   );
 }
@@ -68,17 +68,21 @@ export default function FearGreed({ fearGreed }) {
 
   return (
     <Card icon="🧠" title={t("fearGreed.title")} subtitle={t("fearGreed.subtitle")}>
-      <div className="text-center space-y-3">
-        <Gauge value={current.value} />
-        <div>
-          <div className="flex items-center justify-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8">
+        {/* Left: Gauge */}
+        <div className="flex-shrink-0 sm:max-w-[180px] mx-auto sm:mx-0 mb-4 sm:mb-0">
+          <Gauge value={current.value} />
+        </div>
+        {/* Right: Value + label + badge */}
+        <div className="text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-2">
             <span className="text-2xl">{info.emoji}</span>
             <span className={`text-4xl font-bold tabular-nums ${info.color}`}>{current.value}</span>
           </div>
           <p className={`text-base font-semibold mt-1 ${info.color}`}>{t(info.textKey)}</p>
-        </div>
-        <div className={`inline-block px-4 py-2 rounded-full text-sm font-medium ${info.bg} ${info.color}`}>
-          {t(info.signalKey)}
+          <div className={`inline-block mt-3 px-4 py-2 rounded-full text-sm font-medium ${info.bg} ${info.color}`}>
+            {t(info.signalKey)}
+          </div>
         </div>
       </div>
     </Card>

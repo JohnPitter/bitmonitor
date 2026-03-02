@@ -13,34 +13,37 @@ export default function ATHTracker() {
   return (
     <Card icon="🏆" title={t("ath.title")} subtitle={t("ath.subtitle")}>
       <div className="space-y-4">
-        {/* Current ATH */}
-        <div className="bg-btc/10 rounded-2xl p-4 text-center">
-          <p className="text-xs text-text-dim mb-1">{t("ath.currentATH")}</p>
-          <span className="text-3xl font-bold text-btc tabular-nums">
-            ${info.currentATH.price.toLocaleString(intlLocale)}
-          </span>
-          <p className="text-sm text-text-secondary mt-1">
-            {new Date(info.currentATH.date).toLocaleDateString(intlLocale, { day: "numeric", month: "long", year: "numeric" })}
-          </p>
-        </div>
-
-        {/* Next ATH estimate */}
-        <div className="bg-white/3 rounded-xl p-4 text-center">
-          <p className="text-xs text-text-dim mb-1">{t("ath.nextEstimate")}</p>
-          <div className="flex items-center justify-center gap-2">
-            <span className="text-2xl">🎯</span>
-            <span className="text-xl font-bold tabular-nums">
-              {info.daysUntilNextATH > 0
-                ? t("ath.inDays", { days: info.daysUntilNextATH })
-                : t("ath.anytime")}
+        {/* Top: ATH current + Next estimate side by side */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Current ATH */}
+          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-center">
+            <p className="text-xs text-text-dim mb-1">{t("ath.currentATH")}</p>
+            <span className="text-3xl font-bold text-btc tabular-nums">
+              ${info.currentATH.price.toLocaleString(intlLocale)}
             </span>
+            <p className="text-sm text-text-secondary mt-1">
+              {new Date(info.currentATH.date).toLocaleDateString(intlLocale, { day: "numeric", month: "long", year: "numeric" })}
+            </p>
           </div>
-          <p className="text-sm text-text-secondary mt-1">
-            {t("ath.around", { date: estDate })}
-          </p>
-          <p className="text-[11px] text-text-dim mt-1">
-            {t("ath.avgDaysAfter", { days: info.avgDaysAfterHalving })}
-          </p>
+
+          {/* Next ATH estimate */}
+          <div className="bg-gray-50 rounded-xl p-4 text-center">
+            <p className="text-xs text-text-dim mb-1">{t("ath.nextEstimate")}</p>
+            <div className="flex items-center justify-center gap-2">
+              <span className="text-2xl">🎯</span>
+              <span className="text-xl font-bold tabular-nums">
+                {info.daysUntilNextATH > 0
+                  ? t("ath.inDays", { days: info.daysUntilNextATH })
+                  : t("ath.anytime")}
+              </span>
+            </div>
+            <p className="text-sm text-text-secondary mt-1">
+              {t("ath.around", { date: estDate })}
+            </p>
+            <p className="text-[11px] text-text-dim mt-1">
+              {t("ath.avgDaysAfter", { days: info.avgDaysAfterHalving })}
+            </p>
+          </div>
         </div>
 
         {/* ATH history */}
@@ -48,7 +51,7 @@ export default function ATHTracker() {
           <p className="text-xs text-text-dim mb-2 font-medium">{t("ath.history")}</p>
           <div className="space-y-1.5">
             {info.history.map((a) => (
-              <div key={a.cycle} className="flex items-center justify-between bg-white/3 rounded-xl px-4 py-2.5 text-sm">
+              <div key={a.cycle} className="flex items-center justify-between bg-gray-50 rounded-xl px-4 py-2.5 text-sm">
                 <div className="flex items-center gap-2">
                   <span className="text-text-dim">#{a.cycle}</span>
                   <span className="text-text-secondary">
