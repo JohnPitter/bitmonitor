@@ -1,6 +1,6 @@
 export default function Card({ icon, title, subtitle, children, className = "" }) {
   return (
-    <div className={`w-full bg-bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:border-border-hover transition-all ${className}`}>
+    <div className={`h-full w-full bg-bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:border-border-hover transition-all ${className}`}>
       {title && (
         <div className="mb-5">
           <div className="flex items-center gap-2.5">
