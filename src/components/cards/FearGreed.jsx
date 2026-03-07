@@ -57,7 +57,7 @@ export default function FearGreed({ fearGreed }) {
 
   if (!fearGreed || fearGreed.length === 0) {
     return (
-      <Card icon="◉" title={t("fearGreed.title")}>
+      <Card icon="◉" title={t("fearGreed.title")} hint={t("fearGreed.explainer")}>
         <p className="text-sm text-text-dim">{t("fearGreed.noData")}</p>
       </Card>
     );
@@ -67,7 +67,12 @@ export default function FearGreed({ fearGreed }) {
   const info = getLabel(current.value);
 
   return (
-    <Card icon="◉" title={t("fearGreed.title")} subtitle={t("fearGreed.subtitle")}>
+    <Card
+      icon="◉"
+      title={t("fearGreed.title")}
+      subtitle={t("fearGreed.subtitle")}
+      hint={t("fearGreed.explainer")}
+    >
       <div className="grid gap-4 lg:grid-cols-[190px_1fr]">
         <div className="rounded-[24px] border border-border/70 bg-black/18 p-4">
           <div className="mx-auto max-w-[180px]">

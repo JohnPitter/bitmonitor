@@ -11,7 +11,7 @@ export default function ATHTracker() {
   const estDate = new Date(info.estimatedNextATHDate).toLocaleDateString(intlLocale, { month: "long", year: "numeric" });
 
   return (
-    <Card icon="◎" title={t("ath.title")} subtitle={t("ath.subtitle")}>
+    <Card icon="◎" title={t("ath.title")} subtitle={t("ath.subtitle")} hint={t("ath.explainer")}>
       <div className="space-y-4">
         <div className="grid gap-4 lg:grid-cols-2">
           <div className="rounded-[24px] border border-btc/18 bg-[linear-gradient(180deg,rgba(197,122,84,0.18),rgba(197,122,84,0.05))] p-5">

@@ -23,6 +23,7 @@
   },
   "cyclePosition": {
     "title": "Onde Estamos Agora?",
+    "explainer": "Mostra em que etapa do ciclo o Bitcoin parece estar agora, usando a distância até o fundo, o topo anterior e a duração média de cada fase.",
     "bullMarket": "Preços Subindo",
     "bearMarket": "Preços Caindo",
     "daysInPhase": "Dias até agora",
@@ -34,18 +35,27 @@
   "cycleOverlay": {
     "title": "Comparação dos Ciclos",
     "subtitle": "Cada ciclo começa em 1.0 — veja como cresceram ao longo do tempo",
+    "explainer": "Alinha os ciclos desde o fundo para comparar velocidade, força e desaceleração do movimento atual contra os anteriores.",
     "day": "Dia {{number}}"
   },
   "bestDays": {
     "title": "Melhores Dias pra Comprar",
     "subtitle": "Quais dias costumam ter os preços mais baixos",
+    "explainer": "Usa a média da variação diária histórica. Quanto menor o retorno médio do dia, maior a chance de ele ter oferecido entradas melhores.",
     "byDayOfWeek": "Por dia da semana",
     "bestDaysOfMonth": "Melhores dias do mês",
+    "bestWeekday": "Melhor dia da semana",
+    "bestMonthDay": "Melhor dia do mês",
+    "avgReturnValue": "Retorno médio: {{value}}",
+    "samples": "{{count}} observações",
+    "lowerIsBetter": "Quanto menor, melhor entrada",
+    "rankWindow": "Top 5 histórico",
     "day": "Dia {{number}}"
   },
   "fearGreed": {
     "title": "Humor do Mercado",
     "subtitle": "As pessoas estão com medo ou gananciosas agora?",
+    "explainer": "Resume o sentimento do mercado. Medo extremo costuma aparecer perto de pânico; ganância extrema, perto de euforia.",
     "noData": "Sem dados disponíveis",
     "extremeFear": "Medo Extremo",
     "fear": "Medo",
@@ -61,6 +71,7 @@
   "halving": {
     "title": "Próximo Halving",
     "subtitle": "Quando a recompensa de mineração do Bitcoin cai pela metade",
+    "explainer": "Mostra a contagem para o próximo halving, evento que reduz a nova oferta de BTC e historicamente muda o ritmo do ciclo.",
     "years": "anos",
     "months": "meses",
     "days": "dias",
@@ -71,6 +82,7 @@
   "dca": {
     "title": "E Se Você Investisse Toda Semana?",
     "subtitle": "Veja o que aconteceria se comprasse um pouco de Bitcoin regularmente",
+    "explainer": "Simula compras recorrentes para mostrar quanto teria sido investido, acumulado e quanto isso valeria hoje.",
     "amount": "Valor",
     "frequency": "Com que frequência",
     "period": "Por quanto tempo",
@@ -85,6 +97,7 @@
   "cycleStats": {
     "title": "Ciclos Anteriores",
     "subtitle": "Quanto tempo cada ciclo durou?",
+    "explainer": "Resume a duração média das fases de alta e baixa e compara o desempenho dos ciclos anteriores lado a lado.",
     "avgBullDays": "Média dias de alta",
     "avgBearDays": "Média dias de baixa",
     "cycleHistory": "Histórico de ciclos"
@@ -92,6 +105,7 @@
   "ath": {
     "title": "Máxima Histórica",
     "subtitle": "O maior preço que o Bitcoin já teve — e quando o próximo pode acontecer",
+    "explainer": "Mostra o recorde atual e estima quando um novo topo histórico pode surgir com base no comportamento dos ciclos passados.",
     "currentATH": "Recorde atual",
     "nextEstimate": "Próxima máxima estimada",
     "inDays": "~{{days}} dias pra chegar",
@@ -103,6 +117,7 @@
   "peak": {
     "title": "Analise do Pico",
     "subtitle": "Quando e a melhor hora de vender? Varios sinais combinados",
+    "explainer": "Cruza tempo desde o fundo, tempo pós-halving, janelas históricas e projeções para estimar quão perto o mercado está do topo.",
     "consensusEstimate": "Pico estimado",
     "topAlreadyHappened": "O topo ja aconteceu",
     "nextCyclePeak": "Proximo pico do ciclo: por volta de {{date}}",

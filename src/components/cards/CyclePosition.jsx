@@ -11,7 +11,12 @@ export default function CyclePosition() {
   const pct = Math.round(pos.progress * 100);
 
   return (
-    <Card icon="◷" title={t("cyclePosition.title")} subtitle={pos.cycle.label}>
+    <Card
+      icon="◷"
+      title={t("cyclePosition.title")}
+      subtitle={pos.cycle.label}
+      hint={t("cyclePosition.explainer")}
+    >
       <div className="space-y-4">
         <div className="rounded-[24px] border border-border/70 bg-black/15 p-5">
           <div className="flex flex-col gap-5 xl:flex-row xl:items-center">

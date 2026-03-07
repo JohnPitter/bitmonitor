@@ -8,7 +8,7 @@ export default function CycleStats() {
   const { t } = useTranslation();
 
   return (
-    <Card icon="∿" title={t("cycleStats.title")} subtitle={t("cycleStats.subtitle")}>
+    <Card icon="∿" title={t("cycleStats.title")} subtitle={t("cycleStats.subtitle")} hint={t("cycleStats.explainer")}>
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-3">
           <div className="rounded-[22px] border border-bull/20 bg-[linear-gradient(180deg,rgba(87,214,141,0.14),rgba(87,214,141,0.05))] p-4 text-center">

@@ -29,7 +29,7 @@ export default function PeakAnalysis() {
   const riskKey = `peak.risk${position.riskLevel}`;
 
   return (
-    <Card icon="⌖" title={t("peak.title")} subtitle={t("peak.subtitle")}>
+    <Card icon="⌖" title={t("peak.title")} subtitle={t("peak.subtitle")} hint={t("peak.explainer")}>
       <div className="space-y-4">
         <div className="rounded-[24px] border border-btc/18 bg-[linear-gradient(180deg,rgba(197,122,84,0.18),rgba(197,122,84,0.05))] p-5 text-center">
           <p className="text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.consensusEstimate")}</p>

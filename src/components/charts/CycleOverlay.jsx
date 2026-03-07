@@ -118,7 +118,7 @@ export default function CycleOverlay({ priceHistory }) {
   if (chartData.length === 0) return null;
 
   return (
-    <Card icon="⟁" title={t("cycleOverlay.title")} subtitle={t("cycleOverlay.subtitle")}>
+    <Card icon="⟁" title={t("cycleOverlay.title")} subtitle={t("cycleOverlay.subtitle")} hint={t("cycleOverlay.explainer")}>
       <div className="space-y-4">
         <div className="flex flex-wrap gap-2">
           <span className="rounded-full border border-border/70 bg-white/4 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-text-secondary">

@@ -23,6 +23,7 @@
   },
   "cyclePosition": {
     "title": "Where Are We Now?",
+    "explainer": "Shows which stage of the cycle Bitcoin appears to be in by comparing time since the bottom, the prior top and the average duration of each phase.",
     "bullMarket": "Prices Going Up",
     "bearMarket": "Prices Going Down",
     "daysInPhase": "Days so far",
@@ -34,18 +35,27 @@
   "cycleOverlay": {
     "title": "How Cycles Compare",
     "subtitle": "Each cycle starts at 1.0 — see how they grew over time",
+    "explainer": "Lines up every cycle from its bottom so you can compare the current move's pace, strength and slowdown against prior ones.",
     "day": "Day {{number}}"
   },
   "bestDays": {
     "title": "Best Days to Buy",
     "subtitle": "Which days tend to have the lowest prices",
+    "explainer": "Uses the average historical daily move. The lower the average return, the more often that day offered better entries.",
     "byDayOfWeek": "By day of week",
     "bestDaysOfMonth": "Best days of the month",
+    "bestWeekday": "Best weekday",
+    "bestMonthDay": "Best day of month",
+    "avgReturnValue": "Average return: {{value}}",
+    "samples": "{{count}} observations",
+    "lowerIsBetter": "Lower is a better entry",
+    "rankWindow": "Historical top 5",
     "day": "Day {{number}}"
   },
   "fearGreed": {
     "title": "Market Mood",
     "subtitle": "Are people scared or greedy right now?",
+    "explainer": "Summarizes market sentiment. Extreme fear often shows up near panic, while extreme greed tends to show up near euphoria.",
     "noData": "No data available",
     "extremeFear": "Extreme Fear",
     "fear": "Fear",
@@ -61,6 +71,7 @@
   "halving": {
     "title": "Next Halving",
     "subtitle": "When Bitcoin's mining reward gets cut in half",
+    "explainer": "Shows the countdown to the next halving, an event that reduces new BTC supply and has historically shifted the cycle's pace.",
     "years": "years",
     "months": "months",
     "days": "days",
@@ -71,6 +82,7 @@
   "dca": {
     "title": "What If You Invested Weekly?",
     "subtitle": "See what would happen if you bought a little Bitcoin regularly",
+    "explainer": "Simulates recurring buys to show how much would have been invested, accumulated and what it would be worth today.",
     "amount": "Amount",
     "frequency": "How often",
     "period": "For how long",
@@ -85,6 +97,7 @@
   "cycleStats": {
     "title": "Past Cycles",
     "subtitle": "How long did each cycle last?",
+    "explainer": "Summarizes the average duration of up and down phases and compares prior cycles side by side.",
     "avgBullDays": "Avg. up days",
     "avgBearDays": "Avg. down days",
     "cycleHistory": "Cycle history"
@@ -92,6 +105,7 @@
   "ath": {
     "title": "All-Time High",
     "subtitle": "Bitcoin's highest price ever — and when the next one might happen",
+    "explainer": "Shows the current record and estimates when a new all-time high could happen based on prior cycle behavior.",
     "currentATH": "Current record",
     "nextEstimate": "Next ATH estimate",
     "inDays": "~{{days}} days away",
@@ -103,6 +117,7 @@
   "peak": {
     "title": "Peak Analysis",
     "subtitle": "When is the best time to sell? Multiple signals combined",
+    "explainer": "Combines time since the bottom, post-halving timing, historical peak windows and price projections to estimate how close the market is to a top.",
     "consensusEstimate": "Estimated peak",
     "topAlreadyHappened": "The top already happened",
     "nextCyclePeak": "Next cycle peak: around {{date}}",

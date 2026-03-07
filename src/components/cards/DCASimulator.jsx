@@ -19,7 +19,7 @@ export default function DCASimulator({ priceHistory }) {
   const selectClass = "w-full rounded-2xl border border-border/70 bg-black/15 px-3 py-3 text-sm text-text-primary outline-none transition-colors focus:border-btc";
 
   return (
-    <Card icon="∷" title={t("dca.title")} subtitle={t("dca.subtitle")}>
+    <Card icon="∷" title={t("dca.title")} subtitle={t("dca.subtitle")} hint={t("dca.explainer")}>
       <div className="grid gap-4 lg:grid-cols-[220px_1fr]">
         <div className="space-y-3 rounded-[24px] border border-border/70 bg-black/15 p-4">
           <div>

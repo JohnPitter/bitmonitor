@@ -192,25 +192,31 @@ export default function App() {
           </div>
         </section>
 
-        <div className="grid gap-5 lg:grid-cols-[320px_minmax(0,1fr)]">
-          <aside className="flex flex-col gap-4">
-            <CyclePosition />
-            <FearGreed fearGreed={fearGreed} />
-            <ATHTracker />
-            <HalvingCountdown />
-            <CycleStats />
-          </aside>
-
-          <section className="flex min-w-0 flex-col gap-4">
+        <section className="flex min-w-0 flex-col gap-4">
+          <section className="grid gap-4">
             <CycleOverlay priceHistory={prices} />
-            <PeakAnalysis />
 
             <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-              <BestDays priceHistory={prices} />
-              <DCASimulator priceHistory={prices} />
+              <CyclePosition />
+              <FearGreed fearGreed={fearGreed} />
             </div>
           </section>
-        </div>
+
+          <section className="grid gap-4">
+            <PeakAnalysis />
+
+            <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
+              <ATHTracker />
+              <HalvingCountdown />
+              <CycleStats />
+            </div>
+          </section>
+
+          <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+            <BestDays priceHistory={prices} />
+            <DCASimulator priceHistory={prices} />
+          </div>
+        </section>
       </main>
 
       <Footer />

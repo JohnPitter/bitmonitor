@@ -16,7 +16,7 @@ export default function HalvingCountdown() {
   const estDate = new Date(countdown.date).toLocaleDateString(intlLocale, { month: "long", year: "numeric" });
 
   return (
-    <Card icon="◴" title={t("halving.title")} subtitle={t("halving.subtitle")}>
+    <Card icon="◴" title={t("halving.title")} subtitle={t("halving.subtitle")} hint={t("halving.explainer")}>
       <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="rounded-[24px] border border-border/70 bg-black/15 p-5">
           <div className="grid grid-cols-3 gap-3">
