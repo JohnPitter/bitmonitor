@@ -1,60 +1,122 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg-primary: #0a0f1a;
-  --color-bg-card: #111827;
-  --color-bg-card-hover: #1e293b;
-  --color-bg-highlight: #0f172a;
-  --color-border: #1e293b;
-  --color-border-hover: #334155;
-  --color-btc: #f59e0b;
-  --color-btc-dim: #f59e0b22;
-  --color-bull: #22c55e;
-  --color-bear: #ef4444;
-  --color-text-primary: #f1f5f9;
-  --color-text-secondary: #94a3b8;
-  --color-text-dim: #64748b;
-  --color-fear: #ef4444;
-  --color-greed: #22c55e;
-  --color-neutral: #f59e0b;
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --color-bg-primary: #050b10;
+  --color-bg-card: #0d1721;
+  --color-bg-card-hover: #132330;
+  --color-bg-highlight: #111f2a;
+  --color-border: #1d3340;
+  --color-border-hover: #31515c;
+  --color-btc: #d58a3e;
+  --color-btc-dim: #d58a3e22;
+  --color-bull: #62d8b6;
+  --color-bear: #ff7c72;
+  --color-text-primary: #f4efe7;
+  --color-text-secondary: #b5c5c4;
+  --color-text-dim: #6c8790;
+  --color-fear: #ff8a70;
+  --color-greed: #62d8b6;
+  --color-neutral: #8fb8ae;
+  --font-sans: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-display: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--color-bg-primary);
+  background:
+    radial-gradient(circle at top left, rgba(98, 216, 182, 0.14), transparent 28%),
+    radial-gradient(circle at 85% 10%, rgba(213, 138, 62, 0.18), transparent 26%),
+    linear-gradient(180deg, #071018 0%, #050b10 45%, #04070a 100%);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
   margin: 0;
   min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at center, black 0%, rgba(0, 0, 0, 0.85) 52%, transparent 88%);
+  pointer-events: none;
+}
+
+#root {
+  min-height: 100vh;
+  isolation: isolate;
+  position: relative;
+}
+
+::selection {
+  background: rgba(213, 138, 62, 0.28);
+  color: var(--color-text-primary);
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
 
 .recharts-default-tooltip {
-  background-color: var(--color-bg-card) !important;
-  border: 1px solid var(--color-border) !important;
-  border-radius: 12px !important;
+  background: rgba(8, 15, 21, 0.96) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 24px 80px -40px rgba(0, 0, 0, 1) !important;
+}
+
+.recharts-legend-item-text {
+  color: var(--color-text-secondary) !important;
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  background: var(--color-bg-primary);
+  background: rgba(5, 11, 16, 0.86);
 }
+
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border-hover);
-  border-radius: 3px;
+  background: linear-gradient(180deg, rgba(98, 216, 182, 0.55), rgba(213, 138, 62, 0.72));
+  border-radius: 999px;
 }
 
 select {
   appearance: none;
-  background-color: var(--color-bg-highlight);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748b' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-color: rgba(9, 17, 23, 0.92);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5' stroke='%236C8790' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position: right 12px center;
   background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-right: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding-right: 36px;
+}
+
+select:focus {
+  outline: none;
+  border-color: rgba(98, 216, 182, 0.35);
+  box-shadow: 0 0 0 4px rgba(98, 216, 182, 0.08);
 }
 
 select option {
-  background-color: var(--color-bg-card);
+  background-color: #0d1721;
   color: var(--color-text-primary);
 }

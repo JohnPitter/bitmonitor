@@ -1,7 +1,13 @@
 {
   "header": {
-    "subtitle": "Bitcoin Dashboard",
-    "last24h": "Last 24 hours"
+    "subtitle": "Bitcoin cycle intelligence",
+    "last24h": "Last 24 hours",
+    "status": "Live cycle terminal"
+  },
+  "hero": {
+    "eyebrow": "Macro map",
+    "title": "See where Bitcoin sits in the current cycle before the crowd does.",
+    "description": "Cycle Atlas blends historical patterning, live price context, sentiment and halving timing into one decision surface."
   },
   "loader": {
     "loading": "Loading data..."

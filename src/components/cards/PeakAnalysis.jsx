@@ -4,11 +4,11 @@ import { getPeakAnalysis } from "../../lib/cycle";
 import { useTranslation, INTL_LOCALE_MAP } from "../../i18n";
 
 const RISK_COLORS = {
-  1: { bg: "bg-bull/10", text: "text-bull", bar: "bg-green-500" },
-  2: { bg: "bg-blue-500/10", text: "text-blue-400", bar: "bg-blue-500" },
-  3: { bg: "bg-btc/10", text: "text-btc", bar: "bg-yellow-500" },
-  4: { bg: "bg-bear/10", text: "text-bear", bar: "bg-red-500" },
-  5: { bg: "bg-purple-500/10", text: "text-purple-400", bar: "bg-purple-500" },
+  1: { bg: "bg-bull/10", text: "text-bull", bar: "bg-bull" },
+  2: { bg: "bg-cyan-400/10", text: "text-cyan-300", bar: "bg-cyan-400" },
+  3: { bg: "bg-btc/10", text: "text-btc", bar: "bg-btc" },
+  4: { bg: "bg-bear/10", text: "text-bear", bar: "bg-bear" },
+  5: { bg: "bg-white/8", text: "text-text-primary", bar: "bg-white/70" },
 };
 
 function formatLocalDate(dateStr, intlLocale) {
@@ -29,163 +29,153 @@ export default function PeakAnalysis() {
   const riskKey = `peak.risk${position.riskLevel}`;
 
   return (
-    <Card icon="🎯" title={t("peak.title")} subtitle={t("peak.subtitle")}>
+    <Card icon="⌖" title={t("peak.title")} subtitle={t("peak.subtitle")}>
       <div className="space-y-4">
-        {/* Consensus estimate — full width highlight */}
-        <div className="bg-btc/10 border border-btc/20 rounded-xl p-4 text-center">
-          <p className="text-xs text-text-dim mb-1">{t("peak.consensusEstimate")}</p>
+        <div className="rounded-[24px] border border-btc/18 bg-[linear-gradient(180deg,rgba(197,122,84,0.18),rgba(197,122,84,0.05))] p-5 text-center">
+          <p className="text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.consensusEstimate")}</p>
           {position.topAlreadyHappened ? (
             <>
-              <p className="text-lg font-bold text-btc">{t("peak.topAlreadyHappened")}</p>
-              <p className="text-sm text-text-secondary mt-1">
+              <p className="mt-3 text-lg font-semibold text-btc">{t("peak.topAlreadyHappened")}</p>
+              <p className="mt-1 text-sm text-text-secondary">
                 {t("peak.nextCyclePeak", { date: formatMonth(consensus.date, intlLocale) })}
               </p>
-              <p className="text-xs text-text-dim mt-1">
+              <p className="mt-1 text-xs text-text-dim">
                 {t("peak.daysAgo", { days: position.daysSinceTop })}
               </p>
             </>
           ) : (
             <>
-              <span className="text-3xl font-bold text-btc tabular-nums">
+              <span className="mt-3 block text-4xl font-semibold tracking-[-0.05em] text-btc tabular-nums">
                 {formatMonth(consensus.date, intlLocale)}
               </span>
-              <p className="text-sm text-text-secondary mt-1 tabular-nums">
+              <p className="mt-2 text-sm text-text-secondary tabular-nums">
                 {t("peak.inAboutDays", { days: consensus.daysRemaining })}
               </p>
             </>
           )}
         </div>
 
-        {/* Price projection + Risk level — 2 col */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* Price projection */}
-          <div className="bg-bg-highlight rounded-xl p-4">
-            <p className="text-xs text-text-dim mb-3 font-medium">{t("peak.priceProjection")}</p>
+        <div className="grid gap-4 lg:grid-cols-2">
+          <div className="rounded-[24px] border border-border/70 bg-black/15 p-4">
+            <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.18em] text-text-dim">{t("peak.priceProjection")}</p>
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-bg-card border border-border rounded-xl p-3 text-center">
-                <p className="text-[11px] text-text-dim mb-1">{t("peak.conservative")}</p>
-                <span className="text-xl font-bold text-btc tabular-nums">
+              <div className="rounded-2xl border border-border/60 bg-white/4 p-3 text-center">
+                <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.conservative")}</p>
+                <span className="text-xl font-semibold text-btc tabular-nums">
                   ${priceProjection.conservative.toLocaleString(intlLocale)}
                 </span>
-                <p className="text-[10px] text-text-dim mt-1">
+                <p className="mt-1 text-[10px] text-text-dim">
                   {t("peak.multiplierLabel", { multiplier: priceProjection.conservativeMultiplier })}
                 </p>
               </div>
-              <div className="bg-bg-card border border-border rounded-xl p-3 text-center">
-                <p className="text-[11px] text-text-dim mb-1">{t("peak.optimistic")}</p>
-                <span className="text-xl font-bold text-bull tabular-nums">
+              <div className="rounded-2xl border border-border/60 bg-white/4 p-3 text-center">
+                <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.optimistic")}</p>
+                <span className="text-xl font-semibold text-bull tabular-nums">
                   ${priceProjection.optimistic.toLocaleString(intlLocale)}
                 </span>
-                <p className="text-[10px] text-text-dim mt-1">
+                <p className="mt-1 text-[10px] text-text-dim">
                   {t("peak.multiplierLabel", { multiplier: priceProjection.optimisticMultiplier })}
                 </p>
               </div>
             </div>
-            <div className="mt-3 space-y-1">
+            <div className="mt-3 space-y-1.5">
               {priceProjection.athMultipliers.map((m, i) => (
                 <div key={i} className="flex items-center justify-between text-[11px] text-text-dim">
                   <span>${m.from.toLocaleString(intlLocale)} → ${m.to.toLocaleString(intlLocale)}</span>
-                  <span className="text-btc font-semibold">{m.multiplier}x</span>
+                  <span className="font-semibold text-btc">{m.multiplier}x</span>
                 </div>
               ))}
             </div>
-            <p className="text-[10px] text-text-dim mt-2 text-center">
+            <p className="mt-2 text-center text-[10px] text-text-dim">
               {t("peak.projectionExplainATH")}
             </p>
           </div>
 
-          {/* Risk level */}
-          <div className={`${risk.bg} rounded-xl p-4`}>
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs text-text-dim">{t("peak.riskLevel")}</span>
-              <span className={`text-sm font-bold ${risk.text}`}>{t(riskKey)}</span>
+          <div className={`rounded-[24px] border border-border/70 p-4 ${risk.bg}`}>
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <span className="text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.riskLevel")}</span>
+              <span className={`text-sm font-semibold ${risk.text}`}>{t(riskKey)}</span>
             </div>
-            <div className="w-full h-2 bg-bg-highlight rounded-full overflow-hidden">
+            <div className="h-2.5 w-full overflow-hidden rounded-full bg-black/20">
               <div className={`h-full rounded-full ${risk.bar}`} style={{ width: `${position.riskLevel * 20}%` }} />
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <div className="rounded-2xl border border-border/60 bg-black/15 p-3">
+                <p className="text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.daysSinceBottom")}</p>
+                <p className="mt-2 text-sm font-semibold tabular-nums text-text-primary">{position.daysSinceBottom} {t("peak.days")}</p>
+              </div>
+              <div className="rounded-2xl border border-border/60 bg-black/15 p-3">
+                <p className="text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.daysSinceHalving")}</p>
+                <p className="mt-2 text-sm font-semibold tabular-nums text-text-primary">{position.daysSinceHalving} {t("peak.days")}</p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Signals side-by-side */}
         {!position.topAlreadyHappened && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="bg-bg-highlight rounded-xl p-3">
-              <p className="text-[11px] text-text-dim mb-1">{t("peak.signalCycle")}</p>
-              <p className="text-sm font-semibold tabular-nums">{formatLocalDate(signals.cyclePattern.date, intlLocale)}</p>
-              <p className="text-xs text-text-dim mt-0.5 tabular-nums">
+          <div className="grid gap-3 lg:grid-cols-2">
+            <div className="rounded-2xl border border-border/60 bg-white/4 p-4">
+              <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.signalCycle")}</p>
+              <p className="text-sm font-semibold tabular-nums text-text-primary">{formatLocalDate(signals.cyclePattern.date, intlLocale)}</p>
+              <p className="mt-1 text-xs text-text-dim tabular-nums">
                 {signals.cyclePattern.daysRemaining > 0
                   ? t("peak.daysLeft", { days: signals.cyclePattern.daysRemaining })
                   : t("peak.passed")}
               </p>
-              <p className="text-[10px] text-text-dim mt-1">{t("peak.basedOnPattern", { days: signals.cyclePattern.bullDays })}</p>
+              <p className="mt-2 text-[10px] text-text-dim">{t("peak.basedOnPattern", { days: signals.cyclePattern.bullDays })}</p>
             </div>
-            <div className="bg-bg-highlight rounded-xl p-3">
-              <p className="text-[11px] text-text-dim mb-1">{t("peak.signalHalving")}</p>
-              <p className="text-sm font-semibold tabular-nums">{formatLocalDate(signals.halvingBased.date, intlLocale)}</p>
-              <p className="text-xs text-text-dim mt-0.5 tabular-nums">
+            <div className="rounded-2xl border border-border/60 bg-white/4 p-4">
+              <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.signalHalving")}</p>
+              <p className="text-sm font-semibold tabular-nums text-text-primary">{formatLocalDate(signals.halvingBased.date, intlLocale)}</p>
+              <p className="mt-1 text-xs text-text-dim tabular-nums">
                 {signals.halvingBased.daysRemaining > 0
                   ? t("peak.daysLeft", { days: signals.halvingBased.daysRemaining })
                   : t("peak.passed")}
               </p>
-              <p className="text-[10px] text-text-dim mt-1">{t("peak.basedOnHalving", { days: signals.halvingBased.avgDays })}</p>
+              <p className="mt-2 text-[10px] text-text-dim">{t("peak.basedOnHalving", { days: signals.halvingBased.avgDays })}</p>
             </div>
           </div>
         )}
 
-        {/* Peak window + position stats in flex-row */}
         {!position.topAlreadyHappened && (
-          <div className="flex flex-col sm:flex-row sm:gap-3">
-            <div className="bg-bg-highlight rounded-xl p-3 flex-1 mb-3 sm:mb-0">
-              <p className="text-xs text-text-dim mb-1.5">{t("peak.peakWindow")}</p>
-              <div className="flex items-center gap-2 text-sm">
-                <span className="font-semibold tabular-nums">{formatLocalDate(signals.window.start, intlLocale)}</span>
-                <span className="text-text-dim">→</span>
-                <span className="font-semibold tabular-nums">{formatLocalDate(signals.window.end, intlLocale)}</span>
-              </div>
-              <p className="text-[10px] text-text-dim mt-1">{t("peak.windowExplain", { min: signals.window.minDays, max: signals.window.maxDays })}</p>
+          <div className="rounded-2xl border border-border/60 bg-black/15 p-4">
+            <p className="mb-2 text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.peakWindow")}</p>
+            <div className="flex items-center gap-2 text-sm">
+              <span className="font-semibold tabular-nums text-text-primary">{formatLocalDate(signals.window.start, intlLocale)}</span>
+              <span className="text-text-dim">→</span>
+              <span className="font-semibold tabular-nums text-text-primary">{formatLocalDate(signals.window.end, intlLocale)}</span>
             </div>
-            <div className="flex gap-3">
-              <div className="bg-bg-highlight rounded-xl p-3 flex-1">
-                <p className="text-xs text-text-dim mb-0.5">{t("peak.daysSinceBottom")}</p>
-                <p className="text-sm font-semibold tabular-nums">{position.daysSinceBottom} {t("peak.days")}</p>
-              </div>
-              <div className="bg-bg-highlight rounded-xl p-3 flex-1">
-                <p className="text-xs text-text-dim mb-0.5">{t("peak.daysSinceHalving")}</p>
-                <p className="text-sm font-semibold tabular-nums">{position.daysSinceHalving} {t("peak.days")}</p>
-              </div>
-            </div>
+            <p className="mt-2 text-[10px] text-text-dim">{t("peak.windowExplain", { min: signals.window.minDays, max: signals.window.maxDays })}</p>
           </div>
         )}
 
-        {/* Position stats (shown when top already happened — no peak window) */}
         {position.topAlreadyHappened && (
           <div className="grid grid-cols-2 gap-3">
-            <div className="bg-bg-highlight rounded-xl p-3">
-              <p className="text-xs text-text-dim mb-0.5">{t("peak.daysSinceBottom")}</p>
-              <p className="text-sm font-semibold tabular-nums">{position.daysSinceBottom} {t("peak.days")}</p>
+            <div className="rounded-2xl border border-border/60 bg-white/4 p-3">
+              <p className="text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.daysSinceBottom")}</p>
+              <p className="mt-2 text-sm font-semibold tabular-nums text-text-primary">{position.daysSinceBottom} {t("peak.days")}</p>
             </div>
-            <div className="bg-bg-highlight rounded-xl p-3">
-              <p className="text-xs text-text-dim mb-0.5">{t("peak.daysSinceHalving")}</p>
-              <p className="text-sm font-semibold tabular-nums">{position.daysSinceHalving} {t("peak.days")}</p>
+            <div className="rounded-2xl border border-border/60 bg-white/4 p-3">
+              <p className="text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.daysSinceHalving")}</p>
+              <p className="mt-2 text-sm font-semibold tabular-nums text-text-primary">{position.daysSinceHalving} {t("peak.days")}</p>
             </div>
           </div>
         )}
 
-        {/* Historical returns — compact */}
         <div>
-          <p className="text-xs text-text-dim mb-2 font-medium">{t("peak.historicalReturns")}</p>
-          <div className="space-y-1.5">
+          <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.18em] text-text-dim">{t("peak.historicalReturns")}</p>
+          <div className="space-y-2">
             {returns.history.map((c) => (
-              <div key={c.id} className="flex items-center justify-between bg-bg-highlight rounded-xl px-4 py-2 text-sm">
-                <span className="text-text-secondary truncate max-w-[160px]">{c.label}</span>
+              <div key={c.id} className="flex items-center justify-between rounded-2xl border border-border/60 bg-white/4 px-4 py-3 text-sm">
+                <span className="max-w-[160px] truncate text-text-secondary">{c.label}</span>
                 <div className="flex items-center gap-3 tabular-nums">
-                  <span className="text-text-dim text-xs">${c.bottomPrice.toLocaleString(intlLocale)} → ${c.topPrice.toLocaleString(intlLocale)}</span>
-                  <span className="text-btc font-bold">+{c.returnPct.toLocaleString(intlLocale)}%</span>
+                  <span className="text-xs text-text-dim">${c.bottomPrice.toLocaleString(intlLocale)} → ${c.topPrice.toLocaleString(intlLocale)}</span>
+                  <span className="font-semibold text-btc">+{c.returnPct.toLocaleString(intlLocale)}%</span>
                 </div>
               </div>
             ))}
           </div>
-          <p className="text-[10px] text-text-dim mt-2 text-center">{t("peak.diminishingNote")}</p>
+          <p className="mt-2 text-center text-[10px] text-text-dim">{t("peak.diminishingNote")}</p>
         </div>
       </div>
     </Card>

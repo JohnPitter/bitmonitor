@@ -1,4 +1,4 @@
-import { createContext, useState, useCallback, useMemo, useEffect } from "react";
+import { createContext, useCallback, useEffect, useMemo, useState } from "react";
 import { DEFAULT_LOCALE, STORAGE_KEY, LOCALE_MAP, COUNTRY_CACHE_KEY, COUNTRY_TO_LOCALE } from "./constants";
 
 import en from "./locales/en.json";
@@ -13,10 +13,12 @@ export const I18nContext = createContext(null);
 
 function detectFromBrowser() {
   const browserLangs = navigator.languages || [navigator.language];
+
   for (const lang of browserLangs) {
     const prefix = lang.split("-")[0].toLowerCase();
     if (LOCALE_MAP[prefix]) return LOCALE_MAP[prefix];
   }
+
   return DEFAULT_LOCALE;
 }
 
@@ -32,55 +34,37 @@ function getInitialLocale() {
   return detectFromBrowser();
 }
 
-function resolve(obj, path) {
-  return path.split(".").reduce((acc, key) => acc?.[key], obj);
+function resolve(object, path) {
+  return path.split(".").reduce((acc, key) => acc?.[key], object);
 }
 
 export function I18nProvider({ children }) {
   const [locale, setLocaleState] = useState(getInitialLocale);
 
   useEffect(() => {
-    if (localStorage.getItem(STORAGE_KEY)) return;
-
-    const controller = new AbortController();
-    fetch("http://ip-api.com/json/?fields=countryCode", { signal: controller.signal })
-      .then((r) => r.ok ? r.json() : null)
-      .then((data) => {
-        if (!data?.countryCode) return;
-        localStorage.setItem(COUNTRY_CACHE_KEY, data.countryCode);
-        const detected = COUNTRY_TO_LOCALE[data.countryCode];
-        if (detected && detected !== locale) {
-          setLocaleState(detected);
-          document.documentElement.lang = detected;
-        }
-      })
-      .catch(() => {});
-
-    return () => controller.abort();
-  }, []);
+    document.documentElement.lang = locale;
+  }, [locale]);
 
   const setLocale = useCallback((code) => {
-    if (messages[code]) {
-      setLocaleState(code);
-      localStorage.setItem(STORAGE_KEY, code);
-      document.documentElement.lang = code;
-    }
+    if (!messages[code]) return;
+
+    setLocaleState(code);
+    localStorage.setItem(STORAGE_KEY, code);
   }, []);
 
-  const t = useCallback(
-    (key, params) => {
-      let str = resolve(messages[locale], key) ?? resolve(messages[DEFAULT_LOCALE], key) ?? key;
-      if (params) {
-        for (const [k, v] of Object.entries(params)) {
-          str = str.replace(new RegExp(`\\{\\{${k}\\}\\}`, "g"), String(v));
-        }
-      }
-      return str;
-    },
-    [locale],
-  );
+  const t = useCallback((key, params) => {
+    let value = resolve(messages[locale], key) ?? resolve(messages[DEFAULT_LOCALE], key) ?? key;
 
-  const value = useMemo(() => ({ locale, setLocale, t }), [locale, setLocale, t]);
+    if (params) {
+      Object.entries(params).forEach(([paramKey, paramValue]) => {
+        value = value.replace(new RegExp(`\\{\\{${paramKey}\\}\\}`, "g"), String(paramValue));
+      });
+    }
 
-  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
+    return value;
+  }, [locale]);
+
+  const contextValue = useMemo(() => ({ locale, setLocale, t }), [locale, setLocale, t]);
+
+  return <I18nContext.Provider value={contextValue}>{children}</I18nContext.Provider>;
 }

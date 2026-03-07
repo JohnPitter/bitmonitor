@@ -1,0 +1,24 @@
+<svg width="256" height="256" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="atlas-shell" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#112332"/>
+      <stop offset="1" stop-color="#081018"/>
+    </linearGradient>
+    <linearGradient id="atlas-ring" x1="18" y1="16" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8BE8D8"/>
+      <stop offset="0.52" stop-color="#2CC7B5"/>
+      <stop offset="1" stop-color="#D58A3E"/>
+    </linearGradient>
+    <linearGradient id="atlas-line" x1="17" y1="40" x2="45" y2="24" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F0B46A"/>
+      <stop offset="1" stop-color="#86EFE2"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="20" fill="url(#atlas-shell)"/>
+  <rect x="4.5" y="4.5" width="55" height="55" rx="19.5" stroke="rgba(255,255,255,0.12)"/>
+  <circle cx="32" cy="32" r="16" stroke="url(#atlas-ring)" stroke-width="3.2" opacity="0.85"/>
+  <path d="M16 34C21.6 24.4 27.8 20.4 34.6 22C41.4 23.6 45.4 20.9 48 14" stroke="#174743" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <path d="M17 40L25 33L31 36L46 22" stroke="url(#atlas-line)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="46" cy="22" r="4.3" fill="#D58A3E"/>
+  <circle cx="46" cy="22" r="1.8" fill="#F5E8D3"/>
+</svg>

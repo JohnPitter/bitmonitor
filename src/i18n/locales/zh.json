@@ -1,7 +1,13 @@
 {
   "header": {
-    "subtitle": "比特币面板",
-    "last24h": "过去24小时"
+    "subtitle": "比特币周期情报",
+    "last24h": "过去24小时",
+    "status": "实时周期终端"
+  },
+  "hero": {
+    "eyebrow": "宏观地图",
+    "title": "在市场大众之前，看清比特币正处于哪个周期阶段。",
+    "description": "Cycle Atlas 把历史模式、实时价格、市场情绪和减半节奏汇成一个统一的决策界面。"
   },
   "loader": {
     "loading": "正在加载数据..."

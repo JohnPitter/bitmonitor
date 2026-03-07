@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import Card from "../common/Card";
 import { simulateDCA } from "../../lib/statistics";
 import { useTranslation } from "../../i18n";
@@ -16,15 +16,14 @@ export default function DCASimulator({ priceHistory }) {
 
   const isProfit = result && result.roi > 0;
 
-  const selectClass = "w-full bg-bg-highlight text-text-primary text-sm rounded-xl px-3 py-2.5 border border-border focus:border-btc outline-none transition-colors";
+  const selectClass = "w-full rounded-2xl border border-border/70 bg-black/15 px-3 py-3 text-sm text-text-primary outline-none transition-colors focus:border-btc";
 
   return (
-    <Card icon="💰" title={t("dca.title")} subtitle={t("dca.subtitle")}>
-      <div className="flex flex-col gap-4">
-        {/* Controls */}
-        <div className="space-y-3">
+    <Card icon="∷" title={t("dca.title")} subtitle={t("dca.subtitle")}>
+      <div className="grid gap-4 lg:grid-cols-[220px_1fr]">
+        <div className="space-y-3 rounded-[24px] border border-border/70 bg-black/15 p-4">
           <div>
-            <label className="text-xs text-text-dim block mb-1.5 font-medium">{t("dca.amount")}</label>
+            <label className="mb-1.5 block text-[11px] font-medium uppercase tracking-[0.18em] text-text-dim">{t("dca.amount")}</label>
             <select value={amount} onChange={(e) => setAmount(Number(e.target.value))} className={selectClass}>
               {[25, 50, 100, 250, 500].map((v) => (
                 <option key={v} value={v}>${v}</option>
@@ -32,14 +31,14 @@ export default function DCASimulator({ priceHistory }) {
             </select>
           </div>
           <div>
-            <label className="text-xs text-text-dim block mb-1.5 font-medium">{t("dca.frequency")}</label>
+            <label className="mb-1.5 block text-[11px] font-medium uppercase tracking-[0.18em] text-text-dim">{t("dca.frequency")}</label>
             <select value={frequency} onChange={(e) => setFrequency(e.target.value)} className={selectClass}>
               <option value="weekly">{t("dca.weekly")}</option>
               <option value="monthly">{t("dca.monthly")}</option>
             </select>
           </div>
           <div>
-            <label className="text-xs text-text-dim block mb-1.5 font-medium">{t("dca.period")}</label>
+            <label className="mb-1.5 block text-[11px] font-medium uppercase tracking-[0.18em] text-text-dim">{t("dca.period")}</label>
             <select value={years} onChange={(e) => setYears(Number(e.target.value))} className={selectClass}>
               {[1, 2, 3, 4, 5, 8, 10].map((v) => (
                 <option key={v} value={v}>{v}y</option>
@@ -48,28 +47,25 @@ export default function DCASimulator({ priceHistory }) {
           </div>
         </div>
 
-        {/* Right: Results */}
         {result && (
           <div className="flex-1 space-y-3">
-            {/* Big result */}
-            <div className={`text-center py-4 rounded-xl ${isProfit ? "bg-bull/10" : "bg-bear/10"}`}>
-              <span className={`text-3xl font-bold tabular-nums ${isProfit ? "text-bull" : "text-bear"}`}>
+            <div className={`rounded-[24px] border p-5 text-center ${isProfit ? "border-bull/20 bg-[linear-gradient(180deg,rgba(87,214,141,0.16),rgba(87,214,141,0.05))]" : "border-bear/20 bg-[linear-gradient(180deg,rgba(255,122,107,0.16),rgba(255,122,107,0.05))]"}`}>
+              <span className={`text-4xl font-semibold tracking-[-0.05em] tabular-nums ${isProfit ? "text-bull" : "text-bear"}`}>
                 {isProfit ? "+" : ""}{result.roi.toFixed(1)}%
               </span>
-              <p className="text-xs text-text-dim mt-1">{t("dca.totalReturn")}</p>
+              <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("dca.totalReturn")}</p>
             </div>
 
-            {/* Detail grid */}
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-3">
               {[
                 { label: t("dca.invested"), value: `$${result.totalInvested.toLocaleString()}` },
                 { label: t("dca.currentValue"), value: `$${Math.round(result.currentValue).toLocaleString()}` },
                 { label: t("dca.btcAccumulated"), value: result.totalBtc.toFixed(4) },
                 { label: t("dca.purchases"), value: result.purchases },
               ].map(({ label, value }) => (
-                <div key={label} className="bg-bg-highlight rounded-xl p-3">
-                  <p className="text-xs text-text-dim">{label}</p>
-                  <p className="text-sm font-semibold tabular-nums mt-0.5">{value}</p>
+                <div key={label} className="rounded-2xl border border-border/60 bg-white/4 p-3.5">
+                  <p className="text-[11px] uppercase tracking-[0.18em] text-text-dim">{label}</p>
+                  <p className="mt-2 text-sm font-semibold tabular-nums text-text-primary">{value}</p>
                 </div>
               ))}
             </div>

@@ -1,7 +1,13 @@
 {
   "header": {
-    "subtitle": "Panel de Bitcoin",
-    "last24h": "Últimas 24 horas"
+    "subtitle": "Inteligencia de ciclos de Bitcoin",
+    "last24h": "Últimas 24 horas",
+    "status": "Terminal de ciclos en vivo"
+  },
+  "hero": {
+    "eyebrow": "Mapa macro",
+    "title": "Mira dónde está Bitcoin en el ciclo actual antes que la multitud.",
+    "description": "Cycle Atlas combina patrones históricos, contexto de precio en vivo, sentimiento y timing del halving en una sola superficie de decisión."
   },
   "loader": {
     "loading": "Cargando datos..."
