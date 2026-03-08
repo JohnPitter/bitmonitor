@@ -14,7 +14,7 @@ import PeakAnalysis from "./components/cards/PeakAnalysis";
 import BrandMark from "./components/branding/BrandMark";
 import { useBitcoinData } from "./hooks/useBitcoinData";
 import { useTranslation, INTL_LOCALE_MAP, LOCALE_CURRENCY } from "./i18n";
-import { getCurrentCyclePosition, getHalvingCountdown } from "./lib/cycle";
+import { getATHInfo, getCurrentCyclePosition, getHalvingCountdown } from "./lib/cycle";
 import historicalPrices from "./lib/historical-prices.json";
 
 function getMoodKey(value) {
@@ -32,6 +32,18 @@ function formatMonthYear(value, intlLocale) {
   });
 }
 
+function SectionIntro({ eyebrow, title, description }) {
+  return (
+    <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+      <div>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-btc">{eyebrow}</p>
+        <h3 className="mt-2 font-display text-2xl font-semibold tracking-[-0.04em] text-text-primary">{title}</h3>
+      </div>
+      <p className="max-w-2xl text-sm leading-6 text-text-secondary">{description}</p>
+    </div>
+  );
+}
+
 export default function App() {
   const { priceHistory, currentPrice, fearGreed, loading, error } = useBitcoinData();
   const { t, locale } = useTranslation();
@@ -45,6 +57,7 @@ export default function App() {
   const livePrice = currentPrice?.[currency.code];
   const position = getCurrentCyclePosition();
   const halving = getHalvingCountdown();
+  const ath = getATHInfo();
   const mood = fearGreed?.[0];
   const phaseKey = position.phase === "bull" ? "cyclePosition.bullMarket" : "cyclePosition.bearMarket";
   const priceLabel = livePrice?.price != null
@@ -56,7 +69,11 @@ export default function App() {
     : "—";
   const changeValue = livePrice?.change24h;
   const changePositive = changeValue > 0;
+  const changeToneClass = changeValue == null ? "text-text-primary" : changePositive ? "text-bull" : "text-bear";
   const progressPct = Math.round(position.progress * 100);
+  const athGapPct = livePrice?.price != null
+    ? Math.max(0, ((ath.currentATH.price - livePrice.price) / ath.currentATH.price) * 100)
+    : null;
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -87,37 +104,19 @@ export default function App() {
                     {t("hero.description")}
                   </p>
                 </div>
-              </div>
-
-              <div className="grid gap-3 sm:grid-cols-3">
-                <div className="rounded-[24px] border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
-                  <p className="text-xs uppercase tracking-[0.22em] text-text-dim">{t("header.last24h")}</p>
-                  <p className="mt-3 font-display text-3xl font-semibold tracking-[-0.04em] text-text-primary">
-                    {priceLabel}
-                  </p>
-                  <p className={`mt-2 inline-flex rounded-full px-2.5 py-1 text-sm font-semibold ${changePositive ? "bg-bull/12 text-bull" : "bg-bear/12 text-bear"}`}>
-                    {changeValue != null ? `${changePositive ? "+" : ""}${changeValue.toFixed(1)}%` : "—"}
-                  </p>
-                </div>
-
-                <div className="rounded-[24px] border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
-                  <p className="text-xs uppercase tracking-[0.22em] text-text-dim">{t("fearGreed.title")}</p>
-                  <p className="mt-3 font-display text-3xl font-semibold tracking-[-0.04em] text-text-primary">
-                    {mood?.value ?? "—"}
-                  </p>
-                  <p className="mt-2 text-sm font-medium text-text-secondary">
-                    {mood ? t(getMoodKey(mood.value)) : t("fearGreed.noData")}
-                  </p>
-                </div>
-
-                <div className="rounded-[24px] border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
-                  <p className="text-xs uppercase tracking-[0.22em] text-text-dim">{t("cyclePosition.title")}</p>
-                  <p className="mt-3 font-display text-3xl font-semibold tracking-[-0.04em] text-text-primary">
-                    {progressPct}%
-                  </p>
-                  <p className="mt-2 text-sm font-medium text-text-secondary">
-                    {t(phaseKey)}
-                  </p>
+                <div className="flex flex-wrap gap-2.5">
+                  {[
+                    position.cycle.label,
+                    t(phaseKey),
+                    t("hero.snapshotLabel"),
+                  ].map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-white/10 bg-white/6 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-text-secondary"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -131,9 +130,9 @@ export default function App() {
                 <div className="relative space-y-5">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="text-xs uppercase tracking-[0.24em] text-text-dim">{t("cycleOverlay.title")}</p>
+                      <p className="text-xs uppercase tracking-[0.24em] text-text-dim">{t("hero.snapshotTitle")}</p>
                       <p className="mt-2 max-w-xs text-sm leading-6 text-text-secondary">
-                        {t("cycleOverlay.subtitle")}
+                        {t("hero.snapshotSubtitle")}
                       </p>
                     </div>
                     <span className="rounded-full border border-btc/25 bg-btc/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-btc">
@@ -142,51 +141,56 @@ export default function App() {
                   </div>
 
                   <div className="grid gap-3 sm:grid-cols-2">
-                    <div className="rounded-[22px] border border-white/8 bg-black/15 p-4">
-                      <p className="text-xs uppercase tracking-[0.22em] text-text-dim">{t("cyclePosition.title")}</p>
-                      <p className="mt-2 font-display text-2xl font-semibold tracking-[-0.04em] text-text-primary">
-                        {t(phaseKey)}
-                      </p>
-                      <p className="mt-2 text-sm text-text-secondary">
-                        {position.daysRemaining} {t("cyclePosition.days")}
-                      </p>
-                    </div>
-
-                    <div className="rounded-[22px] border border-white/8 bg-black/15 p-4">
-                      <p className="text-xs uppercase tracking-[0.22em] text-text-dim">{t("halving.title")}</p>
-                      <p className="mt-2 font-display text-2xl font-semibold tracking-[-0.04em] text-text-primary">
-                        {formatMonthYear(halving.date, intlLocale)}
-                      </p>
-                      <p className="mt-2 text-sm text-text-secondary">
-                        {halving.daysRemaining} {t("halving.days")}
-                      </p>
-                    </div>
+                    {[
+                      {
+                        label: t("hero.livePrice"),
+                        value: priceLabel,
+                        helper: changeValue != null ? `${changePositive ? "+" : ""}${changeValue.toFixed(1)}%` : "—",
+                        tone: changeToneClass,
+                      },
+                      {
+                        label: t("fearGreed.title"),
+                        value: mood?.value ?? "—",
+                        helper: mood ? t(getMoodKey(mood.value)) : t("fearGreed.noData"),
+                        tone: "text-text-primary",
+                      },
+                      {
+                        label: t("hero.cycleProgress"),
+                        value: `${progressPct}%`,
+                        helper: t(phaseKey),
+                        tone: "text-text-primary",
+                      },
+                      {
+                        label: t("hero.athGap"),
+                        value: athGapPct != null ? `${athGapPct.toFixed(1)}%` : "—",
+                        helper: t("hero.belowAth"),
+                        tone: "text-text-primary",
+                      },
+                      {
+                        label: t("halving.title"),
+                        value: formatMonthYear(halving.date, intlLocale),
+                        helper: t("hero.daysRemaining", { days: halving.daysRemaining }),
+                        tone: "text-text-primary",
+                      },
+                      {
+                        label: t("cyclePosition.estEnd"),
+                        value: formatMonthYear(position.estimatedEnd, intlLocale),
+                        helper: t("hero.phaseEndHint"),
+                        tone: "text-text-primary",
+                      },
+                    ].map((item) => (
+                      <div key={item.label} className="rounded-[22px] border border-white/8 bg-black/15 p-4">
+                        <p className="text-xs uppercase tracking-[0.22em] text-text-dim">{item.label}</p>
+                        <p className={`mt-2 font-display text-2xl font-semibold tracking-[-0.04em] ${item.tone}`}>
+                          {item.value}
+                        </p>
+                        <p className="mt-2 text-sm text-text-secondary">
+                          {item.helper}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
-
-              <div className="grid gap-3 sm:grid-cols-3">
-                {[
-                  {
-                    label: t("cyclePosition.daysInPhase"),
-                    value: `${position.phase === "bull" ? position.daysSinceBottom : position.daysSinceTop} / ${position.phaseLength}`,
-                  },
-                  {
-                    label: t("cyclePosition.estEnd"),
-                    value: position.estimatedEnd,
-                  },
-                  {
-                    label: t("halving.rewardAfter"),
-                    value: `${halving.blockRewardAfter} BTC`,
-                  },
-                ].map((item) => (
-                  <div key={item.label} className="rounded-[24px] border border-white/10 bg-white/5 p-4">
-                    <p className="text-xs uppercase tracking-[0.2em] text-text-dim">{item.label}</p>
-                    <p className="mt-3 font-display text-xl font-semibold tracking-[-0.04em] text-text-primary">
-                      {item.value}
-                    </p>
-                  </div>
-                ))}
               </div>
             </div>
           </div>
@@ -194,6 +198,11 @@ export default function App() {
 
         <section className="flex min-w-0 flex-col gap-4">
           <section className="grid gap-4">
+            <SectionIntro
+              eyebrow={t("sections.cycle.eyebrow")}
+              title={t("sections.cycle.title")}
+              description={t("sections.cycle.description")}
+            />
             <CycleOverlay priceHistory={prices} />
 
             <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
@@ -203,6 +212,11 @@ export default function App() {
           </section>
 
           <section className="grid gap-4">
+            <SectionIntro
+              eyebrow={t("sections.peak.eyebrow")}
+              title={t("sections.peak.title")}
+              description={t("sections.peak.description")}
+            />
             <PeakAnalysis />
 
             <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
@@ -212,10 +226,17 @@ export default function App() {
             </div>
           </section>
 
-          <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-            <BestDays priceHistory={prices} />
-            <DCASimulator priceHistory={prices} />
-          </div>
+          <section className="grid gap-4">
+            <SectionIntro
+              eyebrow={t("sections.strategy.eyebrow")}
+              title={t("sections.strategy.title")}
+              description={t("sections.strategy.description")}
+            />
+            <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+              <BestDays priceHistory={prices} />
+              <DCASimulator priceHistory={prices} />
+            </div>
+          </section>
         </section>
       </main>
 

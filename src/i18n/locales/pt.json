@@ -7,7 +7,33 @@
   "hero": {
     "eyebrow": "Mapa macro",
     "title": "Veja onde o Bitcoin está no ciclo atual antes da multidão.",
-    "description": "Cycle Atlas combina padrões históricos, contexto de preço ao vivo, sentimento e timing de halving em uma única superfície de decisão."
+    "description": "Cycle Atlas combina padrões históricos, contexto de preço ao vivo, sentimento e timing de halving em uma única superfície de decisão.",
+    "snapshotTitle": "Radar do momento",
+    "snapshotSubtitle": "Um resumo do que importa agora, sem repetir toda a leitura detalhada dos cards abaixo.",
+    "snapshotLabel": "Resumo operacional",
+    "livePrice": "Preço atual",
+    "cycleProgress": "Progresso do ciclo",
+    "athGap": "Distância da máxima",
+    "belowAth": "Abaixo do ATH atual",
+    "daysRemaining": "{{days}} dias restantes",
+    "phaseEndHint": "Fim estimado da fase atual"
+  },
+  "sections": {
+    "cycle": {
+      "eyebrow": "Leitura do ciclo",
+      "title": "Compare o ciclo atual com os anteriores",
+      "description": "Aqui o foco é contexto. Veja se o comportamento atual está acelerado, atrasado ou alinhado com a estrutura histórica."
+    },
+    "peak": {
+      "eyebrow": "Timing de saída",
+      "title": "Concentre os sinais de topo em um lugar",
+      "description": "Esta seção junta projeção de pico, janelas pós-halving, máximas históricas e referências de ciclos para evitar leitura fragmentada."
+    },
+    "strategy": {
+      "eyebrow": "Estratégia prática",
+      "title": "Organize entradas e recorrência",
+      "description": "Use estas ferramentas para decidir quando comprar melhor e como uma rotina de aportes teria se comportado ao longo do tempo."
+    }
   },
   "loader": {
     "loading": "Carregando dados..."

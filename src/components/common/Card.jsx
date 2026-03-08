@@ -28,7 +28,7 @@ export default function Card({ icon, title, subtitle, hint, children, className 
         )}
 
         {hint && (
-          <p className="mb-5 rounded-[20px] border border-white/8 bg-white/[0.035] px-4 py-3 text-sm leading-6 text-text-secondary">
+          <p className="mb-4 border-l-2 border-btc/30 pl-3 text-[13px] leading-5 text-text-dim">
             {hint}
           </p>
         )}

@@ -7,7 +7,33 @@
   "hero": {
     "eyebrow": "Macro map",
     "title": "See where Bitcoin sits in the current cycle before the crowd does.",
-    "description": "Cycle Atlas blends historical patterning, live price context, sentiment and halving timing into one decision surface."
+    "description": "Cycle Atlas blends historical patterning, live price context, sentiment and halving timing into one decision surface.",
+    "snapshotTitle": "Current radar",
+    "snapshotSubtitle": "A concise summary of what matters now, without repeating the full breakdown shown in the cards below.",
+    "snapshotLabel": "Operational summary",
+    "livePrice": "Live price",
+    "cycleProgress": "Cycle progress",
+    "athGap": "Distance from ATH",
+    "belowAth": "Below the current ATH",
+    "daysRemaining": "{{days}} days remaining",
+    "phaseEndHint": "Estimated end of the current phase"
+  },
+  "sections": {
+    "cycle": {
+      "eyebrow": "Cycle read",
+      "title": "Compare the current cycle with past ones",
+      "description": "This section is about context. Check whether the current move is running ahead, behind or in line with the historical structure."
+    },
+    "peak": {
+      "eyebrow": "Exit timing",
+      "title": "Keep the top signals in one place",
+      "description": "This section groups peak estimates, post-halving windows, ATH references and prior-cycle markers so the read is not fragmented."
+    },
+    "strategy": {
+      "eyebrow": "Practical strategy",
+      "title": "Organize entries and recurring buys",
+      "description": "Use these tools to spot better entry moments and see how a recurring-buy routine would have behaved over time."
+    }
   },
   "loader": {
     "loading": "Loading data..."
