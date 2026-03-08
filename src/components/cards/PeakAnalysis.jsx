@@ -19,6 +19,10 @@ function formatMonth(dateStr, intlLocale) {
   return new Date(dateStr).toLocaleDateString(intlLocale, { month: "long", year: "numeric" });
 }
 
+function formatExactDate(dateStr, intlLocale) {
+  return new Date(dateStr).toLocaleDateString(intlLocale, { day: "numeric", month: "long", year: "numeric" });
+}
+
 export default function PeakAnalysis() {
   const { t, locale } = useTranslation();
   const intlLocale = INTL_LOCALE_MAP[locale];
@@ -37,7 +41,7 @@ export default function PeakAnalysis() {
             <>
               <p className="mt-3 text-lg font-semibold text-btc">{t("peak.topAlreadyHappened")}</p>
               <p className="mt-1 text-sm text-text-secondary">
-                {t("peak.nextCyclePeak", { date: formatMonth(consensus.date, intlLocale) })}
+                {t("peak.nextCyclePeak", { date: formatExactDate(consensus.date, intlLocale) })}
               </p>
               <p className="mt-1 text-xs text-text-dim">
                 {t("peak.daysAgo", { days: position.daysSinceTop })}
@@ -45,8 +49,8 @@ export default function PeakAnalysis() {
             </>
           ) : (
             <>
-              <span className="mt-3 block text-4xl font-semibold tracking-[-0.05em] text-btc tabular-nums">
-                {formatMonth(consensus.date, intlLocale)}
+              <span className="mt-3 block text-2xl font-semibold tracking-[-0.04em] text-btc sm:text-3xl">
+                {formatExactDate(consensus.date, intlLocale)}
               </span>
               <p className="mt-2 text-sm text-text-secondary tabular-nums">
                 {t("peak.inAboutDays", { days: consensus.daysRemaining })}
@@ -99,14 +103,19 @@ export default function PeakAnalysis() {
             <div className="h-2.5 w-full overflow-hidden rounded-full bg-black/20">
               <div className={`h-full rounded-full ${risk.bar}`} style={{ width: `${position.riskLevel * 20}%` }} />
             </div>
+            <p className="mt-3 text-sm leading-6 text-text-secondary">
+              {t(`peak.riskExplain${position.riskLevel}`)}
+            </p>
             <div className="mt-4 grid grid-cols-2 gap-3">
               <div className="rounded-2xl border border-border/60 bg-black/15 p-3">
-                <p className="text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.daysSinceBottom")}</p>
-                <p className="mt-2 text-sm font-semibold tabular-nums text-text-primary">{position.daysSinceBottom} {t("peak.days")}</p>
+                <p className="text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.cycleBottomDate")}</p>
+                <p className="mt-2 text-sm font-semibold text-text-primary">{formatExactDate(position.bottomDate, intlLocale)}</p>
+                <p className="mt-1 text-[11px] text-text-dim">{t("peak.ago", { days: position.daysSinceBottom })}</p>
               </div>
               <div className="rounded-2xl border border-border/60 bg-black/15 p-3">
-                <p className="text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.daysSinceHalving")}</p>
-                <p className="mt-2 text-sm font-semibold tabular-nums text-text-primary">{position.daysSinceHalving} {t("peak.days")}</p>
+                <p className="text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.lastHalvingDate")}</p>
+                <p className="mt-2 text-sm font-semibold text-text-primary">{formatExactDate(position.halvingDate, intlLocale)}</p>
+                <p className="mt-1 text-[11px] text-text-dim">{t("peak.ago", { days: position.daysSinceHalving })}</p>
               </div>
             </div>
           </div>
@@ -146,19 +155,6 @@ export default function PeakAnalysis() {
               <span className="font-semibold tabular-nums text-text-primary">{formatLocalDate(signals.window.end, intlLocale)}</span>
             </div>
             <p className="mt-2 text-[10px] text-text-dim">{t("peak.windowExplain", { min: signals.window.minDays, max: signals.window.maxDays })}</p>
-          </div>
-        )}
-
-        {position.topAlreadyHappened && (
-          <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-2xl border border-border/60 bg-white/4 p-3">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.daysSinceBottom")}</p>
-              <p className="mt-2 text-sm font-semibold tabular-nums text-text-primary">{position.daysSinceBottom} {t("peak.days")}</p>
-            </div>
-            <div className="rounded-2xl border border-border/60 bg-white/4 p-3">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("peak.daysSinceHalving")}</p>
-              <p className="mt-2 text-sm font-semibold tabular-nums text-text-primary">{position.daysSinceHalving} {t("peak.days")}</p>
-            </div>
           </div>
         )}
 

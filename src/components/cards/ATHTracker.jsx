@@ -3,12 +3,16 @@ import Card from "../common/Card";
 import { getATHInfo } from "../../lib/cycle";
 import { useTranslation, INTL_LOCALE_MAP } from "../../i18n";
 
-export default function ATHTracker() {
-  const info = useMemo(() => getATHInfo(), []);
+export default function ATHTracker({ livePrice = null }) {
+  const info = useMemo(() => getATHInfo(livePrice), [livePrice]);
   const { t, locale } = useTranslation();
   const intlLocale = INTL_LOCALE_MAP[locale];
 
-  const estDate = new Date(info.estimatedNextATHDate).toLocaleDateString(intlLocale, { month: "long", year: "numeric" });
+  const estDate = new Date(info.estimatedNextATHDate).toLocaleDateString(intlLocale, {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 
   return (
     <Card icon="◎" title={t("ath.title")} subtitle={t("ath.subtitle")} hint={t("ath.explainer")}>
@@ -22,20 +26,25 @@ export default function ATHTracker() {
             <p className="mt-2 text-sm text-text-secondary">
               {new Date(info.currentATH.date).toLocaleDateString(intlLocale, { day: "numeric", month: "long", year: "numeric" })}
             </p>
+            {info.currentATH.live && (
+              <p className="mt-2 text-[11px] text-bull">
+                {t("ath.liveUpdate")}
+              </p>
+            )}
           </div>
 
           <div className="rounded-[24px] border border-border/70 bg-black/15 p-5">
             <p className="text-[11px] uppercase tracking-[0.18em] text-text-dim">{t("ath.nextEstimate")}</p>
-            <div className="mt-3 flex items-center gap-3">
-              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/6 text-lg">↗</span>
-              <span className="text-2xl font-semibold tracking-[-0.04em] tabular-nums text-text-primary">
-                {info.daysUntilNextATH > 0
-                  ? t("ath.inDays", { days: info.daysUntilNextATH })
-                  : t("ath.anytime")}
-              </span>
+            <div className="mt-3 space-y-3">
+              <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/6 text-lg">↗</span>
+              <p className="text-2xl font-semibold tracking-[-0.04em] text-text-primary">
+                {estDate}
+              </p>
             </div>
             <p className="mt-3 text-sm text-text-secondary">
-              {t("ath.around", { date: estDate })}
+              {info.daysUntilNextATH > 0
+                ? t("ath.inDays", { days: info.daysUntilNextATH })
+                : t("ath.anytime")}
             </p>
             <p className="mt-2 text-[11px] text-text-dim">
               {t("ath.avgDaysAfter", { days: info.avgDaysAfterHalving })}

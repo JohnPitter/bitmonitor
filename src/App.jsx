@@ -57,7 +57,7 @@ export default function App() {
   const livePrice = currentPrice?.[currency.code];
   const position = getCurrentCyclePosition();
   const halving = getHalvingCountdown();
-  const ath = getATHInfo();
+  const ath = getATHInfo(livePrice?.price ?? null);
   const mood = fearGreed?.[0];
   const phaseKey = position.phase === "bull" ? "cyclePosition.bullMarket" : "cyclePosition.bearMarket";
   const priceLabel = livePrice?.price != null
@@ -72,8 +72,13 @@ export default function App() {
   const changeToneClass = changeValue == null ? "text-text-primary" : changePositive ? "text-bull" : "text-bear";
   const progressPct = Math.round(position.progress * 100);
   const athGapPct = livePrice?.price != null
-    ? Math.max(0, ((ath.currentATH.price - livePrice.price) / ath.currentATH.price) * 100)
+    ? Math.abs(((ath.currentATH.price - livePrice.price) / ath.currentATH.price) * 100)
     : null;
+  const athGapHelper = ath.currentATH.live
+    ? t("hero.newAthNow")
+    : athGapPct === 0
+      ? t("hero.atAth")
+      : t("hero.belowAth");
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -163,7 +168,7 @@ export default function App() {
                       {
                         label: t("hero.athGap"),
                         value: athGapPct != null ? `${athGapPct.toFixed(1)}%` : "—",
-                        helper: t("hero.belowAth"),
+                        helper: athGapHelper,
                         tone: "text-text-primary",
                       },
                       {
@@ -220,7 +225,7 @@ export default function App() {
             <PeakAnalysis />
 
             <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
-              <ATHTracker />
+              <ATHTracker livePrice={livePrice?.price ?? null} />
               <HalvingCountdown />
               <CycleStats />
             </div>

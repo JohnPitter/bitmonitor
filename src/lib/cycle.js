@@ -91,15 +91,23 @@ export function getHalvingCountdown() {
 /**
  * Get ATH (All-Time High) info and estimate for next cycle.
  */
-export function getATHInfo() {
+export function getATHInfo(livePrice = null) {
   const now = Date.now();
 
   // Average days after halving that ATH occurs (cycles 2+ are more relevant)
   const recentATHs = ATH_HISTORY.filter((a) => a.cycle >= 2);
   const avgDaysAfterHalving = Math.round(recentATHs.reduce((s, a) => s + a.daysAfterHalving, 0) / recentATHs.length);
 
-  // Current ATH is the highest price across all cycles
-  const currentATH = ATH_HISTORY.reduce((best, a) => a.price > best.price ? a : best, ATH_HISTORY[0]);
+  // Current ATH is the highest confirmed price across all cycles.
+  const historicalATH = ATH_HISTORY.reduce((best, a) => a.price > best.price ? a : best, ATH_HISTORY[0]);
+  const currentATH = livePrice && livePrice > historicalATH.price
+    ? {
+        ...historicalATH,
+        price: livePrice,
+        date: new Date().toISOString().split("T")[0],
+        live: true,
+      }
+    : historicalATH;
 
   // Check if this cycle's ATH already happened — if so, estimate for next halving
   const lastHalving = HALVINGS[HALVINGS.length - 1];
@@ -263,7 +271,15 @@ export function getPeakAnalysis() {
     // Price projection
     priceProjection,
     // Position
-    position: { daysSinceBottom, daysSinceHalving, daysSinceTop, topAlreadyHappened, riskLevel },
+    position: {
+      daysSinceBottom,
+      daysSinceHalving,
+      daysSinceTop,
+      topAlreadyHappened,
+      riskLevel,
+      bottomDate: currentCycle.bottom,
+      halvingDate: lastHalving.date,
+    },
     // Current cycle
     currentCycle,
   };
