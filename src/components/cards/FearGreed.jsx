@@ -10,16 +10,17 @@ function getLabel(value) {
 }
 
 function Gauge({ value }) {
-  const angle = (value / 100) * 180 - 90;
+  const clampedValue = Math.max(0, Math.min(100, value));
+  const angle = 180 + (clampedValue / 100) * 180;
   const radius = 50;
   const cx = 60;
-  const cy = 55;
+  const cy = 58;
 
   const needleRad = (angle * Math.PI) / 180;
   const needleTip = { x: cx + (radius - 8) * Math.cos(needleRad), y: cy + (radius - 8) * Math.sin(needleRad) };
 
   return (
-    <svg viewBox="0 0 120 70" className="mx-auto w-full max-w-[200px]">
+    <svg viewBox="0 0 120 76" className="mx-auto w-full max-w-[220px]">
       {[
         { pct: 0.25, color: "#ff7a6b" },
         { pct: 0.25, color: "#c57a54" },
@@ -45,9 +46,11 @@ function Gauge({ value }) {
         );
         acc.endAngle = segEnd;
         return acc;
-      }, { elements: [], endAngle: -90 }).elements}
+      }, { elements: [], endAngle: 180 }).elements}
       <line x1={cx} y1={cy} x2={needleTip.x} y2={needleTip.y} stroke="#ecf7f7" strokeWidth="2.5" strokeLinecap="round" />
       <circle cx={cx} cy={cy} r="4" fill="#ecf7f7" />
+      <text x="8" y="72" fill="#87959a" fontSize="8" letterSpacing="0.18em">0</text>
+      <text x="100" y="72" fill="#87959a" fontSize="8" letterSpacing="0.18em">100</text>
     </svg>
   );
 }
